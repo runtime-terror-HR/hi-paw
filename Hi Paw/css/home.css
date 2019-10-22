@@ -1,0 +1,71 @@
+/* CSS variables */
+:root{
+    --shadow: drop-shadow(2px 3px 6px rgba(0, 0, 0, 0.631));
+    --adabtColor: rgba(46,99,175,1);
+    --rehomeColor: rgba(207,17,17,1);
+    --hiPaw: rgba(25,152,135,1); 
+    --darkBackground: rgba(115,99,99,1);
+    --creamyBackground: rgba(187, 175, 175, 0.42);
+}
+
+/* for transparent navbar */
+/* .navbar.transparent.navbar-inverse .navbar-inner {
+    border-width: 0px;
+    -webkit-box-shadow: 0px 0px;
+    box-shadow: 0px 0px;
+    background-color: rgba(0,0,0,0.0);
+    background-image: -webkit-gradient(linear, 50.00% 0.00%, 50.00% 100.00%, color-stop( 0% , rgba(0,0,0,0.00)),color-stop( 100% , rgba(0,0,0,0.00)));
+    background-image: -webkit-linear-gradient(270deg,rgba(0,0,0,0.00) 0%,rgba(0,0,0,0.00) 100%);
+    background-image: linear-gradient(180deg,rgba(0,0,0,0.00) 0%,rgba(0,0,0,0.00) 100%);
+}  */
+.mainBarItems{
+    filter: drop-shadow(4px 3px 6px rgba(0, 0, 0, 1));  
+    overflow: hidden; 
+    /* font-family: Arial; */
+    font-style: normal;
+    /* font-weight: bold; */
+    color: rgba(255,255,255,1);   
+}
+
+.wrapper {
+    max-width: 300px; /* Minimum width of your wrapper element */
+    overflow: hidden;
+    display: inline-block;
+  }
+
+.browsePetsButton{
+    text-decoration: none;
+    filter: var(--shadow);
+    color: white;
+    background-color: var(--adabtColor);
+    border: 0ch;
+    padding: 15px;
+    border-radius: 10px;
+    padding-left: 25px ;
+    padding-right: 30px ;
+    margin-left: 110px ;
+}
+
+.browsePetsButton:hover{
+    background-color: var(--hiPaw);
+    text-decoration: none;
+    color: white;
+}
+
+.rehomePetButton{
+    text-decoration: none;
+    filter: var(--shadow);
+    color: white;
+    background-color: var(--rehomeColor);
+    border: 0ch;
+    padding: 15px;
+    border-radius: 10px;
+    padding-left: 25px ;
+    padding-right: 30px ;
+    margin-left: 110px ;
+}
+.rehomePetButton:hover{
+    background-color: var(--hiPaw);
+    text-decoration: none;
+    color: white;
+}
