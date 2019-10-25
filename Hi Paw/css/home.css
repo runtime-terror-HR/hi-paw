@@ -3,28 +3,15 @@
     --shadow: drop-shadow(2px 3px 6px rgba(0, 0, 0, 0.631));
     --adabtColor: rgba(46,99,175,1);
     --rehomeColor: rgba(207,17,17,1);
-    --hiPaw: rgba(25,152,135,1); 
+    /* --hiPaw: rgba(25,152,135,1);  */
+    --hiPaw: lightseagreen;
+    --darkGray: rgb(102, 102, 102);
     --darkBackground: rgba(115,99,99,1);
     --creamyBackground: rgba(187, 175, 175, 0.42);
 }
 
-/* for transparent navbar */
-/* .navbar.transparent.navbar-inverse .navbar-inner {
-    border-width: 0px;
-    -webkit-box-shadow: 0px 0px;
-    box-shadow: 0px 0px;
-    background-color: rgba(0,0,0,0.0);
-    background-image: -webkit-gradient(linear, 50.00% 0.00%, 50.00% 100.00%, color-stop( 0% , rgba(0,0,0,0.00)),color-stop( 100% , rgba(0,0,0,0.00)));
-    background-image: -webkit-linear-gradient(270deg,rgba(0,0,0,0.00) 0%,rgba(0,0,0,0.00) 100%);
-    background-image: linear-gradient(180deg,rgba(0,0,0,0.00) 0%,rgba(0,0,0,0.00) 100%);
-}  */
-.mainBarItems{
-    filter: drop-shadow(4px 3px 6px rgba(0, 0, 0, 1));  
-    overflow: hidden; 
-    /* font-family: Arial; */
-    font-style: normal;
-    /* font-weight: bold; */
-    color: rgba(255,255,255,1);   
+.superFont{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .wrapper {
@@ -43,7 +30,6 @@
     border-radius: 10px;
     padding-left: 25px ;
     padding-right: 30px ;
-    margin-left: 110px ;
 }
 
 .browsePetsButton:hover{
@@ -62,10 +48,168 @@
     border-radius: 10px;
     padding-left: 25px ;
     padding-right: 30px ;
-    margin-left: 110px ;
 }
 .rehomePetButton:hover{
     background-color: var(--hiPaw);
     text-decoration: none;
     color: white;
 }
+
+.grayContainer{
+    position:absolute;
+    right: 0px;
+    top: 115vw;
+    height: 300px;
+    width: 800px;
+    background-color: rgb(146, 142, 142);
+}
+
+.WantToAdaptaPet{
+    filter: drop-shadow(4px 3px 6px rgba(0, 0, 0, 0.749)); 
+    font-style: normal;
+    font-weight: bold;
+    font-size: 13px;
+    color: rgba(255,255,255,1);
+}
+
+.NeedToRehomeaPet{
+    filter: drop-shadow(4px 3px 6px rgba(0, 0, 0, 0.749)); 
+    font-style: normal;
+    font-weight: bold; 
+    font-size: 13px; 
+    color: rgba(255,255,255,1); 
+    margin-top: 0.5vw; 
+}
+h3.WhatWeDo{
+    color: var(--hiPaw);
+    /* font-size: 50px; */
+}
+p.WhatWeDo {
+    color: var(--darkGray);
+    font-size: 15px;
+    margin-bottom: 5vw ;
+}
+
+.display-1 {
+    display: block;
+    margin-left: 12vw;
+    margin-right: 12vw;
+    border-style: inset;
+    border-width: 1px;
+}
+
+.display-2{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+}
+
+.img-padding{
+    margin-top: 10vw;
+}
+
+p.Adobter{
+    color: var(--darkGray);
+    text-align: start;
+}
+
+h4.Adobter{
+    color: rgb(61, 61, 61);
+    text-align: start;
+}
+
+
+
+
+
+
+/* ---------------------------------------------- */
+
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,700');
+
+ 
+
+/*---Media Queries --*/
+@media (max-width: 992px) {
+
+  }
+@media (max-width: 768px) {
+  
+}
+@media (max-width: 576px) {
+  
+}
+
+
+/*---Firefox Bug Fix --*/
+.carousel-item {
+  transition: -webkit-transform 0.5s ease;
+  transition: transform 0.5s ease;
+  transition: transform 0.5s ease, -webkit-transform 0.5s ease;
+  -webkit-backface-visibility: visible;
+  backface-visibility: visible;
+}
+/*--- Fixed Background Image --*/
+figure {
+  position: relative;
+  width: 100%;
+  height: 60%;
+  margin: 0!important;
+}
+.fixed-wrap {
+  clip: rect(0, auto, auto, 0);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+#fixed {
+  background-image: url('img/mac.png');
+  position: fixed;
+  display: block;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center center;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: transform;
+}
+/*--- Bootstrap Padding Fix --*/
+[class*="col-"] {
+    padding: 1rem;
+}
+
+
+
+
+
+/*
+Extra small (xs) devices (portrait phones, less than 576px)
+No media query since this is the default in Bootstrap
+
+Small (sm) devices (landscape phones, 576px and up)
+@media (min-width: 576px) { ... }
+
+Medium (md) devices (tablets, 768px and up)
+@media (min-width: 768px) { ... }
+
+Large (lg) devices (desktops, 992px and up)
+@media (min-width: 992px) { ... }
+
+Extra (xl) large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) { ... }
+*/
+
+
+
+
+
+
+
+
