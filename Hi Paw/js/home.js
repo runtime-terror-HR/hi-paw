@@ -1,10 +1,4 @@
-// $(function () {
-//   $(document).scroll(function () {
-//     var $nav = $(".navbar-fixed-top");
-//     $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
-//   });
-// });
-
+// change the navbar background when scrolling down.
 
 $(document).ready(function(){       
     var scroll_start = 0;
