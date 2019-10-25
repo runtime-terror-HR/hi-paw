@@ -10,27 +10,44 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
+    <script src="js\home.js"></script>
     <title>Hi Paw</title>
     <style>
-        body{
-            background-image: url("111.jpg"); position: relative;
-             background-size: 80rem 118vh;   /*100vw 118vh; */
-            background-repeat: no-repeat;
-            overflow-x: hidden;
-        }
-    </style>
-   
+      body::before{
+       /*  for fixed background, but every thing in a container so it won't look weird */    
+        content: "";
+        display: block;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -10;
+        background: url(111.jpg) no-repeat center center;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+
+        /* if you want to remove the fixed background use only the following */
+        /* background-image: url("111.jpg");  */
+        /* position: relative; */
+        /* background-size: 80rem 660px;   100vw 118vh; */
+        /* background-repeat: no-repeat; */
+        overflow-x: hidden;   /* why stoped working !!!!!!*/
+      }
+    </style> 
 </head>
+
 <body>
-<!-- implement a transparent navbar that appears when scrolling down.. later -->
-  <nav class="navbar navbar-expand-md navbar-light /*bg-light*/ sticky-top">
-    <button class="navbar-toggler ml-auto" data-toggle="collapse" data-target="#collapse_target">
+  <!-- navbar -->
+  <nav class="navbar navbar-expand-md navbar-light /*bg-light*/ fixed-top" style="background: transparent;">
+    <button id="toggleButton" class="navbar-toggler" data-toggle="collapse" data-target="#collapse_target">      
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="collapse_target">
       <ul class="nav navbar-nav ml-auto" >
-          <li class="navbar-item">
+          <li class="navbar-item active">
             <a class="nav-link" href="#">Home</a>
           </li>
           <li class="navbar-item ">
@@ -50,43 +67,120 @@
         </ul>
     </div>
   </nav>
-
-  <div class="row"> 
-    <div class="col-lg" style="align-content: center;">
-      <div class="wrapper">
-        <img src="img\HiPaw white.png" style="width: 180px; margin-left: 90px; margin-top: 3vw; margin-bottom: 2vw;"> 
-        <img src="img\HiPaw name.png" style="width: 170px; margin-left: 100px; margin-bottom: 0.5vw;">       
-        <span style="opacity: 0.8; filter: drop-shadow(4px 3px 6px rgba(0, 0, 0, 0.749)); font-family: Calibri; font-style: normal;font-weight: bold; font-size: 15px; color: rgba(255,255,255,1); margin-left: 100px; margin-top: 0.5vw;" >
-          <p style="padding-left: 100px; word-wrap: break-word;">
-            MAKING ADAPTION SIMPLER </p></span> 
+<br>
+<!-- top part & all its stuff -->
+  <div class="row text-center"> 
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-8 col-xl-8">
+      <div class="row text-center">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+          <div class="wrapper" id="startchange">
+              <img src="img\HiPaw white.png" style="width: 180px;  margin-top: 5vw; margin-bottom: 2vw;"> 
+              <img src="img\HiPaw name.png" style="width: 170px; margin-bottom: 0.5vw;">       
+              <span style="opacity: 0.8; filter: drop-shadow(4px 3px 6px rgba(0, 0, 0, 0.749)); font-family: Calibri; font-style: normal;font-weight: bold; font-size: 15px; color: rgba(255,255,255,1);" >
+                <p class="superFont" style=" word-wrap: break-word;  margin-top: 5px;">
+                  <u> MAKING ADAPTION SIMPLER</u> </p></span> 
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6"> 
+            <div class="superFont" style="color: white; margin-top: 3vw; margin-bottom: 2vw; padding-left: 25px; filter: var(--shadow);">
+              Thousands of adoptable pets are looking for people. People like you.</div>
+          </div>
+        </div> 
       </div>
-    </div>
-    <div class="col"> 
-      </div>
-    <div class="col-lg">
-
-      <p style=" filter: drop-shadow(4px 3px 6px rgba(0, 0, 0, 0.749)); font-family: Calibri; font-style: normal;font-weight: bold; font-size: 15px; color: rgba(255,255,255,1); margin-left: 120px; margin-top: 5.5vw;  word-wrap: break-word; ">
+      
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 align-self-center">
+      <p class="WantToAdaptaPet superFont">
         Want To Adapt a Pet?
       </p>
-      <div style="margin-top: 20px; margin-bottom: 40px ;">
+      <div style="margin-top: 20px; margin-bottom: 40px;">
         <a href="#" class="browsePetsButton">
-          <img src="img\adapt button icon.png" style="width: 30px; padding-right: 3px; padding-bottom: 5px;">
-            Browse Pets
+          <img src="img\adapt button icon.png" style="width: 30px;  padding-right: 3px; padding-bottom: 5px;">
+            <spam style="word-wrap: break-word;">Browse Pets</spam>
         </a> </div>
-      <p style=" filter: drop-shadow(4px 3px 6px rgba(0, 0, 0, 0.749)); font-family: Calibri; font-style: normal;font-weight: bold; font-size: 15px; color: rgba(255,255,255,1); margin-left: 120px; margin-top: 0.5vw; word-wrap: break-word;">
+      <p class="NeedToRehomeaPet superFont">
         Need To Rehome a Pet?   
       </p>
       <a href="#" class="rehomePetButton">
         <img src="img\rehome button icon.png" style="width: 30px; padding-right: 3px; padding-bottom: 5px;">
         Rehome Pet
-      </a>
-      
+      </a>  
     </div>
-  </div>
-<!-- stop!!!!! -->
- 
+  </div> 
+<!-- how it works -->
+  <div class="container-fluid" style=" background-color: white; position: relative; top: 155px;">
+  <br><br>
+    <div class="row text-center">
+      <div class="Jumbotron col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <h3 class="WhatWeDo superFont" id="WhatWeDo">WHAT WE DO</h3>
+        <hr class="display-1">
+        <p class="WhatWeDo superFont">Direct pet adoption, from one good home to another. Rehoming a dog or a cat keeps them out of shelters and streets.</p>
+      </div>
+    </div>
+    <!-- img + captions -->
+    <div class="row text-center">
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+        <figure class="figure">
+          <img class="img-WhatWeDo figure-img img-fluid rounded" src="img\adaptors img home.png">
+        </figure>
+      </div>
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3 col-xl-3 align-self-top">
+        <br><br>
+        <h4 class="Adobter superFont">Adobters</h3>
+        <p class="Adobter superFont">meet and learn about pets from the Guardians (owners) who know them best.</p>  
+      </div>
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+        <figure class="figure" >
+          <img class="img-WhatWeDo figure-img img-fluid rounded img-padding" src="img\gaurdian img home.png">
+        </figure>
+      </div>
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3 col-xl-3 align-self-top">
+        <br><br>
+        <h4 class="Adobter superFont img-padding">Guardians</h3>
+        <p class="Adobter superFont">keep their pets out of the shelter. By rehoming a dog or cat, they can find them loving, new homes.</p>  
+      </div>
+    </div>
+    
+    <div class="row text-center">
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+        <figure class="figure">
+          <img class="img-WhatWeDo figure-img img-fluid rounded" src="img\vet img home.png" style="margin-top: 5vw;">
+        </figure>
+      </div>
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3 col-xl-3 align-self-top">
+        <br><br>
+        <h4 class="Adobter superFont">Local Veterinarians</h3>
+        <p class="Adobter superFont">examine pets at no extra charge as a part of the pet adoption.</p>  
+      </div>
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+        <figure class="figure">
+          <img class="img-padding img-WhatWeDo figure-img img-fluid rounded" src="img\pet img home.png">
+        </figure>
+      </div>
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3 col-xl-3 align-self-top">
+        <br><br>
+        <h4 class="Adobter superFont img-padding">Pets</h3>
+        <p class="Adobter superFont">go directly from one loving home to another. Pet adoption with less stress. Less chance of illness or death.</p>  
+      </div>
+    </div>
+    <br><br><br><br>
+    <div class="row text-center">
+      <div class="col">
+        <h3 class="superFont WhatWeDo" style="font-size: 20px;">Everyone Benefits With Hi Paw!</h3>
+      </div>
+    </div>
+    <hr class="display-2">
+    <br><br>
+    <br><br><br><br><br><br><br><br><br><br>
+    Hi
+    <br><br><br><br><br><br><br><br><br><br>
+
+
+  
+  </div> 
+ <!-- end of container -->
   <section>
        <p>
+
 
         <br><br><br><br><br><br><br><br><br><br>
     </p>
