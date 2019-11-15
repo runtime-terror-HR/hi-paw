@@ -1,4 +1,3 @@
-// change the navbar background when scrolling down.
 
 $(document).ready(function(){       
     var scroll_start = 0;
@@ -15,3 +14,26 @@ $(document).ready(function(){
         });
     }
  });
+
+rehomeImgW = new Image(40, 40);
+rehomeImgB = new Image(40, 40);
+browsePetsImgW = new Image(40, 40);
+browsePetsImgB = new Image(40, 40);
+
+rehomeImgW.src= "img/heart-sign-in-house-icon.png";
+rehomeImgB.src = "img/heart-sign-in-house-icon  black.png";
+browsePetsImgW.src = "img/cat_animal_-512.png";
+browsePetsImgB.src = "img/cat_animal_-512 black.png";
+
+function changeRTheme() {
+    document.getElementById("rehomeImg").src= rehomeImgW.src;
+}
+function changeRTheme1() {
+    document.getElementById("rehomeImg").src= rehomeImgB.src;    
+}
+function changeBTheme() {
+    document.getElementById("browseImg").src= browsePetsImgW.src;    
+}
+function changeBTheme1() {
+    document.getElementById("browseImg").src= browsePetsImgB.src;
+}
