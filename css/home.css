@@ -9,7 +9,9 @@
     --darkBackground: rgba(115,99,99,1);
     --creamyBackground: rgba(187, 175, 175, 0.42);
 }
-
+html, body {
+    scroll-behavior: smooth;
+}
 /* --------------------------- */
 .carousel-inner img { 
     width: 100%;
