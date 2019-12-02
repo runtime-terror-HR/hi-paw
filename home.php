@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,8 +18,9 @@
     <!-- for font awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
     <!-- <script src="https://use.fontawesome.com/releases/v5.8.1/js/all.js"></script> -->
+  <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
 
-
+  <link rel="stylesheet" href="css/nav_css.css">
     <script type="text/javascript" src="js/home.js"></script>
     <title>Hi Paw</title>
     <link rel="icon" type="image/png" href="img/HiPaw black.png"/>
@@ -39,17 +43,19 @@
 <body>
   <!-- navbar -->
   <nav class="navbar navbar-expand-md navbar-light fixed-top" style="background: transparent;">
-    <a class="navbar-brand" href="home.html">
-      <img src="img/HiPaw black.png" width="50" height="50" class="d-inline-block align-top" alt="">
-      <div class="superFont" style="margin-left: 55px;  margin-top: -40px; font-size: 30px; color: rgb(31, 30, 30);"> Hi Paw!</div>
-    </a>
-    <button id="toggleButton" class="navbar-toggler" data-toggle="collapse" data-target="#collapse_target">      
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="collapse_target">
+    <div class="d-flex w-50 order-0">
+      <a class="navbar-brand" href="home.php" style="height: 40px">
+        <img src="img/HiPaw black.png" width="40" height="40" class="d-inline-block align-top" alt="website icon" >
+        <div class="superFontHome" > Hi Paw!</div>
+      </a>
+      <button id="toggleButton" class="navbar-toggler" data-toggle="collapse" data-target="#collapse_target">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+    <div class="superFont collapse navbar-collapse" id="collapse_target">
       <ul class="nav navbar-nav ml-auto" >
           <li class="navbar-item active">
-            <a class="nav-link" href="home.html">Home</a>
+            <a class="nav-link" href="home.php">Home</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -62,18 +68,78 @@
               <a class="dropdown-item" href="#">People Are Saying</a>
             </div>
           </li>
-          <li class="navbar-item">
-            <a class="nav-link" href="#">Adopt</a>
-            </li>
-          <li class="navbar-item">
-            <a class="nav-link" href="#">Rehome</a>
-            </li>
-          <li class="navbar-item">
-            <a class="nav-link" href="#">Login</a>
+
+
+<?php
+if(isset($_SESSION['user-id'])){
+    $db = new mysqli("localhost", "root", "", "hipaw");
+    if($db->errno){
+        echo "error connecting to the database";
+        exit;
+    }
+    $stmt = $db->prepare("SELECT name FROM ".$_SESSION['user-table']." WHERE id = ?");
+    $stmt->bind_param("s",  $_SESSION['user-id']);
+    $stmt->execute();
+//fetching result would go here, but will be covered later
+    $stmt->store_result();
+    if($stmt->num_rows !== 0) {
+        $stmt->bind_result($username);
+        $stmt->fetch();
+        $stmt->close();
+    }
+    else {
+        exit('error invalid user id ');
+    }
+    if($_SESSION['user-table'] == 'adopter'){
+        echo " <li class=\"nav-item dropdown\">
+              <a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"navbarDropdown2\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">
+                  ".$username."
+              </a>
+              <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown2\">
+                  <a class=\"dropdown-item\" href=\"#whatWeDodiv\">Profile</a>
+                  <div class=\"dropdown-divider\"></div>
+                  <a class=\"dropdown-item\" href=\"#HowItWorks\">Browse Pets</a>
+                  <a class=\"dropdown-item\" href=\"#HowItWorks\">Saved Pets</a>
+                  <div class=\"dropdown-divider\"></div>
+                  <a class=\"dropdown-item\" href=\"logout.php\">Log out</a>
+              </div>
+          </li>";
+    }
+   elseif ($_SESSION['user-table'] == 'adopter') {
+        echo " <li class=\"nav-item dropdown\">
+              <a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"navbarDropdown3\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">
+                  ".$username."
+              </a>
+              <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown3\">
+                  <a class=\"dropdown-item\" href=\"#whatWeDodiv\">Profile</a>
+                  <div class=\"dropdown-divider\"></div>
+                  <a class=\"dropdown-item\" href=\"#HowItWorks\">View Own Pets</a>
+                  <a class=\"dropdown-item\" href=\"#HowItWorks\">Requests</a>
+                  <div class=\"dropdown-divider\"></div>
+                  <a class=\"dropdown-item\" href=\"logout.php\">Log out</a>
+              </div>
+          </li>";
+   }
+}
+else{
+    echo " <li class=\"navbar-item\">
+              <a class=\"nav-link\" href=\"sign-up.php?q=adopter\">Adopt</a>
           </li>
-          <li class="navbar-item">
-            <a class="nav-link" href="#contact">Contact</a>
-            </li>
+          <li class=\"navbar-item\">
+              <a class=\"nav-link\" href=\"sign-up.php?q=guardian\">Rehome</a>
+          </li>
+        <li class=\"navbar-item\">
+          <a class=\"nav-link\" href=\"log-in.php\" style=\"margin-right: 2px; padding-right: 0\">Log in </a>
+        </li>
+        <li class=\"navbar-item\">
+          <a class=\"nav-link\" href=\"sign-up.php\" style=\"margin-left: 1px; padding-left: 0\">| Sign up</a>
+        </li>";
+}
+?>
+
+          <li class="navbar-i tem">
+              <a class="nav-link" href="#contact">Contact</a>
+          </li>
         </ul>
     </div>
   </nav>
@@ -119,31 +185,54 @@
     </div>
   <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3"></div>
 </div>
-
-<div class="row text-center"> 
-  <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4 col-xl-4" data-aos="fade-up-right" data-aos-duration="1000" data-aos-delay="500">
-    <p class="NeedToRehomeaPet superFont">
+<?php if(!isset($_SESSION['user-id'])){
+    echo "<div class=\"row text-center\"> 
+  <div class=\"col-xs-12 col-sm-12 col-md-5 col-lg-4 col-xl-4\" data-aos=\"fade-up-right\" data-aos-duration=\"1000\" data-aos-delay=\"500\">
+    <p class=\"NeedToRehomeaPet superFont\">
       Need To Rehome a Pet?   
     </p>
-    <button class="rehomePetButton btn btn-outline-dark btn-lg" type="button" onmouseover="changeRTheme()" onmouseout="changeRTheme1()">
-      <img id="rehomeImg" src="img/heart-sign-in-house-icon  black.png" style="width: 40px;" alt=" image">
+    <button onclick=\"window.location.href='sign-up.php?q=guardian'\" class=\"rehomePetButton btn btn-outline-dark btn-lg\" type=\"button\" onmouseover=\"changeRTheme()\" onmouseout=\"changeRTheme1()\">
+      <img id=\"rehomeImg\" src=\"img/heart-sign-in-house-icon  black.png\" style=\"width: 40px;\" alt=\" image\">
       Rehome Pet
     </button>
   </div>
 
-  <div class="col-xs-0 col-sm-0 col-md-2 col-lg-4 col-xl-4"></div> 
+  <div class=\"col-xs-0 col-sm-0 col-md-2 col-lg-4 col-xl-4\"></div> 
 
-  <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4 col-xl-4 align-self-center" data-aos="fade-up-left" data-aos-duration="1000" data-aos-delay="300">
-    <p class="WantToAdaptaPet superFont">
-      Want To Adapt a Pet?
+  <div class=\"col-xs-12 col-sm-12 col-md-5 col-lg-4 col-xl-4 align-self-center\" data-aos=\"fade-up-left\" data-aos-duration=\"1000\" data-aos-delay=\"300\">
+    <p class=\"WantToAdaptaPet superFont\">
+      Want To Adopt a Pet?
     </p>
-    <div style="margin-top: 20px; margin-bottom: 40px;">
-      <button class="browsePetsButton btn btn-outline-dark btn-lg" type="button" onmouseover="changeBTheme()" onmouseout="changeBTheme1()">
-        <img id="browseImg" src="img/cat_animal_-512 black.png" style="width: 40px;">
+    <div style=\"margin-top: 20px; margin-bottom: 40px;\">
+      <button onclick=\"window.location.href='searchPage.php'\" class=\"browsePetsButton btn btn-outline-dark btn-lg\" type=\"button\" onmouseover=\"changeBTheme()\" onmouseout=\"changeBTheme1()\">
+        <img id=\"browseImg\" src=\"img/cat_animal_-512 black.png\" style=\"width: 40px;\">
         Browse Pets
       </button>
     </div>
   </div>
+    ";}
+    else{
+        echo "<div class=\"row text-center\"> 
+  <div class=\"col-xs-0 col-sm-0 col-md-3 col-lg-3 col-xl-3\"></div>
+    <div class=\"col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6\">
+      <div class=\"SomethingToEncorageAdaption superFont\"  data-aos=\"fade-down\" data-aos-duration=\"1000\" data-aos-delay=\"0\">
+    
+      </div>
+    </div>
+  <div class=\"col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3\"></div>
+</div><div class=\"row text-center\"> 
+  <div class=\"col-xs-0 col-sm-0 col-md-3 col-lg-3 col-xl-3\"></div>
+    <div class=\"col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6\">
+      <div class=\"SomethingToEncorageAdaption superFont\"  data-aos=\"fade-down\" data-aos-duration=\"1000\" data-aos-delay=\"0\">
+        
+      </div>
+    </div>
+  <div class=\"col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3\"></div>
+</div>";
+    }
+
+?>
+
 </div> 
 <!-- end of top part & all its stuff -->
 
@@ -171,7 +260,7 @@
       </div>
       <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3 col-xl-3 align-self-top" data-aos="fade-right" data-aos-delay="400">
         <br><br>
-        <h4 class="Adobter superFont">Adobters</h4>
+        <h4 class="Adobter superFont">Adopters</h4>
         <p class="Adobter superFont">meet and learn about pets from the Guardians (owners) who know them best.</p>  
       </div>
       <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3 col-xl-3" data-aos="fade-left" data-aos-delay="700">
@@ -378,7 +467,7 @@
             <div class="footer-review-position footerLogo1">
               <img  src="img/HiPaw white.png" style="width: 80px; height: 80px;">
               <div class="superFont footerLogo">Hi Paw!</div>
-              <div class="footerLogo2 superFont">Making Adobtion Simpler.<br> From One Good Home To Another.</div>
+              <div class="footerLogo2 superFont">Making Adoption Simpler.<br> From One Good Home To Another.</div>
             </div>
           </div>
           <br>
@@ -431,7 +520,7 @@
 <div class="sub-footer-section">
   <div class="container">
     <div class="sub-footer-copy">
-    © Copyright 2019 <a href="home.html">HiPaw.com</a>
+    © Copyright 2019 <a href="home.php">HiPaw.com</a>
     </div>
   </div>
 </div>

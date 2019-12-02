@@ -2,6 +2,9 @@
 display-flex, .display-flex, .display-flex-center, .signup-content, .signin-content, .social-login, .socials {
   display: flex;
   display: -webkit-flex; }
+.zmdi{
+  margin: 10px;
+}
 
 /* @extend list-type-ulli; */
 list-type-ulli, .socials {
@@ -163,7 +166,10 @@ input[type=radio] {
   -webkit-appearance: radio !important;
   -o-appearance: radio !important;
   -ms-appearance: radio !important; }
-
+input
+{
+  border-radius: 4px;
+}
 img {
   max-width: 100%;
   height: auto; }
@@ -179,7 +185,7 @@ p {
 h2 {
   line-height: 1.66;
   margin: 0;
-  padding: 0;
+  padding-bottom: 15px;
   font-weight: bold;
   color: #222;
   font-family: Poppins;
@@ -187,7 +193,7 @@ h2 {
 
 .main {
   background: #f8f8f8;
-  padding: 40px 0;
+  padding: 20px 0;
   size: landscape
 }
 
@@ -255,7 +261,7 @@ body {
   margin-bottom: 150px; }
 
 .signup-content {
-  padding: 75px 0; }
+  padding: 50px 0; }
 
 .signup-form, .signup-image, .signin-form, .signin-image {
   width: 50%;

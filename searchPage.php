@@ -4,18 +4,21 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Hi Paw</title>
 
+    <link rel="shortcut icon" href="http://localhost/hi-paw/favicon.ico" />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/searchPagecss.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
 
     <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="node_modules/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
     <link rel="stylesheet" href="node_modules/bootstrap-select/dist/css/bootstrap-select.min.css">
-
+    <link rel="stylesheet" href="css/nav_css.css">
 
     <link rel="stylesheet" href="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006288/BBBootstrap/choices.min.css?version=7.0.0">
     <script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006273/BBBootstrap/choices.min.js?version=7.0.0"></script>
@@ -26,6 +29,7 @@
     <link  rel="stylesheet" href="node_modules/aos/dist/aos.css">
     <script src="node_modules/aos/dist/aos.js"></script>
 
+    <script src="https://kit.fontawesome.com/e6e9f20ee5.js" crossorigin="anonymous"></script>
 
 
     <script type="text/javascript">
@@ -85,6 +89,21 @@
             });
         });
 
+        $(document).ready(function(){
+        $('.colorheart').click(function() {
+            $(this).toggleClass('colorheart far fa-heart');
+            $(this).toggleClass('colorheart redheart fas fa-heart');
+        });
+        });
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+        $(document).ready(function(){
+        $('#myModal').modal({
+            backdrop: 'static',
+            keyboard: false
+        })
+        });
     </script>
     <style>
         .drop-btn{
@@ -175,16 +194,18 @@
 <div class="main-p container-fluid" style="padding-bottom: 50px">
 
     <nav class="navbar navbar-expand-md navbar-light " style="background: transparent; ">
-        <a class="navbar-brand" href="home.html">
-            <img src="img/HiPaw black.png" width="50" height="50" class="d-inline-block align-top" alt="">
-            <div class="superFont" style="margin-left: 55px;  margin-top: -40px; font-size: 30px; color: rgb(31, 30, 30);"> Hi Paw!</div>
-        </a>
-        <button id="toggleButton" class="navbar-toggler" data-toggle="collapse" data-target="#collapse_target">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="collapse_target">
+        <div class="d-flex w-50 order-0">
+            <a class="navbar-brand" href="home.html" style="height: 40px">
+                <img src="img/HiPaw black.png" width="40" height="40" class="d-inline-block align-top" alt="website icon" >
+                <div class="superFontHome" > Hi Paw!</div>
+            </a>
+            <button id="toggleButton" class="navbar-toggler" data-toggle="collapse" data-target="#collapse_target">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="superFont collapse navbar-collapse" id="collapse_target">
             <ul class="nav navbar-nav ml-auto" >
-                <li class="navbar-item active">
+                <li class="navbar-item">
                     <a class="nav-link" href="home.html">Home</a>
                 </li>
                 <li class="nav-item dropdown">
@@ -199,7 +220,7 @@
                     </div>
                 </li>
                 <li class="navbar-item">
-                    <a class="nav-link" href="#">Adabt</a>
+                    <a class="nav-link" href="#">Adopt</a>
                 </li>
                 <li class="navbar-item">
                     <a class="nav-link" href="#">Rehome</a>
@@ -313,7 +334,7 @@
                                         <span class="badge badge-pill badge-danger">#white</span>
                                         <span class="badge badge-pill badge-success">#2yrs</span>
                                     </div>
-                                    <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
+
                                 </div>
 
                             </div>
@@ -323,8 +344,8 @@
                                 <div class="card-body text-center mt-4">
                                     <h4 class="card-title">Story</h4>
                                     <p class="card-text">Mushi was found on the street cold and abandoned from her mother with no one to take care of her, she was saved and hopefully she will never have to feel cold again</p>
-                                    <br><br>
-                                    <button type="button" class="btn btn-primary">Send a Request</button>
+                                    <p class="heart"><i  data-toggle="tooltip" data-placement="top" title="Add to Favorite" class="colorheart far fa-heart"></i></p>
+                                    <button type="button" class="btn btn-primary">Send a Request <i class="fas fa-paw"></i> </button>
                                 </div>
                             </div>
                         </div>
@@ -349,7 +370,7 @@
                                         <span class="badge badge-pill badge-danger">#white</span>
                                         <span class="badge badge-pill badge-success">#2yrs</span>
                                     </div>
-                                    <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
+
                                 </div>
 
                             </div>
@@ -359,8 +380,8 @@
                                 <div class="card-body text-center mt-4">
                                     <h4 class="card-title">Story</h4>
                                     <p class="card-text">Mushi was found on the street cold and abandoned from her mother with no one to take care of her, she was saved and hopefully she will never have to feel cold again</p>
-                                    <br><br>
-                                    <button type="button" class="btn btn-primary">Send a Request</button>
+                                    <p class="heart"><i id="colorheart"  data-toggle="tooltip" data-placement="top" title="Add to Favorite" class="colorheart far fa-heart"></i></p>
+                                    <button type="button" class="btn btn-primary">Send a Request <i class="fas fa-paw"></i> </button>
                                 </div>
                             </div>
                         </div>
@@ -385,7 +406,6 @@
                                         <span class="badge badge-pill badge-danger">#white</span>
                                         <span class="badge badge-pill badge-success">#2yrs</span>
                                     </div>
-                                    <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
                                 </div>
 
                             </div>
@@ -395,8 +415,8 @@
                                 <div class="card-body text-center mt-4">
                                     <h4 class="card-title">Story</h4>
                                     <p class="card-text">Mushi was found on the street cold and abandoned from her mother with no one to take care of her, she was saved and hopefully she will never have to feel cold again</p>
-                                    <br><br>
-                                    <button type="button" class="btn btn-primary">Send a Request</button>
+                                    <p class="heart"><i  data-toggle="tooltip" data-placement="top" title="Add to Favorite" class="colorheart far fa-heart"></i></p>
+                                    <button type="button" class="btn btn-primary">Send a Request <i class="fas fa-paw"></i> </button>
                                 </div>
                             </div>
                         </div>
@@ -421,7 +441,6 @@
                                         <span class="badge badge-pill badge-danger">#white</span>
                                         <span class="badge badge-pill badge-success">#2yrs</span>
                                     </div>
-                                    <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
                                 </div>
 
                             </div>
@@ -431,8 +450,8 @@
                                 <div class="card-body text-center mt-4">
                                     <h4 class="card-title">Story</h4>
                                     <p class="card-text">Mushi was found on the street cold and abandoned from her mother with no one to take care of her, she was saved and hopefully she will never have to feel cold again</p>
-                                    <br><br>
-                                    <button type="button" class="btn btn-primary">Send a Request</button>
+                                    <p class="heart"><i  data-toggle="tooltip" data-placement="top" title="Add to Favorite" class="colorheart far fa-heart"></i></p>
+                                    <button type="button" class="btn btn-primary">Send a Request <i class="fas fa-paw"></i> </button>
                                 </div>
                             </div>
                         </div>
@@ -457,7 +476,6 @@
                                         <span class="badge badge-pill badge-danger">#white</span>
                                         <span class="badge badge-pill badge-success">#2yrs</span>
                                     </div>
-                                    <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
                                 </div>
 
                             </div>
@@ -467,8 +485,8 @@
                                 <div class="card-body text-center mt-4">
                                     <h4 class="card-title">Story</h4>
                                     <p class="card-text">Mushi was found on the street cold and abandoned from her mother with no one to take care of her, she was saved and hopefully she will never have to feel cold again</p>
-                                    <br><br>
-                                    <button type="button" class="btn btn-primary">Send a Request</button>
+                                    <p class="heart"><i data-toggle="tooltip" data-placement="top" title="Add to Favorite" class="colorheart far fa-heart"></i></p>
+                                    <button type="button" class="btn btn-primary">Send a Request <i class="fas fa-paw"></i> </button>
                                 </div>
                             </div>
                         </div>
@@ -493,7 +511,6 @@
                                         <span class="badge badge-pill badge-danger">#white</span>
                                         <span class="badge badge-pill badge-success">#2yrs</span>
                                     </div>
-                                    <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
                                 </div>
 
                             </div>
@@ -503,8 +520,8 @@
                                 <div class="card-body text-center mt-4">
                                     <h4 class="card-title">Story</h4>
                                     <p class="card-text">Mushi was found on the street cold and abandoned from her mother with no one to take care of her, she was saved and hopefully she will never have to feel cold again</p>
-                                    <br><br>
-                                    <button type="button" class="btn btn-primary">Send a Request</button>
+                                    <p class="heart"><i  data-toggle="tooltip" data-placement="top" title="Add to Favorite" class="colorheart far fa-heart"></i></p>
+                                    <button type="button" class="btn btn-primary">Send a Request <i class="fas fa-paw"></i> </button>
                                 </div>
                             </div>
 0                        </div>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hi Paw</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/nav_css.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+
+    <link rel="shortcut icon" href="http://localhost/hi-paw/favicon.ico" />
+    <!-- Main css -->
+    <link rel="stylesheet" href="css/creatPetProfile.css">
+    <link  rel="stylesheet" href="node_modules/aos/dist/aos.css">
+    <script src="node_modules/aos/dist/aos.js"></script>
+    <script src="https://kit.fontawesome.com/e6e9f20ee5.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="ContactFrom_v5/ContactFrom_v5/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+
+    <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+        $('#textarea_div').on( 'change keyup keydown paste cut', 'textarea', function (){
+            $(this).height(0).height(this.scrollHeight);
+        }).find( 'textarea' ).change();
+        });
+    </script>
+
+
+    <style>
+
+        input[type=radio].with-font{
+            border: 0;
+            clip: rect(0 0 0 0);
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
+            padding: 0;
+            position: absolute;
+            width: 1px;
+
+        }
+        input[type=radio].with-font:checked +label.type:not(:checked){
+            color: #3880d6;
+            border: 1px solid #3880d6;
+            border-radius: 5px;
+
+
+        }
+
+
+        input[type=radio].with-font:checked +label.type:before{
+
+            color: #3880d6;
+
+        }
+
+        input[type=radio].with-font:focus +label.type:before ,
+        input[type=radio].with-font:focus +label.type
+        {
+
+            color: #3880d6;
+        }
+        .icon{
+
+            font-size: 80px;
+
+        }
+        label.type{
+            position: static;
+padding: 15px;
+            height: max-content;
+        }
+        .test{
+            overflow: visible;
+            text-align: center;
+            height: max-content;
+            width: 60%;
+            padding: 0;
+            margin-left: 20%;
+            margin-right: 20%;
+            margin-bottom: 0;
+        }
+        legend{
+            font-size: 1.3rem;
+        }
+        .radio_b {
+            position: static;
+            top: 10px;
+            left: 10px;
+        }
+        label.radio_b{
+            padding-left: 20px;
+            font-size: 17.6px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="main" data-aos="zoom-in-up">
+    <!-- Sing in  Form -->
+    <div class="row justify-content-center" style="margin: 30px">
+        <div class="col-12-md justify-content-center">
+            <h1> Creat your Pet's Profile </h1></div>
+    </div>
+
+    <div class="sign-in" >
+        <img src="img/footprint.png" height="150" width="150" style="position: absolute; top: 10px; left: 20px; opacity: 50%"/>
+        <img src="img/photo1.png" height="150" width="150" style="position: absolute; top: 10px; right: 20px; opacity: 50%"/>
+
+        <img src="img/footprint.png" height="150" width="150" style="position: absolute; top: 250px; left: 20px; opacity: 50%"/>
+        <img src="img/footprint.png" height="150" width="150" style="position: absolute; top: 250px; right: 20px; opacity: 50%"/>
+
+        <img src="img/footprint.png" height="150" width="150" style="position: absolute; top: 490px; left: 20px; opacity: 50%"/>
+        <img src="img/footprint.png" height="150" width="150" style="position: absolute; top: 490px; right: 20px; opacity: 50%"/>
+
+        <div class="content container" data-aos="zoom-in-up">
+
+                    <form method="POST" class="register-form" id="login-form">
+                        <br><br><br>
+                        <div class="test form-group justify-content-center"  >
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input id="cat" name="type" type="radio" class="with-font" value="sel" checked/>
+                                    <label for="cat" class="type"><i class="icon fas fa-cat"></i> Cat </label>
+                                </div>
+                                <div class="col-md-6">
+
+                                    <input id="dog" name="type" type="radio" class="with-font" value="sel" />
+                                    <label for="dog" class="type"><i class="icon fas fa-dog"></i> Dog </label>
+
+                                </div>
+                            </div>
+
+                            <br>
+                        </div>
+                        <div class="form-group">
+                        <fieldset style="width: 100%;">
+                            <legend style="width: max-content; margin-left: 10px"> What is your Pet's name ?</legend>
+
+                                <input id="name" type="text" placeholder="Your Pet's name" required><br>
+                            <label for="name"></label>
+                        </fieldset>
+                        </div>
+                        <div class="form-group">
+                            <fieldset style="width: 100%;">
+                                <legend style="width: max-content; margin-left: 10px"> How old is your Pet?</legend>
+                                <div>
+                                <input style="width: 45%; display: inline" id="age_year" type="number" max="20" placeholder="years" required>
+                                <input style="width: 45%; display: inline" id="age_month" type="number" max="12" placeholder="months" required>
+                                </div>
+                                <span style="display: inline-block; color: #7d7d7d; margin-left: 20px">use approximate age if necessary</span>
+                            </fieldset>
+                        </div>
+
+                        <div class="form-group">
+                            <fieldset style="width: 100%;">
+                                <legend style="width: max-content; margin-left: 10px"> What is your Pet's Story ?</legend>
+                                <div >In a few sentences, tell potential Adopters the things about your
+                                    cat that make your cat most endearing.
+                                    Fun behaviors, quirky habits: things that make your cat lovable.
+                                    Make it long enough and specific enough to make your cat stand out.
+                                    Prospective Adopters will see
+                                    this when they view your cat’s profile.</div><br>
+                                <div id="textarea_div">
+                                <textarea id="story" type="text" cols="10" placeholder="Your Pet's Story..." required>
+                                </textarea></div><br>
+
+                            </fieldset>
+                        </div>
+
+                        <div class="form-group">
+                            <fieldset style="width: 100%;">
+                                <legend style="width: max-content; margin-left: 10px"> General Information </legend>
+                                <span style="display: block; font-size: 17px; color: #373737; margin-bottom: 10px">Gender :</span>
+                                <div class="row" >
+                                    <div class="col-md-2">
+                                        <div class="custom-control custom-radio" style="display: inline; margin-left: 15px">
+                                            <input value="female" type="radio" id="female" name="gender" class="radio_b custom-control-input">
+                                            <label class="radio_b custom-control-label" for="female" > Female </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="custom-control custom-radio" style="display: inline;">
+                                            <input value="male" type="radio" id="male" name="gender" class="radio_b custom-control-input">
+                                            <label class="radio_b custom-control-label" for="male">Male</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </fieldset>
+                        </div>
+
+                        <div class="form-group form-button">
+                            <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>
+                        </div>
+
+
+                    </form>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- JS -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="js/main.js"></script>
+
+
+<script>
+    AOS.init({
+        offset: 100, // offset (in px) from the original trigger point
+        delay: 0, // values from 0 to 3000, with step 50ms
+        duration: 1000 // values from 0 to 3000, with step 50ms
+    });
+</script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

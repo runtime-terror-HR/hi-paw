@@ -1,3 +1,13 @@
+/* poppins-300 - latin */
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 300;
+    src: url("../fonts/poppins/poppins-v5-latin-300.eot");
+    /* IE9 Compat Modes */
+    src: local("Poppins Light"), local("Poppins-Light"), url("../fonts/poppins/poppins-v5-latin-300.eot?#iefix") format("embedded-opentype"), url("../fonts/poppins/poppins-v5-latin-300.woff2") format("woff2"), url("../fonts/poppins/poppins-v5-latin-300.woff") format("woff"), url("../fonts/poppins/poppins-v5-latin-300.ttf") format("truetype"), url("../fonts/poppins/poppins-v5-latin-300.svg#Poppins") format("svg");
+    /* Legacy iOS */ }
+/* poppins-300italic - latin */
 .main-p{
     background-image: url("https://getyourpet.com/wp-content/themes/gyp/assets/images/hero-lrg2.jpg");
     width: 100%;
@@ -6,6 +16,19 @@
     padding: 0 0px;
 
 
+}
+
+.superFont{
+    font-family: Poppins;
+    font-size: 18px;
+}
+.redheart{
+    size: 2.5rem;
+    font-size: 2.3rem;
+    color: #cb0522;
+}
+.heart{
+    font-size: 2rem;
 }
 .search-res{
     padding: 0 30px 30px 30px ;
@@ -17,6 +40,7 @@
 }
 body{
     background-color: azure;
+    overflow-x: hidden;
 }
 p.moto{
     margin-top: 40px;
