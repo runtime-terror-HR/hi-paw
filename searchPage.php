@@ -1,3 +1,7 @@
+<?php
+session_start();
+
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -33,9 +37,23 @@
 
 
     <script type="text/javascript">
-        $(window).on('load',function(){
+        <?php
+        if(!isset($_SESSION['city'])){
+            echo "$(window).on('load',function(){
             $('#myModal').modal('show');
         });
+        $(document).ready(function(){
+            $('#myModal').modal({
+                backdrop: 'static',
+                keyboard: false
+            })
+        });";
+        }
+
+
+
+        ?>
+
         $(document).ready(function(){
             var multipleCancelButton = new Choices('#pet', {
                 removeItemButton: true,
@@ -68,7 +86,20 @@
                 minItemCount: 1,
                 removeItems: false,
             });
-
+            var multipleCancelButton = new Choices('#gender', {
+                removeItemButton: true,
+                resetScrollPosition: true,
+                placeholder:true,
+                placeholderValue: "search here",
+                position: 'down',
+            });
+            var multipleCancelButton = new Choices('#size', {
+                removeItemButton: true,
+                resetScrollPosition: true,
+                placeholder:true,
+                placeholderValue: "search here",
+                position: 'down',
+            });
 
 
         });
@@ -80,6 +111,11 @@
                 max: 20,
                 from: 0,
                 to: 20,
+                onChange: function(data) {
+                    $('#minv').val($('#rangeslider').data().from);
+                    $('#maxv').val($('#rangeslider').data().to);
+
+                },
             });
 
         });
@@ -98,14 +134,10 @@
         $(document).ready(function(){
             $('[data-toggle="tooltip"]').tooltip();
         });
-        $(document).ready(function(){
-        $('#myModal').modal({
-            backdrop: 'static',
-            keyboard: false
-        })
-        });
+
     </script>
     <style>
+
         .drop-btn{
             width: 100%;
             border-radius: 0px;
@@ -154,12 +186,15 @@
         .btn-primary:not(:disabled):not(.disabled).active:focus, .btn-primary:not(:disabled):not(.disabled):active:focus, .show>.btn-primary.dropdown-toggle:focus {
             box-shadow: 0 0 0 0.2rem rgba(19, 176, 139,.5);
         }
+.sec{
 
+    height: 100%;
+}
     </style>
     <title>Hi Paw</title>
 
 </head>
-<body >
+<body style=" background: #eee">
 <div class="modal fade" id="myModal">
     <div class="modal-dialog modal-dialog-centered ">
         <div class="modal-content">
@@ -172,13 +207,17 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <form action="">
+                <form method="post" action="searchProcess.php">
 
-                <select class="custom" id="city" required >
-                    <option value="cat" >Cats</option>
-                    <option value="dog">Dogs</option>
+                <select class="custom" name="city" id="city" required >
+                    <option value="Nablus">Nablus</option>
+                    <option value="Hebron">Hebron</option>
+                    <option value="Jenin">Jenin</option>
+                    <option value="Ramallah">Ramallah</option>
+                    <option value="Jerusalem">Jerusalem</option>
+
                 </select>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Select</button>
+                    <input type="submit" class="btn btn-primary" value="Select">
                 </form>
 
             </div>
@@ -193,28 +232,26 @@
 
 <div class="main-p container-fluid" style="padding-bottom: 50px">
 
-    <nav class="navbar navbar-expand-md navbar-light " style="background: transparent; ">
-        <div class="d-flex w-50 order-0">
-            <a class="navbar-brand" href="home.html" style="height: 40px">
-                <img src="img/HiPaw black.png" width="40" height="40" class="d-inline-block align-top" alt="website icon" >
-                <div class="superFontHome" > Hi Paw!</div>
-            </a>
-            <button id="toggleButton" class="navbar-toggler" data-toggle="collapse" data-target="#collapse_target">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </div>
-        <div class="superFont collapse navbar-collapse" id="collapse_target">
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: transparent;">
+        <a class="navbar-brand" href="home.php">
+            <img src="img/HiPaw black.png" width="45" height="45" class="d-inline-block align-top" alt="">
+            <div class="superFont"> Hi Paw!</div>
+        </a>
+        <button id="toggleButton" class="navbar-toggler" data-toggle="collapse" data-target="#collapse_target">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapse_target">
             <ul class="nav navbar-nav ml-auto" >
-                <li class="navbar-item">
-                    <a class="nav-link" href="home.html">Home</a>
+                <li class="navbar-item active">
+                    <a class="nav-link" href="home.php">Home</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         About Us
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="home.html#whatWeDodiv">What We Do</a>
-                        <a class="dropdown-item" href="home.html#HowItWorks">How It Works</a>
+                        <a class="dropdown-item" href="home.php#whatWeDodiv">What We Do</a>
+                        <a class="dropdown-item" href="home.php#HowItWorks">How It Works</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">People Are Saying</a>
                     </div>
@@ -229,7 +266,7 @@
                     <a class="nav-link" href="#">Login</a>
                 </li>
                 <li class="navbar-item">
-                    <a class="nav-link" href="home.html#contact">Contact</a>
+                    <a class="nav-link" href="home.php#contact">Contact</a>
                 </li>
             </ul>
         </div>
@@ -251,19 +288,21 @@
 
 
 
-<section style="padding-top: 0px" id="team" class="pb-5">
+<section style="padding: 0px" id="team" class="sec pb-5">
 
     <div style="padding: 0px 0px" class="container-fluid">
         <!-- -->
+        <form action="searchProcess.php" method="post" class="form-inline">
         <div class="select-row row" >
-            <div class="select-col col-md-3">
+
+            <div class="select-col col-md-2">
                 <div class="drop-div dropdown">
                     <button style="width:100%; height: 100%" class="drop-btn btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
                         Pet
                     </button>
                     <ul  style="width:100%; height: 100%" class="dropdown-menu">
-                        <li  class="selected" style="width:100%; height: 100%" >
-                            <select class="custom" id="pet" placeholder="Select upto 5 tags"   multiple>
+                        <li   class="selected" style="width:100%; height: 100%" >
+                            <select name="type[]" class="custom" id="pet" multiple>
                                 <option value="cat" >Cats</option>
                                 <option value="dog">Dogs</option>
                             </select>
@@ -271,25 +310,57 @@
                     </ul>
                 </div>
             </div>
-            <div class="select-col col-md-3">
+            <div class="select-col col-md-2">
+                <div class="drop-div dropdown">
+                    <button style="width:100%; height: 100%" class="drop-btn btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                        Gender
+                    </button>
+                    <ul  style="width:100%; height: 100%" class="dropdown-menu">
+                        <li  class="selected" style="width:100%; height: 100%" >
+                            <select class="custom" name="gender[]" id="gender" multiple>
+                                <option value="female" >Female</option>
+                                <option value="male">Male</option>
+                            </select>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="select-col col-md-2">
                 <div class="drop-div dropdown">
                     <button style="width:100%; height: 100%" class="drop-btn btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
                         Fur Color
                     </button>
                     <ul  style="width:100%; height: 100%" class="dropdown-menu">
                         <li  style="width:100%; height: 100%" class="selected">
-                            <select class="custom" id="color" placeholder="Select upto 5 tags"  multiple>
+                            <select name="color[]" class="custom" id="color" placeholder="Select upto 5 tags"  multiple>
                                 <option value="black">Black</option>
                                 <option value="brown">Brown</option>
                                 <option value="paige">Paige</option>
                                 <option value="white">White</option>
-                                <option value="gray">Gray</option>
+                                <option value="grey">Grey</option>
                             </select>
                         </li>
                     </ul>
                 </div>
             </div>
-            <div class="select-col col-md-3" style=" ">
+            <div class="select-col col-md-2">
+                <div class="drop-div dropdown">
+                    <button style="width:100%; height: 100%" class="drop-btn btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                        Pet Size
+                    </button>
+                    <ul  style="width:100%; height: 100%" class="dropdown-menu">
+                        <li  style="width:100%; height: 100%" class="selected">
+                            <select name="size[]" class="custom" id="size" placeholder="Select upto 5 tags"  multiple>
+                                <option value="L">Large</option>
+                                <option value="M">Medium</option>
+                                <option value="S">Small</option>
+
+                            </select>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="select-col col-md-2" style=" ">
 
                 <div class="drop-div dropdown">
                     <button style="width:100%; height: 100%" class="drop-btn btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
@@ -297,14 +368,17 @@
                     </button>
                     <ul  style="width:100%" class="dropdown-menu">
                         <li class="custom selected" style="width:100%">
-                            <input type="text" class="custom slider-drop" id="rangeslider" data-extra-classes="irs-modern irs-primary">
+                            <input type="number" name="age" class="custom slider-drop" id="rangeslider" data-extra-classes="irs-modern irs-primary">
                         </li>
                     </ul>
                 </div>
             </div>
-            <div class="select-col col-md-3">
-                <button class="drop-btn btn btn-primary" style="width: 100%; height: 100%; display: inline-block"> search</button>
+            <input type="hidden" name="minv" id="minv">
+            <input type="hidden" name="maxv" id="maxv">
+            <div class="select-col col-md-2">
+                <input type="submit" class="drop-btn btn btn-primary" style="width: 100%; height: 100%; display: inline-block" value="Search">
             </div>
+        </form>
         </div>
 
 
@@ -314,223 +388,117 @@
 
     </div>
     <div class="footprints container" style="padding: 40px;">
-
         <h5 class="section-title h1" style="margin-top: 40px" data-aos="fade-up">SEARCH RESULTS</h5>
-        <div class="row">
-            <!-- Team member -->
-            <div class="search-res col-xs-12 col-sm-6 col-md-4" data-aos="fade-up">
-                <div class="image-flip" ontouchstart="this.classList.toggle('hover');" >
-                    <div class="mainflip" >
-                        <div class="frontside">
-                            <div class="card">
-                                <div class="card-body text-center">
-                                    <p><img class=" img-fluid" src="img/brown-cat.jpg" alt="card image"></p>
-                                    <h4 class="pet-name card-title">Mushi</h4>
-                                    <p class="pet-descr card-text">mushi is an energetic, fun playful cat that just wants someone to hold her</p>
+<div class="row">
+<?php
 
-                                    <div class="pet-info-tags clearfix">
-                                        <span class="badge badge-pill badge-info">#cat</span>
-                                        <span class="badge badge-pill badge-success">#brown</span>
-                                        <span class="badge badge-pill badge-danger">#white</span>
-                                        <span class="badge badge-pill badge-success">#2yrs</span>
-                                    </div>
+if(isset($_SESSION['pet_ids_array'])) {
+    if(!isset($_SESSION['no_pets'])) {
 
-                                </div>
+        $db = new mysqli("localhost", "root", "", "hipaw");
+        if ($db->errno) {
+            echo "error connecting to the database";
+            exit;
+        }
+        $id_arr = [];
+        $id_arr = $_SESSION['pet_ids_array'];
+        foreach ($id_arr as $petid) {
+            $stmt = $db->prepare("SELECT type, name, age_years, age_months, photo, story FROM pet WHERE id = ?");
+            $stmt->bind_param("i", $petid);
+            $stmt->execute();
+            $stmt->store_result();
+            if($stmt->num_rows === 0){
+                $stmt->close();
+                exit("error selecting");
+            }
+            if($stmt->num_rows !== 0) {
+                $stmt->bind_result($type,$name, $agey, $agem,$photo, $story);
+                $stmt->fetch();
+                $stmt->close();
+            }
 
-                            </div>
-                        </div>
-                        <div class="backside">
-                            <div class="card">
-                                <div class="card-body text-center mt-4">
-                                    <h4 class="card-title">Story</h4>
-                                    <p class="card-text">Mushi was found on the street cold and abandoned from her mother with no one to take care of her, she was saved and hopefully she will never have to feel cold again</p>
-                                    <p class="heart"><i  data-toggle="tooltip" data-placement="top" title="Add to Favorite" class="colorheart far fa-heart"></i></p>
-                                    <button type="button" class="btn btn-primary">Send a Request <i class="fas fa-paw"></i> </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- ./Team member -->
-            <!-- Team member -->
-            <div class="search-res col-xs-12 col-sm-6 col-md-4" data-aos="fade-up">
-                <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                    <div class="mainflip">
-                        <div class="frontside">
-                            <div class="card">
-                                <div class="card-body text-center">
-                                    <p><img class=" img-fluid" src="img/brown-cat.jpg" alt="card image"></p>
-                                    <h4 class="pet-name card-title">Mushi</h4>
-                                    <p class="pet-descr card-text">mushi is an energetic, fun playful cat that just wants someone to hold her</p>
 
-                                    <div class="pet-info-tags clearfix">
-                                        <span class="badge badge-pill badge-info">#cat</span>
-                                        <span class="badge badge-pill badge-success">#brown</span>
-                                        <span class="badge badge-pill badge-danger">#white</span>
-                                        <span class="badge badge-pill badge-success">#2yrs</span>
-                                    </div>
+            $pet_is = "";
+            $stmt = $db->prepare("SELECT petis FROM pet_is WHERE pet_id = ?");
+            $stmt->bind_param("i", $petid);
+            $stmt->execute();
+            $stmt->store_result();
+            if($stmt->num_rows !== 0){
+                $pet_is = $name." is ";
+                $stmt->bind_result($idRow);
+                while($stmt->fetch()) {
+                    $pet_is = $pet_is.", ".$idRow;
+                }
+                $pet_is = $pet_is." ".$type.".";
+            }
+            $stmt->close();
+            $pet_color = "#";
+            $stmt = $db->prepare("SELECT color FROM pet_color WHERE pet_id = ?");
+            $stmt->bind_param("i", $petid);
+            $stmt->execute();
+            $stmt->store_result();
+            if($stmt->num_rows !== 0){
+                $stmt->bind_result($colorRow);
+                while($stmt->fetch()) {
+                    $pet_color = $pet_color.",".$colorRow;
+                }
+            }
+            $stmt->close();
+            $type = "#".$type;
+            if( $agey == 0)
+                $age = "#".$agem."mon";
+            else $age = "#".$agey."yrs";
 
-                                </div>
 
-                            </div>
-                        </div>
-                        <div class="backside">
-                            <div class="card">
-                                <div class="card-body text-center mt-4">
-                                    <h4 class="card-title">Story</h4>
-                                    <p class="card-text">Mushi was found on the street cold and abandoned from her mother with no one to take care of her, she was saved and hopefully she will never have to feel cold again</p>
-                                    <p class="heart"><i id="colorheart"  data-toggle="tooltip" data-placement="top" title="Add to Favorite" class="colorheart far fa-heart"></i></p>
-                                    <button type="button" class="btn btn-primary">Send a Request <i class="fas fa-paw"></i> </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- ./Team member -->
-            <!-- Team member -->
-            <div class="search-res col-xs-12 col-sm-6 col-md-4" data-aos="fade-up">
-                <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                    <div class="mainflip">
-                        <div class="frontside">
-                            <div class="card">
-                                <div class="card-body text-center">
-                                    <p><img class=" img-fluid" src="img/brown-cat.jpg" alt="card image"></p>
-                                    <h4 class="pet-name card-title">Mushi</h4>
-                                    <p class="pet-descr card-text">mushi is an energetic, fun playful cat that just wants someone to hold her</p>
-
-                                    <div class="pet-info-tags clearfix">
-                                        <span class="badge badge-pill badge-info">#cat</span>
-                                        <span class="badge badge-pill badge-success">#brown</span>
-                                        <span class="badge badge-pill badge-danger">#white</span>
-                                        <span class="badge badge-pill badge-success">#2yrs</span>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="backside">
-                            <div class="card">
-                                <div class="card-body text-center mt-4">
-                                    <h4 class="card-title">Story</h4>
-                                    <p class="card-text">Mushi was found on the street cold and abandoned from her mother with no one to take care of her, she was saved and hopefully she will never have to feel cold again</p>
-                                    <p class="heart"><i  data-toggle="tooltip" data-placement="top" title="Add to Favorite" class="colorheart far fa-heart"></i></p>
-                                    <button type="button" class="btn btn-primary">Send a Request <i class="fas fa-paw"></i> </button>
-                                </div>
-                            </div>
+echo " <div class=\"search-res col-xs-12 col-sm-6 col-md-4\" data-aos=\"fade-up\">
+    <div class=\"image-flip\" ontouchstart=\"this.classList.toggle('hover');\" >
+        <div class=\"mainflip\" >
+            <div class=\"frontside\" >
+                <div class=\"card\" >
+                    <div class=\"card-body text-center\">
+                        <p><img class=\" img-fluid\" src=\"".$photo."\" alt=\"card image\"></p>
+                        <h4 class=\"pet-name card-title\">".$name."</h4>
+                        <p class=\"pet-descr card-text\">".$pet_is."</p>
+                        <div class=\"pet-info-tags clearfix\">
+                            <span class=\"badge badge-pill badge-info\">".$type."</span>
+                            <span class=\"badge badge-pill badge-danger\">".$pet_color."</span>
+                            <span class=\"badge badge-pill badge-success\">".$age."</span>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- ./Team member -->
-            <!-- Team member -->
-            <div class="search-res col-xs-12 col-sm-6 col-md-4" data-aos="fade-up">
-                <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                    <div class="mainflip">
-                        <div class="frontside">
-                            <div class="card">
-                                <div class="card-body text-center">
-                                    <p><img class=" img-fluid" src="img/brown-cat.jpg" alt="card image"></p>
-                                    <h4 class="pet-name card-title">Mushi</h4>
-                                    <p class="pet-descr card-text">mushi is an energetic, fun playful cat that just wants someone to hold her</p>
-
-                                    <div class="pet-info-tags clearfix">
-                                        <span class="badge badge-pill badge-info">#cat</span>
-                                        <span class="badge badge-pill badge-success">#brown</span>
-                                        <span class="badge badge-pill badge-danger">#white</span>
-                                        <span class="badge badge-pill badge-success">#2yrs</span>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="backside">
-                            <div class="card">
-                                <div class="card-body text-center mt-4">
-                                    <h4 class="card-title">Story</h4>
-                                    <p class="card-text">Mushi was found on the street cold and abandoned from her mother with no one to take care of her, she was saved and hopefully she will never have to feel cold again</p>
-                                    <p class="heart"><i  data-toggle="tooltip" data-placement="top" title="Add to Favorite" class="colorheart far fa-heart"></i></p>
-                                    <button type="button" class="btn btn-primary">Send a Request <i class="fas fa-paw"></i> </button>
-                                </div>
-                            </div>
-                        </div>
+            <div class=\"backside\" >
+                <div class=\"card\" >
+                    <div class=\"card-body text-center mt-4\">
+                        <h4 class=\"card-title\">Story</h4>
+                        <p class=\"card-text\">".$story."</p>
+                        <p class=\"heart\"><i  data-toggle=\"tooltip\" data-placement=\"top\" title=\"Like\" class=\"colorheart far fa-heart\"></i></p>
+                        <button type=\"button\" onclick=\"window.location.href='process.php?pet_id=".$petid."'\" class=\"btn btn-primary\">View Profile <i class=\"fas fa-paw\"></i> </button>
                     </div>
                 </div>
             </div>
-            <!-- ./Team member -->
-            <!-- Team member -->
-            <div class="search-res col-xs-12 col-sm-6 col-md-4" data-aos="fade-up">
-                <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                    <div class="mainflip">
-                        <div class="frontside">
-                            <div class="card">
-                                <div class="card-body text-center">
-                                    <p><img class=" img-fluid" src="img/brown-cat.jpg" alt="card image"></p>
-                                    <h4 class="pet-name card-title">Mushi</h4>
-                                    <p class="pet-descr card-text">mushi is an energetic, fun playful cat that just wants someone to hold her</p>
-
-                                    <div class="pet-info-tags clearfix">
-                                        <span class="badge badge-pill badge-info">#cat</span>
-                                        <span class="badge badge-pill badge-success">#brown</span>
-                                        <span class="badge badge-pill badge-danger">#white</span>
-                                        <span class="badge badge-pill badge-success">#2yrs</span>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="backside">
-                            <div class="card">
-                                <div class="card-body text-center mt-4">
-                                    <h4 class="card-title">Story</h4>
-                                    <p class="card-text">Mushi was found on the street cold and abandoned from her mother with no one to take care of her, she was saved and hopefully she will never have to feel cold again</p>
-                                    <p class="heart"><i data-toggle="tooltip" data-placement="top" title="Add to Favorite" class="colorheart far fa-heart"></i></p>
-                                    <button type="button" class="btn btn-primary">Send a Request <i class="fas fa-paw"></i> </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- ./Team member -->
-            <!-- Team member -->
-            <div class="search-res col-xs-12 col-sm-6 col-md-4" data-aos="fade-up">
-                <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                    <div class="mainflip">
-                        <div class="frontside">
-                            <div class="card">
-                                <div class="card-body text-center">
-                                    <p><img class=" img-fluid" src="img/brown-cat.jpg" alt="card image"></p>
-                                    <h4 class="pet-name card-title">Mushi</h4>
-                                    <p class="pet-descr card-text">mushi is an energetic, fun playful cat that just wants someone to hold her</p>
-
-                                    <div class="pet-info-tags clearfix">
-                                        <span class="badge badge-pill badge-info">#cat</span>
-                                        <span class="badge badge-pill badge-success">#brown</span>
-                                        <span class="badge badge-pill badge-danger">#white</span>
-                                        <span class="badge badge-pill badge-success">#2yrs</span>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="backside">
-                            <div class="card">
-                                <div class="card-body text-center mt-4">
-                                    <h4 class="card-title">Story</h4>
-                                    <p class="card-text">Mushi was found on the street cold and abandoned from her mother with no one to take care of her, she was saved and hopefully she will never have to feel cold again</p>
-                                    <p class="heart"><i  data-toggle="tooltip" data-placement="top" title="Add to Favorite" class="colorheart far fa-heart"></i></p>
-                                    <button type="button" class="btn btn-primary">Send a Request <i class="fas fa-paw"></i> </button>
-                                </div>
-                            </div>
-0                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- ./Team member -->
-
         </div>
+    </div>
+</div>";
+
+
+        }
+    }
+    echo "<div class=\"col-md-12\" >
+            <h3 style=\"text-align: center\">There's no more Results.</h3>
+    </div>";
+}
+else {
+echo "<div class=\"col-md-12\" >
+            <h3 style=\"text-align: center\">There's no Result</h3>
+    </div>";
+}
+
+?>
+
+
+
+            </div>
     </div>
 </section>
 

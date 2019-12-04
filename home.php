@@ -44,10 +44,10 @@ session_start();
   <!-- navbar -->
   <nav class="navbar navbar-expand-md navbar-light fixed-top" style="background: transparent;">
     <div class="d-flex w-50 order-0">
-      <a class="navbar-brand" href="home.php" style="height: 40px">
-        <img src="img/HiPaw black.png" width="40" height="40" class="d-inline-block align-top" alt="website icon" >
-        <div class="superFontHome" > Hi Paw!</div>
-      </a>
+        <a class="navbar-brand" href="home.php">
+            <img src="img/HiPaw black.png" width="45" height="45" class="d-inline-block align-top" alt="">
+            <div style="font-size: 30px" class="superFont d-inline-block"> Hi Paw!</div>
+        </a>
       <button id="toggleButton" class="navbar-toggler" data-toggle="collapse" data-target="#collapse_target">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -105,7 +105,7 @@ if(isset($_SESSION['user-id'])){
               </div>
           </li>";
     }
-   elseif ($_SESSION['user-table'] == 'adopter') {
+   elseif ($_SESSION['user-table'] == 'guardian') {
         echo " <li class=\"nav-item dropdown\">
               <a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"navbarDropdown3\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">
                   ".$username."
@@ -241,10 +241,10 @@ else{
 
 
 <!-- what we do -->
-<div id="whatWeDodiv" class="flex-container">
+<div id="whatWeDodiv" class="flex-container" >
   <div class="WhatWeDoContainer" style="padding:0 20px 20px 20px; background-color: white; position: relative;">
     <!-- <br><br> -->
-    <div class="row text-center">
+    <div class="row text-center" >
       <div class="Jumbotron col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <h3 class="section-title color-title bg-title WhatWeDo superFont" id="WhatWeDo" data-aos="fade-up"><br> <span> WHAT WE DO</span></h3>
         <hr class="display-1">

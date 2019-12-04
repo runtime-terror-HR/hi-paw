@@ -24,193 +24,165 @@
     <link rel="stylesheet" href="ContactFrom_v5/ContactFrom_v5/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 
     <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script>
-        $(document).ready(function(){
-        $('#textarea_div').on( 'change keyup keydown paste cut', 'textarea', function (){
-            $(this).height(0).height(this.scrollHeight);
-        }).find( 'textarea' ).change();
-        });
-    </script>
 
 
-    <style>
-
-        input[type=radio].with-font{
-            border: 0;
-            clip: rect(0 0 0 0);
-            height: 1px;
-            margin: -1px;
-            overflow: hidden;
-            padding: 0;
-            position: absolute;
-            width: 1px;
-
-        }
-        input[type=radio].with-font:checked +label.type:not(:checked){
-            color: #3880d6;
-            border: 1px solid #3880d6;
-            border-radius: 5px;
 
 
-        }
 
 
-        input[type=radio].with-font:checked +label.type:before{
-
-            color: #3880d6;
-
-        }
-
-        input[type=radio].with-font:focus +label.type:before ,
-        input[type=radio].with-font:focus +label.type
-        {
-
-            color: #3880d6;
-        }
-        .icon{
-
-            font-size: 80px;
-
-        }
-        label.type{
-            position: static;
-padding: 15px;
-            height: max-content;
-        }
-        .test{
-            overflow: visible;
-            text-align: center;
-            height: max-content;
-            width: 60%;
-            padding: 0;
-            margin-left: 20%;
-            margin-right: 20%;
-            margin-bottom: 0;
-        }
-        legend{
-            font-size: 1.3rem;
-        }
-        .radio_b {
-            position: static;
-            top: 10px;
-            left: 10px;
-        }
-        label.radio_b{
-            padding-left: 20px;
-            font-size: 17.6px;
-        }
-
-    </style>
-</head>
-<body>
-
-<div class="main" data-aos="zoom-in-up">
-    <!-- Sing in  Form -->
-    <div class="row justify-content-center" style="margin: 30px">
-        <div class="col-12-md justify-content-center">
-            <h1> Creat your Pet's Profile </h1></div>
-    </div>
-
-    <div class="sign-in" >
-        <img src="img/footprint.png" height="150" width="150" style="position: absolute; top: 10px; left: 20px; opacity: 50%"/>
-        <img src="img/photo1.png" height="150" width="150" style="position: absolute; top: 10px; right: 20px; opacity: 50%"/>
-
-        <img src="img/footprint.png" height="150" width="150" style="position: absolute; top: 250px; left: 20px; opacity: 50%"/>
-        <img src="img/footprint.png" height="150" width="150" style="position: absolute; top: 250px; right: 20px; opacity: 50%"/>
-
-        <img src="img/footprint.png" height="150" width="150" style="position: absolute; top: 490px; left: 20px; opacity: 50%"/>
-        <img src="img/footprint.png" height="150" width="150" style="position: absolute; top: 490px; right: 20px; opacity: 50%"/>
-
-        <div class="content container" data-aos="zoom-in-up">
-
-                    <form method="POST" class="register-form" id="login-form">
-                        <br><br><br>
-                        <div class="test form-group justify-content-center"  >
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <input id="cat" name="type" type="radio" class="with-font" value="sel" checked/>
-                                    <label for="cat" class="type"><i class="icon fas fa-cat"></i> Cat </label>
-                                </div>
-                                <div class="col-md-6">
-
-                                    <input id="dog" name="type" type="radio" class="with-font" value="sel" />
-                                    <label for="dog" class="type"><i class="icon fas fa-dog"></i> Dog </label>
-
-                                </div>
-                            </div>
-
-                            <br>
-                        </div>
-                        <div class="form-group">
-                        <fieldset style="width: 100%;">
-                            <legend style="width: max-content; margin-left: 10px"> What is your Pet's name ?</legend>
-
-                                <input id="name" type="text" placeholder="Your Pet's name" required><br>
-                            <label for="name"></label>
-                        </fieldset>
-                        </div>
-                        <div class="form-group">
-                            <fieldset style="width: 100%;">
-                                <legend style="width: max-content; margin-left: 10px"> How old is your Pet?</legend>
-                                <div>
-                                <input style="width: 45%; display: inline" id="age_year" type="number" max="20" placeholder="years" required>
-                                <input style="width: 45%; display: inline" id="age_month" type="number" max="12" placeholder="months" required>
-                                </div>
-                                <span style="display: inline-block; color: #7d7d7d; margin-left: 20px">use approximate age if necessary</span>
-                            </fieldset>
-                        </div>
-
-                        <div class="form-group">
-                            <fieldset style="width: 100%;">
-                                <legend style="width: max-content; margin-left: 10px"> What is your Pet's Story ?</legend>
-                                <div >In a few sentences, tell potential Adopters the things about your
-                                    cat that make your cat most endearing.
-                                    Fun behaviors, quirky habits: things that make your cat lovable.
-                                    Make it long enough and specific enough to make your cat stand out.
-                                    Prospective Adopters will see
-                                    this when they view your cat’s profile.</div><br>
-                                <div id="textarea_div">
-                                <textarea id="story" type="text" cols="10" placeholder="Your Pet's Story..." required>
-                                </textarea></div><br>
-
-                            </fieldset>
-                        </div>
-
-                        <div class="form-group">
-                            <fieldset style="width: 100%;">
-                                <legend style="width: max-content; margin-left: 10px"> General Information </legend>
-                                <span style="display: block; font-size: 17px; color: #373737; margin-bottom: 10px">Gender :</span>
-                                <div class="row" >
-                                    <div class="col-md-2">
-                                        <div class="custom-control custom-radio" style="display: inline; margin-left: 15px">
-                                            <input value="female" type="radio" id="female" name="gender" class="radio_b custom-control-input">
-                                            <label class="radio_b custom-control-label" for="female" > Female </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="custom-control custom-radio" style="display: inline;">
-                                            <input value="male" type="radio" id="male" name="gender" class="radio_b custom-control-input">
-                                            <label class="radio_b custom-control-label" for="male">Male</label>
-                                        </div>
-                                    </div>
-                                </div>
 
 
-                            </fieldset>
-                        </div>
 
-                        <div class="form-group form-button">
-                            <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>
-                        </div>
+    <?php
+
+if(isset($_SESSION['pet_ids_array'])) {
+    if(!isset($_SESSION['no_pets'])) {
+
+        $db = new mysqli("localhost", "root", "", "hipaw");
+        if ($db->errno) {
+    echo "error connecting to the database";
+    exit;
+    }
+    $id_arr = [];
+    $id_arr = $_SESSION['pet_ids_array'];
+    foreach ($id_arr as $petid) {
+    $stmt = $db->prepare("SELECT type, name, age_years, age_months, photo, story FROM pet WHERE id = ?");
+    $stmt->bind_param("i", $petid);
+    echo $petid;
+    $stmt->execute();
+    $stmt->store_result();
+    if($stmt->num_rows === 0){
+    $stmt->close();
+    exit("error selecting");
+    }
+    if($stmt->num_rows !== 0) {
+    $stmt->bind_result($type,$name, $agey, $agem,$photo, $story);
+    $stmt->fetch();
+    $stmt->close();
+    }
 
 
-                    </form>
+    $pet_is = "";
+    $stmt = $db->prepare("SELECT petis FROM pet_is WHERE pet_id = ?");
+    $stmt->bind_param("i", $petid);
+    $stmt->execute();
+    $stmt->store_result();
+    if($stmt->num_rows !== 0){
+    $pet_is = $name." is ";
+    $stmt->bind_result($idRow);
+    while($stmt->fetch()) {
+    $pet_is = $pet_is.", ".$idRow;
+    }
+    $pet_is = $pet_is." ".$type.".";
+    }
+    $stmt->close();
+    $pet_color = "#";
+    $stmt = $db->prepare("SELECT color FROM pet_color WHERE pet_id = ?");
+    $stmt->bind_param("i", $petid);
+    $stmt->execute();
+    $stmt->store_result();
+    if($stmt->num_rows !== 0){
+    $stmt->bind_result($colorRow);
+    while($stmt->fetch()) {
+    $pet_color = $pet_color.",".$colorRow;
+    }
+    }
+    $stmt->close();
+    $type = "#".$type;
+    if( $agey == 0)
+    $age = "#".$agem."mon";
+    else $age = "#".$agey."yrs";
 
+    echo "<div class=\"row\">";
+    echo " <div class=\"search-res col-xs-12 col-sm-6 col-md-4\" data-aos=\"fade-up\">
+    <div class=\"image-flip\" ontouchstart=\"this.classList.toggle('hover');\" >
+        <div class=\"mainflip\" >
+            <div class=\"frontside\" >
+                <div class=\"card\" >
+                    <div class=\"card-body text-center\">
+                    <p><img class=\" img-fluid\" src=\"".$photo."\" alt=\"card image\"></p>
+                    <h4 class=\"pet-name card-title\">".$name."</h4>
+                    <p class=\"pet-descr card-text\">".$pet_is."</p>
+                    <div class=\"pet-info-tags clearfix\">
+                    <span class=\"badge badge-pill badge-info\">".$type."</span>
+                    <span class=\"badge badge-pill badge-danger\">".$pet_color."</span>
+                    <span class=\"badge badge-pill badge-success\">".$age."</span>
+                </div>
+            </div>
         </div>
     </div>
-
+    <div class=\"backside\" >
+        <div class=\"card\" >
+            <div class=\"card-body text-center mt-4\">
+            <h4 class=\"card-title\">Story</h4>
+            <p class=\"card-text\">".$story."</p>
+            <p class=\"heart\"><i  data-toggle=\"tooltip\" data-placement=\"top\" title=\"Add to Favorite\" class=\"colorheart far fa-heart\"></i></p>
+            <button type=\"button\" onclick=\"window.location.href='process.php?pet_id=".$petid."'\" class=\"btn btn-primary\">View Profile <i class=\"fas fa-paw\"></i> </button>
+        </div>
+    </div>
 </div>
+    </div>
+    </div>
+    </div>";
 
+    }
+    }
+    }
+    else {
+    echo "<h3  style=\"margin-top: 40px; text-align: center;\" data-aos=\"fade-up\">There's no Pets Found</h3>
+    <div class=\"row\">";
+        }
+
+        ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+<div class="search-res col-xs-12 col-sm-6 col-md-4" data-aos="fade-up">
+    <div class="image-flip" ontouchstart="this.classList.toggle('hover');" >
+        <div class="mainflip" >
+            <div class="frontside" >
+                <div class="card" style="height: 800px">
+                    <div class="card-body text-center">
+                        <p><img class=" img-fluid" src="img/brown-cat.jpg" alt="card image"></p>
+                        <h4 class="pet-name card-title">Mushi</h4>
+                        <p class="pet-descr card-text">mushi is an energetic, fun playful cat that just wants someone to hold her</p>
+                        <div class="pet-info-tags clearfix">
+                            <span class="badge badge-pill badge-info">#cat</span>
+                            <span class="badge badge-pill badge-danger">#white</span>
+                            <span class="badge badge-pill badge-success">#2yrs</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="backside" >
+                <div class="card" style="height: 800px">
+                    <div class="card-body text-center mt-4">
+                        <h4 class="card-title">Story</h4>
+                        <p class="card-text">Mushi was found on the street cold and abandoned from her mother with no one to take care of her, she was saved and hopefully she will never have to feel cold again</p>
+                        <p class="heart"><i  data-toggle="tooltip" data-placement="top" title="Add to Favorite" class="colorheart far fa-heart"></i></p>
+                        <button type="button" onclick="viewpetprofile()" class="btn btn-primary">View Profile <i class="fas fa-paw"></i> </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- JS -->
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="js/main.js"></script>

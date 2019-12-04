@@ -706,6 +706,31 @@ Extra (xl) large devices (large desktops, 1200px and up)
     height: 170px;
 }}
 
+@media screen and (min-width:1292px) and (max-width:1375px){
+    .WhatWeDoContainer{
+        padding: 0px 20px 20px 20px;
+        background-color: white;
+        position: relative;
+        margin-top: 3vw;
+    }
+}
 
+@media screen and (min-width:1376px) and (max-width:1487px){
+    .WhatWeDoContainer{
+        padding: 0px 20px 20px 20px;
+        background-color: white;
+        position: relative;
+        margin-top: 4.5vw;
+    }
+}
+
+@media screen and (min-width:1488px) {
+    .WhatWeDoContainer{
+        padding: 0px 20px 20px 20px;
+        background-color: white;
+        position: relative;
+        margin-top: 6vw;
+    }
+}
 
 

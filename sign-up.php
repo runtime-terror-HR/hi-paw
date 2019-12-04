@@ -194,7 +194,7 @@ session_start();
                         <div class="form-group">
                             <div class="custom-control custom-radio">
                                 <input value="adopter" type="radio" id="adopter" name="aorg" class="radio_b custom-control-input" <?php if(isset($_GET['q'])){{
-                                    if(isset($_GET['q'])=='adopter')
+                                    if($_GET['q']=='adopter')
                                     echo "checked";}}
                                     else echo "checked";
                                         ?>>
@@ -203,7 +203,7 @@ session_start();
                             <div class="radio_b custom-control custom-radio">
                                 <input value="guardian" type="radio" id="guardian" name="aorg" class="radio_b custom-control-input"
                                     <?php if(isset($_GET['q'])){
-                                        if(isset($_GET['q'])=='guardian')
+                                        if($_GET['q']=='guardian')
                                             echo "checked";}
                                     ?>>
                                 <label class="radio_b custom-control-label" for="guardian">I want to rehome a pet.</label>

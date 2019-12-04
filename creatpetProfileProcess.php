@@ -16,26 +16,13 @@ $gender = $_POST['gender'];
 $size = $_POST['size'];
 $food = $_POST['food'];
 $alone = $_POST['alone'];
-/*
-if(!empty($_POST['pet_is_list'])) {
-    foreach ($_POST['pet_is_list'] as $selected) {
-        //
-    }
-}
-if(!empty($_POST['pet_likes_list'])) {
-    foreach ($_POST['pet_likes_list'] as $selected) {
-        //
-    }
-}
-if(!empty($_POST['pet_good_list'])) {
-    foreach ($_POST['pet_good_list'] as $selected) {
-        //
-    }
-}*/
-$medical = $_POST['medical'];
-if( $medical == 'yes'){
+
+
+
+if( isset($_POST['medical'])){
     $medical_des = $_POST['medical_des'];;
 }
+else $medical_des="";
 if(!empty($_POST['medical_des'])){
     $additional = $_POST['medical_des'];
 }
@@ -45,10 +32,11 @@ $stmt = $db->prepare("INSERT INTO pet"." (name, type, age_years, age_months, gen
 $stmt->bind_param("ssiisssssssss", $petn, $type, $agey, $agem, $gender, $size, $food, $_SESSION['user-id'], $story, $medical_des, $additional, $_SESSION['city'], $alone);
 $stmt->execute();
 $_SESSION['pet-id']=$db->insert_id;
-$stmt->close();
 if($stmt->affected_rows == 0) {
-   echo "error";
+    echo "error";
 }
+$stmt->close();
+
 
 if (isset($_FILES['image'])) {
     $error = arraY();
@@ -75,9 +63,56 @@ $stmt->bind_param("si", $path, $_SESSION['pet-id']);
 $stmt->execute();
 $stmt->close();
 
-/*
-    header("Location:guardian_profile.html");
-    exit();}
+if(!empty($_POST['pet_is_list'])) {
+    foreach ($_POST['pet_is_list'] as $selected) {
+        $stmt = $db->prepare("INSERT INTO pet_is"." (pet_id, petis) VALUES (?, ?)");
+        $stmt->bind_param("is",  $_SESSION['pet-id'], $selected);
+        $stmt->execute();
+        if($stmt->affected_rows == 0) {
+            echo "error";
+        }
+        $stmt->close();
+    }
+}
+if(!empty($_POST['pet_likes_list'])) {
+    foreach ($_POST['pet_likes_list'] as $selected) {
+        $stmt = $db->prepare("INSERT INTO pet_likes"." (pet_id, likes) VALUES (?, ?)");
+        $stmt->bind_param("is",  $_SESSION['pet-id'], $selected);
+        $stmt->execute();
+        if($stmt->affected_rows == 0) {
+            echo "error";
+        }
+        $stmt->close();
 
-*/
+    }
+}
+if(!empty($_POST['pet_good_list'])) {
+    foreach ($_POST['pet_good_list'] as $selected) {
+        $stmt = $db->prepare("INSERT INTO pet_goodwith"." (pet_id, good_with) VALUES (?, ?)");
+        $stmt->bind_param("is",  $_SESSION['pet-id'], $selected);
+        $stmt->execute();
+        if($stmt->affected_rows == 0) {
+            echo "error";
+        }
+        $stmt->close();
+
+    }
+}
+if(!empty($_POST['pet_color'])) {
+    foreach ($_POST['pet_color'] as $selected) {
+        $stmt = $db->prepare("INSERT INTO pet_color"." (pet_id, color) VALUES (?, ?)");
+        $stmt->bind_param("is",  $_SESSION['pet-id'], $selected);
+        $stmt->execute();
+        if($stmt->affected_rows == 0) {
+            echo "error";
+        }
+        $stmt->close();
+
+    }
+}
+
+    header("Location:home.php");
+    exit();
+
+
 

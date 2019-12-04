@@ -160,9 +160,9 @@ session_start();
 
 <div class="main" data-aos="zoom-in-up">
     <div style="position: absolute; top: 20px; left: 20px" class="d-flex w-50 order-0">
-        <a class="navbar-brand" href="home.html" style="height: 40px">
+        <a class="navbar-brand" href="home.php" style="height: 40px">
             <img src="img/HiPaw black.png" width="40" height="40" class="d-inline-block align-top" alt="website icon" >
-            <div class="superFontHome" > Hi Paw!</div>
+            <div style="color: #0a0a0a; font-size: 25px" class="superFont d-inline-block" > Hi Paw!</div>
         </a>
         <button id="toggleButton" class="navbar-toggler" data-toggle="collapse" data-target="#collapse_target">
             <span class="navbar-toggler-icon"></span>
@@ -194,7 +194,7 @@ session_start();
 
         <div class="content container" data-aos="zoom-in-up">
 
-            <form method="POST" action="petProfileProcess.php" enctype="multipart/form-data" class="register-form" id="login-form">
+            <form method="POST" action="creatpetProfileProcess.php" enctype="multipart/form-data" class="register-form" id="login-form">
                 <br><br><br>
                 <div class="test form-group justify-content-center"  >
                     <div class="row">
@@ -339,31 +339,31 @@ session_start();
                         <div class="row">
                             <div class="boxes">
 
-                                <input name="pet_is_list[]" type="checkbox" id="box-1">
+                                <input name="pet_is_list[]" type="checkbox" id="box-1" value="Active" checked>
                                 <label for="box-1">Active (lots of energy)</label>
 
-                                <input name="pet_is_list[]" type="checkbox" id="box-5" >
+                                <input name="pet_is_list[]" type="checkbox" id="box-5" value="Calm" checked >
                                 <label for="box-5">Calm </label>
 
-                                <input name="pet_is_list[]" type="checkbox" id="box-6">
+                                <input name="pet_is_list[]" type="checkbox" id="box-6" value="Friendly" checked >
                                 <label for="box-6">Friendly</label>
 
-                                <input name="pet_is_list[]" type="checkbox" id="box-9">
+                                <input name="pet_is_list[]" type="checkbox" id="box-9" value="Shy">
                                 <label for="box-9">Shy (hides)</label>
 
-                                <input name="pet_is_list[]" type="checkbox" id="box-4">
+                                <input name="pet_is_list[]" type="checkbox" id="box-4" value="Nervous">
                                 <label for="box-4">Nervous</label>
                                 <br>
-                                <input name="pet_is_list[]" type="checkbox" id="box-2" >
+                                <input name="pet_is_list[]" type="checkbox" id="box-2" value="Quiet">
                                 <label for="box-2">Quiet (laid back) </label>
 
-                                <input name="pet_is_list[]" type="checkbox" id="box-3">
+                                <input name="pet_is_list[]" type="checkbox" id="box-3" value="Sensitive">
                                 <label for="box-3">Sensitive</label>
 
-                                <input name="pet_is_list[]" type="checkbox" id="box-7">
+                                <input name="pet_is_list[]" type="checkbox" id="box-7" value="Eager to please">
                                 <label for="box-7">Eager to please</label>
 
-                                <input name="pet_is_list[]" type="checkbox" id="box-8" >
+                                <input name="pet_is_list[]" type="checkbox" id="box-8" value="Affectionate ">
                                 <label for="box-8">Affectionate </label>
                             </div>
                         </div>
@@ -371,22 +371,22 @@ session_start();
                         <div class="row">
                             <div class="boxes">
 
-                                <input name="pet_likes_list[]" type="checkbox" id="likes-1">
+                                <input name="pet_likes_list[]" type="checkbox" id="likes-1" value="To be held or carried ">
                                 <label for="likes-1">To be held or carried </label>
 
-                                <input name="pet_likes_list[]" type="checkbox" id="likes-2" >
+                                <input name="pet_likes_list[]" type="checkbox" id="likes-2" value="To be brushed">
                                 <label for="likes-2">To be brushed</label>
 
-                                <input name="pet_likes_list[]" type="checkbox" id="likes-3">
+                                <input name="pet_likes_list[]" type="checkbox" id="likes-3" value="To hunt">
                                 <label for="likes-3">To hunt</label>
 
-                                <input name="pet_likes_list[]" type="checkbox" id="likes-4">
+                                <input name="pet_likes_list[]" type="checkbox" id="likes-4" value="To be with people">
                                 <label for="likes-4">To be with people</label>
 
-                                <input name="pet_likes_list[]" type="checkbox" id="likes-5">
+                                <input name="pet_likes_list[]" type="checkbox" id="likes-5" value="To be petted">
                                 <label for="likes-5">To be petted</label>
 
-                                <input name="pet_likes_list[]" type="checkbox" id="likes-6" >
+                                <input name="pet_likes_list[]" type="checkbox" id="likes-6" value="To ride in the car">
                                 <label for="likes-6">To ride in the car</label>
 
 
@@ -394,21 +394,21 @@ session_start();
                         </div>
                         <span class="info_span">your pet is good with . . .</span>
                         <div class="row">
-                            <div class="boxes">
+                            <div class="boxes" >
 
-                                <input name="pet_good_list[]" type="checkbox" id="goodwith-1">
+                                <input name="pet_good_list[]" type="checkbox" id="goodwith-1" value="Dogs">
                                 <label for="goodwith-1">Dogs</label>
 
-                                <input name="pet_good_list[]" type="checkbox" id="goodwith-2" >
+                                <input name="pet_good_list[]" type="checkbox" id="goodwith-2" value="Cats">
                                 <label for="goodwith-2">Cats</label>
 
-                                <input name="pet_good_list[]" type="checkbox" id="goodwith-3">
+                                <input name="pet_good_list[]" type="checkbox" id="goodwith-3" value="Children under 5">
                                 <label for="goodwith-3">Children under 5</label>
 
-                                <input name="pet_good_list[]" type="checkbox" id="goodwith-5">
+                                <input name="pet_good_list[]" type="checkbox" id="goodwith-5" value="Children over 5">
                                 <label for="goodwith-5">Children over 5</label>
 
-                                <input name="pet_good_list[]" type="checkbox" id="goodwith-6" >
+                                <input name="pet_good_list[]" type="checkbox" id="goodwith-6" value="New People">
                                 <label for="goodwith-6">New People</label>
 
                             </div>
@@ -446,6 +446,28 @@ session_start();
                 <div class="form-group">
                     <fieldset style="width: 100%;">
                         <legend style="width: max-content; margin-left: 10px"> A picture of your pet</legend>
+                        <span class="info_span">your pet colors . . . (choose your pet's most prominent colors)</span>
+                        <div class="row">
+                            <div class="boxes">
+
+                                <input name="pet_color[]" type="checkbox" id="color-1" value="black">
+                                <label for="color-1">Black</label>
+
+                                <input name="pet_color[]" type="checkbox" id="color-2" value="brown">
+                                <label for="color-2">Brown</label>
+
+                                <input name="pet_color[]" type="checkbox" id="color-3" value="paige">
+                                <label for="color-3">Paige</label>
+
+                                <input name="pet_color[]" type="checkbox" id="color-4" value="white">
+                                <label for="color-4">white</label>
+
+                                <input name="pet_color[]" type="checkbox" id="color-5" value="grey">
+                                <label for="color-5">Grey</label>
+
+
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
 
