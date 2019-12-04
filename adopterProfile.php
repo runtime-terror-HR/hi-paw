@@ -39,7 +39,7 @@
         function viewSavedPets() {
             document.getElementById('savedPetsDemo').style.display="block";
             document.getElementById('profileInfoDemo').style.display="none";
-            document.getElementById('savedPetsIcon').style.color="rgb(201, 13, 13);";
+            document.getElementById('savedPetsIcon').style.color="#c90d0d";
             document.getElementById('profileIcon').style.color="";
             document.getElementById('chatIcon').style.color="";
         }
