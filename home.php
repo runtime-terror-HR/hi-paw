@@ -105,7 +105,7 @@ if(isset($_SESSION['user-id'])){
               </div>
           </li>";
     }
-   elseif ($_SESSION['user-table'] == 'adopter') {
+   elseif ($_SESSION['user-table'] == 'guardian') {
         echo " <li class=\"nav-item dropdown\">
               <a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"navbarDropdown3\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">
                   ".$username."
