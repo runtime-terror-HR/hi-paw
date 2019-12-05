@@ -11,7 +11,7 @@ session_start();
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Simple Sidebar - Start Bootstrap Template</title>
+    <title>Hi Paw</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -43,7 +43,7 @@ session_start();
                 <span class="title" > My Profile</span></a>
             <?php
             if($_SESSION['user-table']=='adopter'){
-                echo " <a href=\"#\" class=\"list-group-item list-group-item-action bg-light\"><i style=\" margin-right: 15px;\" class=\"fas fa-heart\"></i>Saved Pets</a>";
+                echo " <a href=\"savedPets.php\" class=\"list-group-item list-group-item-action bg-light\"><i style=\" margin-right: 15px;\" class=\"fas fa-heart\"></i>Saved Pets</a>";
             }
             else {
                 echo " <a href=\"profile_mypets.php\" class=\"list-group-item list-group-item-action bg-light\"><i style=\" margin-right: 15px;\" class=\"fas fa-paw\"></i>My Pets</a>";
