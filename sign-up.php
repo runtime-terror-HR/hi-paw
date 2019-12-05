@@ -62,7 +62,6 @@ session_start();
         function validate_pass(){
            if( document.getElementById("re_pass").value !== document.getElementById("pass").value){
                document.getElementById("re_pass").style.border = "2px solid #c93441";
-               document.getElementById("re_pass").style.backgroundColor= "#e06760";
 
                event.preventDefault();
                returnToPreviousPage();
@@ -101,20 +100,20 @@ session_start();
                     <a class="dropdown-item" href="home.php#whatWeDodiv">What We Do</a>
                     <a class="dropdown-item" href="home.php#HowItWorks">How It Works</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">People Are Saying</a>
+                    <a class="dropdown-item" href="home.php">People Are Saying</a>
                 </div>
             </li>
             <li class="navbar-item">
-                <a class="nav-link" href="#">Adopt</a>
+                <a class="nav-link" href="sign-up.php?q=adopter">Adopt</a>
             </li>
             <li class="navbar-item">
-                <a class="nav-link" href="#">Rehome</a>
+                <a class="nav-link" href="sign-up.php?q=guardian">Rehome</a>
             </li>
             <li class="navbar-item">
-                <a class="nav-link" href="#">Login</a>
+                <a class="nav-link" href="log-in.php">Login</a>
             </li>
             <li class="navbar-item">
-                <a class="nav-link" href="home.html#contact">Contact</a>
+                <a class="nav-link" href="home.php#contact">Contact</a>
             </li>
         </ul>
     </div>

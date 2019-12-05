@@ -12,10 +12,14 @@ session_start();
     <meta name="author" content="">
 
     <title>Hi Paw</title>
-
+    <link rel="shortcut icon" href="http://localhost/hi-paw/favicon.ico" />
+    <link rel="stylesheet" href="css/nav_css.css">
+    <script>
+        import 'bootstrap/dist/js/bootstrap.bundle';
+    </script>
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/nav_css.css">
+
     <!-- Custom styles for this template -->
     <link href="css/simple-sidebar.css" rel="stylesheet">
     <link href="css/userProfileInfo.css" rel="stylesheet">
@@ -25,7 +29,13 @@ session_start();
 
 </head>
 <style>
+    .list-group-item:hover{
+        color: #cf3d3b;
+    }
+    .footprints{
+        background: transparent;
 
+    }
 </style>
 <body>
 
@@ -38,7 +48,7 @@ session_start();
                 <div style="color: #0a0a0a; font-size: 30px; margin-top: 12px" class="superFont d-inline-block"> Hi Paw!</div>
             </a></div>
         <div class="list-group list-group-flush">
-            <a  style="background-color: #c4c4c4 !important;"  href="adopterProfile.php" data-toggle="prof_toggle" class="list-group-item list-group-item-action bg-light"><span> <i style=" margin-right: 15px;" class="fas fa-user"></i>
+            <a style="background-color: #e2e2e2 !important;" href="adopterProfile.php" data-toggle="prof_toggle" class="list-group-item list-group-item-action bg-light"><span> <i style=" margin-right: 15px;" class="fas fa-user"></i>
                 </span>
                 <span class="title" > My Profile</span></a>
             <?php
@@ -47,11 +57,12 @@ session_start();
             }
             else {
                 echo " <a href=\"profile_mypets.php\" class=\"list-group-item list-group-item-action bg-light\"><i style=\" margin-right: 15px;\" class=\"fas fa-paw\"></i>My Pets</a>";
+      echo "<a href=\"request_m.php\" class=\"list-group-item list-group-item-action bg-light\"><span id=\"chatIcon\" class=\"icon-holder\">
+                      <i style=\" margin-right: 15px;\" class=\"fas fa-comments\"></i>
+                    </span><span class=\"title\">Requests</span></a>";
             }
             ?>
-            <a href="#" class="list-group-item list-group-item-action bg-light"><span id="chatIcon" class="icon-holder">
-                      <i style=" margin-right: 15px;" class="fas fa-comments"></i>
-                    </span><span class="title">Requests</span></a>
+
 
             <a href="logout.php" class="list-group-item list-group-item-action bg-light"><i style=" margin-right: 15px;" class="fas fa-sign-out-alt"></i>
                 <span class="title">Sign out</span></a>
@@ -62,7 +73,7 @@ session_start();
 
     <!-- Page Content -->
     <div id="page-content-wrapper">
-
+        <img src="img/testbg.png" style="position: absolute; bottom: 10px; right: 30px" alt="">
         <nav class="navbar navbar-expand-md navbar-light" style="background-color: #f0f0f0;">
             <button class="btn btn-white" style="background: transparent" id="menu-toggle"><span class="navbar-toggler-icon"></button>
 
@@ -76,10 +87,10 @@ session_start();
                         <a class="nav-link" href="home.php">Home</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             About Us
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
                             <a class="dropdown-item" href="home.php#whatWeDodiv">What We Do</a>
                             <a class="dropdown-item" href="home.php#HowItWorks">How It Works</a>
                             <div class="dropdown-divider"></div>
@@ -164,63 +175,62 @@ session_start();
         <?php
         $db = new mysqli("localhost", "root", "", "hipaw");
         if($db->errno){
-        echo "error connecting to the database";
-        exit;
+            echo "error connecting to the database";
+            exit;
         }
-
         $stmt ="SELECT * FROM ".$_SESSION['user-table']." WHERE id=".$_SESSION['user-id'];
         $result = mysqli_query($db, $stmt);
         if (mysqli_num_rows($result) > 0) {
-        $row = mysqli_fetch_array($result);
-        $userName=$row["name"];
-        $userEmail=$row["email"];
-        $userNum=$row["number"];
-        $userCity=$row["city"];
+            $row = mysqli_fetch_array($result);
+            $userName=$row["name"];
+            $userEmail=$row["email"];
+            $userNum=$row["number"];
+            $userCity=$row["city"];
         }
         ?>
         <div class="container-fluid" style="margin-left: 20px;">
 
-                <div class="row text-center" style="text-align: center;">
-                    <div class="col-xs-6">
-                        <div class="userImg ">
-                            <img src="img/default-user-profile-image-png-2.png" width="100%">
-                        </div>
-                    </div>
-                    <div class="col-xs-6 align-self-center">
-                        <div class="userName superFont">
-                            Hi <?php  echo $username;    ?>
-                        </div>
+            <div class="row text-center" style="text-align: center;">
+                <div class="col-xs-6">
+                    <div class="userImg ">
+                        <img src="img/default-user-profile-image-png-2.png" width="100%">
                     </div>
                 </div>
+                <div class="col-xs-6 align-self-center">
+                    <div class="userName superFont">
+                        Hi <?php  echo $username;    ?>
+                    </div>
+                </div>
+            </div>
 
-                <div class="row">
-                    <div class="container infoCard">
-                        <div>
-                            <br>
-                            <label>Name</label>
-                            <span class="viewEditIcon">
+            <div class="row">
+                <div class="container infoCard">
+                    <div>
+                        <br>
+                        <label>Name</label>
+                        <span class="viewEditIcon">
           <div class="superFont">
             <?php  echo $username;    ?>
             <a href="#" class="edit"><i class="fas fa-pencil-alt"></i></a>
           </div>
         </span>
-                            <hr>
-                            <span class="viewEditIcon">
+                        <hr>
+                        <span class="viewEditIcon">
           <label>Email</label>
           <div class="superFont">
             <?php  echo $userEmail;    ?>
             <a href="#" class="edit"><i class="fas fa-pencil-alt"></i></a>
           </div>
         </span>
-                            <hr>
-                            <span class="viewEditIcon">
+                        <hr>
+                        <span class="viewEditIcon">
           <label>Number</label>
           <div class="superFont">
             <?php  echo $userNum;    ?>
             <a href="#" class="edit"><i class="fas fa-pencil-alt"></i></a>
           </div> </div>
-                                <hr>
-                            <span class="viewEditIcon">
+                    <hr>
+                    <span class="viewEditIcon">
           <label>City</label>
           <div class="superFont">
             <?php  echo $userCity;    ?>
@@ -229,12 +239,12 @@ session_start();
           <br>
         </span>
 
-                    </div>
                 </div>
-
             </div>
-            <!--end profile info-->
-            <br><br><br><br><br>
+
+        </div>
+        <!--end profile info-->
+        <br><br><br><br><br>
 
 
     </div>

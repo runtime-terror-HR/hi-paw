@@ -11,7 +11,8 @@ $city = $_POST['city'];
 $name=$_POST["name"];
 $email=$_POST["email"];
 $pass=$_POST["pass"];
-
+$_SESSION['email'] = $email;
+$_SESSION['password'] = $pass;
 
 $stmt = $db->prepare("SELECT id FROM guardian WHERE email = ?");
 $stmt->bind_param("s", $email);
@@ -49,7 +50,7 @@ if($stmt->affected_rows == 0) {
 }
 $stmt->close();
 if ($table == "adopter"){
-header("Location:home.php");
+header("Location:searchPage.php");
 exit();}
 else{
     header("Location:creatPetProfile.php");
