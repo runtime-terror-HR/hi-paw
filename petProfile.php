@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$_SESSION['pet_id'] = 3;       //$_GET['pet_id'];   //comes from another page.
+$_SESSION['pet_id'] = $_GET['pet_id'];   //comes from another page.
 $PetId = $_SESSION['pet_id'];
 //$petName= $ownerName=$type=$gender=$size=$years=$months="";
 
