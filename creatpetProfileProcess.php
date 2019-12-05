@@ -23,8 +23,8 @@ if( isset($_POST['medical'])){
     $medical_des = $_POST['medical_des'];;
 }
 else $medical_des="";
-if(!empty($_POST['medical_des'])){
-    $additional = $_POST['medical_des'];
+if(!empty($_POST['additional'])){
+    $additional = $_POST['additional'];
 }
 else $additional = 'NULL';
 
@@ -111,7 +111,7 @@ if(!empty($_POST['pet_color'])) {
     }
 }
 
-    header("Location:home.php");
+    header("Location:profile_mypets.php");
     exit();
 
 

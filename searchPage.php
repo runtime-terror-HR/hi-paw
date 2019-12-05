@@ -135,6 +135,9 @@ session_start();
             $('[data-toggle="tooltip"]').tooltip();
         });
 
+function likepet(id) {
+
+}
     </script>
     <style>
 
@@ -256,15 +259,75 @@ session_start();
                         <a class="dropdown-item" href="#">People Are Saying</a>
                     </div>
                 </li>
-                <li class="navbar-item">
-                    <a class="nav-link" href="#">Adopt</a>
-                </li>
-                <li class="navbar-item">
-                    <a class="nav-link" href="#">Rehome</a>
-                </li>
-                <li class="navbar-item">
-                    <a class="nav-link" href="#">Login</a>
-                </li>
+
+
+                <?php
+                if(isset($_SESSION['user-id'])){
+                    $db = new mysqli("localhost", "root", "", "hipaw");
+                    if($db->errno){
+                        echo "error connecting to the database";
+                        exit;
+                    }
+                    $stmt = $db->prepare("SELECT name FROM ".$_SESSION['user-table']." WHERE id = ?");
+                    $stmt->bind_param("s",  $_SESSION['user-id']);
+                    $stmt->execute();
+//fetching result would go here, but will be covered later
+                    $stmt->store_result();
+                    if($stmt->num_rows !== 0) {
+                        $stmt->bind_result($username);
+                        $stmt->fetch();
+                        $stmt->close();
+                    }
+                    else {
+                        exit('error invalid user id ');
+                    }
+                    if($_SESSION['user-table'] == 'adopter'){
+                        echo " <li class=\"nav-item dropdown\">
+              <a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"navbarDropdown2\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">
+                  ".$username."
+              </a>
+              <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown2\">
+                  <a class=\"dropdown-item\" href=\"#whatWeDodiv\">Profile</a>
+                  <div class=\"dropdown-divider\"></div>
+                  <a class=\"dropdown-item\" href=\"#HowItWorks\">Browse Pets</a>
+                  <a class=\"dropdown-item\" href=\"#HowItWorks\">Saved Pets</a>
+                  <div class=\"dropdown-divider\"></div>
+                  <a class=\"dropdown-item\" href=\"logout.php\">Log out</a>
+              </div>
+          </li>";
+                    }
+                    elseif ($_SESSION['user-table'] == 'guardian') {
+                        echo " <li class=\"nav-item dropdown\">
+              <a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"navbarDropdown3\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">
+                  ".$username."
+              </a>
+              <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown3\">
+                  <a class=\"dropdown-item\" href=\"#whatWeDodiv\">Profile</a>
+                  <div class=\"dropdown-divider\"></div>
+                  <a class=\"dropdown-item\" href=\"#HowItWorks\">View Own Pets</a>
+                  <a class=\"dropdown-item\" href=\"#HowItWorks\">Requests</a>
+                  <div class=\"dropdown-divider\"></div>
+                  <a class=\"dropdown-item\" href=\"logout.php\">Log out</a>
+              </div>
+          </li>";
+                    }
+                }
+                else{
+                    echo " <li class=\"navbar-item\">
+              <a class=\"nav-link\" href=\"sign-up.php?q=adopter\">Adopt</a>
+          </li>
+          <li class=\"navbar-item\">
+              <a class=\"nav-link\" href=\"sign-up.php?q=guardian\">Rehome</a>
+          </li>
+        <li class=\"navbar-item\">
+          <a class=\"nav-link\" href=\"log-in.php\" style=\"margin-right: 2px; padding-right: 0\">Log in </a>
+        </li>
+        <li class=\"navbar-item\">
+          <a class=\"nav-link\" href=\"sign-up.php\" style=\"margin-left: 1px; padding-left: 0\">| Sign up</a>
+        </li>";
+                }
+                ?>
+
                 <li class="navbar-item">
                     <a class="nav-link" href="home.php#contact">Contact</a>
                 </li>
@@ -472,8 +535,8 @@ echo " <div class=\"search-res col-xs-12 col-sm-6 col-md-4\" data-aos=\"fade-up\
                     <div class=\"card-body text-center mt-4\">
                         <h4 class=\"card-title\">Story</h4>
                         <p class=\"card-text\">".$story."</p>
-                        <p class=\"heart\"><i  data-toggle=\"tooltip\" data-placement=\"top\" title=\"Like\" class=\"colorheart far fa-heart\"></i></p>
-                        <button type=\"button\" onclick=\"window.location.href='process.php?pet_id=".$petid."'\" class=\"btn btn-primary\">View Profile <i class=\"fas fa-paw\"></i> </button>
+                        <p class=\"heart\"><i  data-toggle=\"tooltip\" data-placement=\"top\" title=\"Like\" id='likedb' onclick=\"likepet(".$petid.")\" class=\"colorheart far fa-heart\"></i></p>
+                        <button type=\"button\" onclick=\"window.location.href='petProfile.php?pet_id=".$petid."'\" class=\"btn btn-primary\">View Profile <i class=\"fas fa-paw\"></i> </button>
                     </div>
                 </div>
             </div>

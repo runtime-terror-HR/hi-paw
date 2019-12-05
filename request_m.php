@@ -1,5 +1,65 @@
 <?php
 session_start();
+$db = new mysqli("localhost", "root", "", "hipaw");
+if($db->errno){
+    echo "error connecting to the database";
+    exit;
+}
+$stmt = $db->prepare("SELECT id, pet_id, adopter_id FROM request WHERE guardian_id = ?");
+$stmt->bind_param("i",  $_SESSION['user-id']);
+$stmt->execute();
+//fetching result would go here, but will be covered later
+$stmt->store_result();
+if($stmt->num_rows !== 0) {
+    $requestid = array();
+    $petids = array();
+    $petnames = array();
+    $petphoto = array();
+    $adoptername = array();
+    $adopter = array();
+    $stmt->bind_result($idrow, $idp,$idad);
+    while($stmt->fetch()) {
+        $requestid[] = $idrow;
+        $petids[] = $idp;
+        $adopter[] = $idad;
+    }
+    $stmt->close();
+    for( $i = 0;$i< count($petids); $i++) {
+        $stmt = $db->prepare("SELECT name, photo FROM pet WHERE id = ?");
+        $stmt->bind_param("i", $petids[$i]);
+        $stmt->execute();
+//fetching result would go here, but will be covered later
+        $stmt->store_result();
+        if ($stmt->num_rows !== 0) {
+            $stmt->bind_result($petnames[$i], $petphoto[$i]);
+            $stmt->fetch();
+            $stmt->close();
+        } else {
+            exit('error invalid user id ');
+        }
+
+        $stmt = $db->prepare("SELECT name FROM adopter WHERE id = ?");
+        $stmt->bind_param("i", $adopter[$i]);
+        $stmt->execute();
+//fetching result would go here, but will be covered later
+        $stmt->store_result();
+        if ($stmt->num_rows !== 0) {
+            $stmt->bind_result($adoptername);
+            $stmt->fetch();
+            $stmt->close();
+        } else {
+            exit('error invalid user id ');
+        }
+
+    }
+}
+else {
+    $nodata = '1';
+}
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,10 +105,10 @@ session_start();
                 </span>
                 <span class="title" > My Profile</span></a>
 
-            <a href="profile_mypets.php" style="background-color: #e2e2e2 !important; " class="list-group-item list-group-item-action bg-light"><i style=" margin-right: 15px;" class="fas fa-paw"></i>My Pets</a>
+            <a href="profile_mypets.php" class="list-group-item list-group-item-action bg-light"><i style=" margin-right: 15px;" class="fas fa-paw"></i>My Pets</a>
 
 
-            <a href="request_m.php" class="list-group-item list-group-item-action bg-light"><span id="chatIcon" class="icon-holder">
+            <a href="request_m.php" style="background-color: #e2e2e2 !important; "  class="list-group-item list-group-item-action bg-light"><span id="chatIcon" class="icon-holder">
                       <i style=" margin-right: 15px;" class="fas fa-comments"></i>
                     </span><span class="title">Requests</span></a>
 
@@ -60,8 +120,7 @@ session_start();
     <!-- /#sidebar-wrapper -->
 
     <!-- Page Content -->
-    <div id="page-content-wrapper" style="background-color: white;">
-        <img src="img/testbg.png" style="position: absolute; bottom: 10px; right: 30px" alt="">
+    <div id="page-content-wrapper" style="background-color: white; ">
         <img src="img/testbg.png" style="position: absolute; bottom: 10px; right: 30px" alt="">
         <nav class="navbar navbar-expand-md navbar-light" style="background-color: #f0f0f0;">
             <button class="btn btn-white" style="background: transparent" id="menu-toggle"><span class="navbar-toggler-icon"></button>
@@ -163,133 +222,37 @@ session_start();
 
         <div class="container-fluid" style=" padding-top: 20px;">
             <div class="footprints container" style="padding: 40px;">
-            <div class="row">
+                <div class="row">
 <?php
-$db = new mysqli("localhost", "root", "", "hipaw");
-if($db->errno){
-    echo "error connecting to the database";
-    exit;
-}
+if(!isset($nodata)) {
+    for ($i = 0; $i < count($petids); $i++) {
 
-$ids_array = array();
-$stmt = $db->prepare("SELECT id FROM pet WHERE owner = ?");
-$stmt->bind_param("i", $_SESSION['user-id']);
-$stmt->execute();
-$stmt->store_result();
-if($stmt->num_rows === 0){
-
-}
-else {
-    $ids = array();
-    $stmt->bind_result($idRow);
-    while ($stmt->fetch()) {
-        $ids[] = $idRow;
-    }
-    $stmt->close();
-    foreach ($ids as $petid){
-        $stmt = $db->prepare("SELECT type, name, age_years, age_months, photo, story FROM pet WHERE id = ?");
-        $stmt->bind_param("i", $petid);
-        $stmt->execute();
-        $stmt->store_result();
-        if($stmt->num_rows === 0){
-            $stmt->close();
-            exit("error selecting");
-        }
-        if($stmt->num_rows !== 0) {
-            $stmt->bind_result($type,$name, $agey, $agem,$photo, $story);
-            $stmt->fetch();
-            $stmt->close();
-        }
-
-
-        $pet_is = "";
-        $stmt = $db->prepare("SELECT petis FROM pet_is WHERE pet_id = ?");
-        $stmt->bind_param("i", $petid);
-        $stmt->execute();
-        $stmt->store_result();
-        if($stmt->num_rows !== 0){
-            $pet_is = $name." is ";
-            $stmt->bind_result($idRow);
-            while($stmt->fetch()) {
-                $pet_is = $pet_is.", ".$idRow;
-            }
-            $pet_is = $pet_is." ".$type.".";
-        }
-        $stmt->close();
-        $pet_color = "#";
-        $stmt = $db->prepare("SELECT color FROM pet_color WHERE pet_id = ?");
-        $stmt->bind_param("i", $petid);
-        $stmt->execute();
-        $stmt->store_result();
-        if($stmt->num_rows !== 0){
-            $stmt->bind_result($colorRow);
-            while($stmt->fetch()) {
-                $pet_color = $pet_color.",".$colorRow;
-            }
-        }
-        $stmt->close();
-        $type = "#".$type;
-        if( $agey == 0)
-            $age = "#".$agem."mon";
-        else $age = "#".$agey."yrs";
-
-
-        echo " <div class=\"search-res col-xs-12 col-sm-6 col-md-4\" data-aos=\"fade-up\">
-    <div class=\"image-flip\" ontouchstart=\"this.classList.toggle('hover');\" >
-        <div class=\"mainflip\" >
-            <div class=\"frontside\" >
-                <div class=\"card\" >
-                    <div class=\"card-body text-center\">
-                        <p><img class=\" img-fluid\" src=\"".$photo."\" alt=\"card image\"></p>
-                        <h4 class=\"pet-name card-title\">".$name."</h4>
-                        <p class=\"pet-descr card-text\">".$pet_is."</p>
-                        <div class=\"pet-info-tags clearfix\">
-                            <span class=\"badge badge-pill badge-info\">".$type."</span>
-                            <span class=\"badge badge-pill badge-danger\">".$pet_color."</span>
-                            <span class=\"badge badge-pill badge-success\">".$age."</span>
-                        </div>
-                    </div>
+        echo " <div class=\"card\" style=\"width:400px\">
+                <img class=\"card-img-top\" src=\"" . $petphoto[$i] . "\" alt=\"Card image\" style=\"width:100%\">
+                <div class=\"card-body\">
+                    <h4 class=\"card-title\">" . $adoptername . "</h4>
+                    <p class=\"card-text\">has sent you an email to adopt " . $petnames[$i] . "</p>
+                    <a href=\"delete_request.php?request=" . $requestid[$i] . "\" style='width: 100%' class=\"btn btn-primary\">Delete</a>
                 </div>
-            </div>
-            <div class=\"backside\" >
-                <div class=\"card\" >
-                    <div class=\"card-body text-center mt-4\">
-                        <h4 class=\"card-title\">Story</h4>
-                        <p class=\"card-text\">".$story."</p>
-                        <p class=\"heart\"></p>
-                        <button type=\"button\" onclick=\"window.location.href='petProfile.php?pet_id=".$petid."'\" class=\"btn btn-primary\">View Profile <i class=\"fas fa-paw\"></i> </button>
-                        <button type=\"button\" onclick=\"window.location.href='deletepet.php?pet_id=".$petid."'\" class=\"btn btn-primary\">Delete Profile</button>
-                    
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-";
+            </div>";
+
     }
-
-    echo " <div class=\"search-res col-xs-12 col-sm-6 col-md-4\" data-aos=\"fade-up\">
-    <div class=\"image-flip\" >
-        
-            
-                    <div style='text-align: center' class=\"card-body text-center\">
-                    <h2 style='margin-bottom: 30px'> Add new Pet.</h2>
-                        <a style='color: #0a0a0a' href='creatPetProfile.php'> <i style='font-size: 100px' class=\"far fa-plus-square\"></i> </a>
-                        </div>
-                    
-           
-        </div>
-    </div>
-";
-
 }
+
+
+
+
 ?>
+                </div>
             </div>
-    </div>
+
+
+
         </div>
     </div>
-    <!-- /#page-content-wrapper -->
+</div>
+</div>
+<!-- /#page-content-wrapper -->
 
 </div>
 <!-- /#wrapper -->

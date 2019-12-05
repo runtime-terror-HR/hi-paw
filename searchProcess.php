@@ -26,7 +26,6 @@ if(!isset($_SESSION['city'])){
     $stmt->bind_result($idRow);
     while($stmt->fetch()) {
         $ids[] = $idRow;
-
     }
     $stmt->close();
     $_SESSION['pet_ids_array'] = $ids;

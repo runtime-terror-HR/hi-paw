@@ -12,7 +12,7 @@ session_start();
     <meta name="author" content="">
 
     <title>Hi Paw</title>
-
+    <link rel="shortcut icon" href="http://localhost/hi-paw/favicon.ico" />
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/nav_css.css">
@@ -26,6 +26,13 @@ session_start();
 
 </head>
 <style>
+    .list-group-item:hover{
+        color: #cf3d3b;
+    }
+    .footprints{
+        background: transparent;
+
+    }
 </style>
 <body>
 
@@ -42,12 +49,8 @@ session_start();
                 </span>
                 <span class="title" > My Profile</span></a>
 
-            <a href="savedPets.php" style="background-color: #c4c4c4 !important; " class="list-group-item list-group-item-action bg-light"><i style=" margin-right: 15px;" class="fas fa-heart"></i>Saved Pets</a>
+            <a href="savedPets.php" style="background-color: #e2e2e2 !important; " class="list-group-item list-group-item-action bg-light"><i style=" margin-right: 15px;" class="fas fa-heart"></i>Saved Pets</a>
 
-
-            <a href="#" class="list-group-item list-group-item-action bg-light"><span id="chatIcon" class="icon-holder">
-                      <i style=" margin-right: 15px;" class="fas fa-comments"></i>
-                    </span><span class="title">Requests</span></a>
 
             <a href="logout.php" class="list-group-item list-group-item-action bg-light"><i style=" margin-right: 15px;" class="fas fa-sign-out-alt"></i>
                 <span class="title">Sign out</span></a>
@@ -90,7 +93,7 @@ session_start();
                             exit;
                         }
                         $stmt = $db->prepare("SELECT name FROM ".$_SESSION['user-table']." WHERE id = ?");
-                        $stmt->bind_param("s",  $_SESSION['user-id']);
+                        $stmt->bind_param("i",  $_SESSION['user-id']);
                         $stmt->execute();
 //fetching result would go here, but will be covered later
                         $stmt->store_result();
@@ -123,10 +126,10 @@ session_start();
                   ".$username."
               </a>
               <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown3\">
-                  <a class=\"dropdown-item\" href=\"#whatWeDodiv\">Profile</a>
+                  <a class=\"dropdown-item\" href=\"adopterProfile.php\">Profile</a>
                   <div class=\"dropdown-divider\"></div>
-                  <a class=\"dropdown-item\" href=\"#HowItWorks\">View Own Pets</a>
-                  <a class=\"dropdown-item\" href=\"#HowItWorks\">Requests</a>
+                  <a class=\"dropdown-item\" href=\"profile_mypets.php\">View Own Pets</a>
+                  <a class=\"dropdown-item\" href=\"request_m.php\">Requests</a>
                   <div class=\"dropdown-divider\"></div>
                   <a class=\"dropdown-item\" href=\"logout.php\">Log out</a>
               </div>
@@ -257,8 +260,6 @@ session_start();
     </div>
 ";
                         }
-
-
                     }
                     ?>
                 </div>

@@ -96,9 +96,9 @@ if(isset($_SESSION['user-id'])){
                   ".$username."
               </a>
               <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown2\">
-                  <a class=\"dropdown-item\" href=\"#whatWeDodiv\">Profile</a>
+                  <a class=\"dropdown-item\" href=\"adopterProfile.php\">Profile</a>
                   <div class=\"dropdown-divider\"></div>
-                  <a class=\"dropdown-item\" href=\"#HowItWorks\">Browse Pets</a>
+                  <a class=\"dropdown-item\" href=\"searchPage.php\">Browse Pets</a>
                   <a class=\"dropdown-item\" href=\"#HowItWorks\">Saved Pets</a>
                   <div class=\"dropdown-divider\"></div>
                   <a class=\"dropdown-item\" href=\"logout.php\">Log out</a>
@@ -111,10 +111,10 @@ if(isset($_SESSION['user-id'])){
                   ".$username."
               </a>
               <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown3\">
-                  <a class=\"dropdown-item\" href=\"#whatWeDodiv\">Profile</a>
+                  <a class=\"dropdown-item\" href=\"adopterProfile.php\">Profile</a>
                   <div class=\"dropdown-divider\"></div>
-                  <a class=\"dropdown-item\" href=\"#HowItWorks\">View Own Pets</a>
-                  <a class=\"dropdown-item\" href=\"#HowItWorks\">Requests</a>
+                  <a class=\"dropdown-item\" href=\"profile_mypets.php\">View Own Pets</a>
+                  <a class=\"dropdown-item\" href=\"request_m.phpp\">Requests</a>
                   <div class=\"dropdown-divider\"></div>
                   <a class=\"dropdown-item\" href=\"logout.php\">Log out</a>
               </div>
@@ -228,7 +228,8 @@ else{
       </div>
     </div>
   <div class=\"col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3\"></div>
-</div>";
+</div>
+";
     }
 
 ?>

@@ -98,13 +98,13 @@ session_start();
                 </div>
             </li>
             <li class="navbar-item">
-                <a class="nav-link" href="#">Adopt</a>
+                <a class="nav-link" href="sign-up.php">Adopt</a>
             </li>
             <li class="navbar-item">
-                <a class="nav-link" href="#">Rehome</a>
+                <a class="nav-link" href="sign-up.php">Rehome</a>
             </li>
             <li class="navbar-item">
-                <a class="nav-link" href="#">Login</a>
+                <a class="nav-link" href="log-in.php">Login</a>
             </li>
             <li class="navbar-item">
                 <a class="nav-link" href="home.php#contact">Contact</a>
