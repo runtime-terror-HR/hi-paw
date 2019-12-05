@@ -33,11 +33,53 @@ session_start();
     
  
   <style>
-    body{
-      overflow-x: hidden;
-    }    
+    body {
+        overflow-x: hidden;
+    }
   </style>
 
+    <style>
+        /* body {
+            background-color: rgba(211, 211, 211, 0.726);
+        } */
+        .feedback {
+            filter: drop-shadow(2px 3px 6px rgba(0, 0, 0, 0.075));
+            border-radius: 20px;
+            height: 500px;
+            background-color: white;
+            padding-right: 0 !important;
+        }
+
+        .toLeft{
+            width: 50%;
+            float: left;
+            padding: 50px;
+            overflow: hidden;
+        }
+
+        .toRight {
+            width: 100%;
+            text-align: center;
+        }
+
+        .rightAndBack{
+            background-image: url("img/Do Cats Hibernate In The Winter_ - CatTime.jpg");
+            background-size: 100%;
+            border-radius: 0 20px 20px 0;
+            padding: 50px;
+            width: 50%;
+            height: 100%;
+            float:right;
+            background-repeat: no-repeat;
+            background-position-x: right;
+            background-position-y: center;
+        }
+
+        .next, .prev {
+            margin-top: 50px;
+            color: gray;
+        }
+        </style>
 </head>
 
 <body>
@@ -46,7 +88,7 @@ session_start();
     <div class="d-flex w-50 order-0">
         <a class="navbar-brand" href="home.php">
             <img src="img/HiPaw black.png" width="45" height="45" class="d-inline-block align-top" alt="">
-            <div style="font-size: 30px" class="superFont d-inline-block"> Hi Paw!</div>
+            <div style="font-size: 30px; margin-top: 7px;" class="superFont d-inline-block"> Hi Paw!</div>
         </a>
       <button id="toggleButton" class="navbar-toggler" data-toggle="collapse" data-target="#collapse_target">
         <span class="navbar-toggler-icon"></span>
@@ -96,9 +138,9 @@ if(isset($_SESSION['user-id'])){
                   ".$username."
               </a>
               <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown2\">
-                  <a class=\"dropdown-item\" href=\"adopterProfile.php\">Profile</a>
+                  <a class=\"dropdown-item\" href=\"#whatWeDodiv\">Profile</a>
                   <div class=\"dropdown-divider\"></div>
-                  <a class=\"dropdown-item\" href=\"searchPage.php\">Browse Pets</a>
+                  <a class=\"dropdown-item\" href=\"#HowItWorks\">Browse Pets</a>
                   <a class=\"dropdown-item\" href=\"#HowItWorks\">Saved Pets</a>
                   <div class=\"dropdown-divider\"></div>
                   <a class=\"dropdown-item\" href=\"logout.php\">Log out</a>
@@ -111,10 +153,10 @@ if(isset($_SESSION['user-id'])){
                   ".$username."
               </a>
               <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown3\">
-                  <a class=\"dropdown-item\" href=\"adopterProfile.php\">Profile</a>
+                  <a class=\"dropdown-item\" href=\"#whatWeDodiv\">Profile</a>
                   <div class=\"dropdown-divider\"></div>
-                  <a class=\"dropdown-item\" href=\"profile_mypets.php\">View Own Pets</a>
-                  <a class=\"dropdown-item\" href=\"request_m.phpp\">Requests</a>
+                  <a class=\"dropdown-item\" href=\"#HowItWorks\">View Own Pets</a>
+                  <a class=\"dropdown-item\" href=\"#HowItWorks\">Requests</a>
                   <div class=\"dropdown-divider\"></div>
                   <a class=\"dropdown-item\" href=\"logout.php\">Log out</a>
               </div>
@@ -229,6 +271,7 @@ else{
     </div>
   <div class=\"col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3\"></div>
 </div>
+<br><br>
 ";
     }
 
@@ -312,8 +355,7 @@ else{
  <!-- See What People Are Saying  -->
 <div class="container-fluid mindblowing">
   <div>
-    <p class="superFont">See What People Are Saying ..</p>
-    <button class="btn btn-outline-light btn-lg"><i class="fas fa-angle-double-right"></i></button>
+
   </div>
 </div>
 <!-- end See What People Are Saying  -->
@@ -322,82 +364,101 @@ else{
 <section>
   <div class="top-section section-indent">
     <div class="flex-container" style="padding-bottom: 50px;">
-      <h2 class="section-title capitalize-title color-title bg-title" data-aos="fade-up" data-aos-delay="0"><span>Most Recent Pets</span></h2>
-      <div class="top-section-grid">
+      <h2 class="section-title capitalize-title color-title bg-title" data-aos="fade-up" data-aos-delay="0"><span><br></span></h2>
 
-        <div class="single-post-item grid-item grid-item-ready" style="grid-row-end: span 14;">
-          <div data-aos="fade-down" data-aos-delay="100">
-            <a href="#" class="single-post-link" ></a>
-            <div  class="single-post-img-wrapper" >
-              <div class="single-post-img " style=" background-image: url('img/Joker1Stairs.jpg');"> </div>
+        <div class="container feedback">
+            <div class="toLeft">
+                <h2>WHAT PEOPLE ARE SAYING...</h2>
+                <hr class="whoCaresYustDisplay">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequuntur, consequatur! Nihil porro quis modi facilis laborum distinctio voluptas odio laboriosam, deleniti illo dicta. Recusandae fuga nostrum cum odit saepe? Labore ex sequi error aperiam enim culpa numquam iste perferendis velit saepe ducimus, asperiores delectus reprehenderit itaque. Praesentium quidem deleniti possimus!
+
+                <div style="margin-top: 100px; margin-left: 150px;">
+                    <a class="prev"><i class="fas fa-arrow-alt-circle-left"></i></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="next"><i class="fas fa-arrow-alt-circle-right"></i></a>
+                </div>
+
             </div>
-            <div class="single-post-info">
-              <div class="single-post-title">10 Tips For Taking a Road Trip With Your Dog</div>
+            <div class="rightAndBack">
+                <div class="toRight">
+                </div>
             </div>
-          </div>
+
         </div>
-        <div class="single-post-item grid-item grid-item-ready" style="grid-row-end: span 9;">
-          <div data-aos="fade-down" data-aos-delay="100">
-            <a href="#" class="single-post-link"></a>
-            <div  class="single-post-img-wrapper span9-img-wrapper" >
-              <div class="single-post-img " style=" background-image: url('img/Joker1Stairs.jpg');"> </div>
-            </div>
-            <div class="single-post-info">
-              <div class="single-post-title ">10 Tips For Taking a Road Trip With Your Dog</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="single-post-item grid-item grid-item-ready" style="grid-row-end: span 14;">
-          <div data-aos="fade-down" data-aos-delay="100">
-            <a href="#" class="single-post-link"></a>
-            <div  class="single-post-img-wrapper" >
-              <div class="single-post-img " style=" background-image: url('img/Joker1Stairs.jpg');"> </div>
-            </div>
-            <div class="single-post-info">
-              <div class="single-post-title">10 Tips For Taking a Road Trip With Your Dog</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="single-post-item grid-item grid-item-ready" style="grid-row-end: span 14;">
-          <div data-aos="fade-down" data-aos-delay="100">
-            <a href="#" class="single-post-link"></a>
-            <div  class="single-post-img-wrapper" >
-              <div class="single-post-img " style=" background-image: url('img/Joker1Stairs.jpg');"> </div>
-            </div>
-            <div class="single-post-info">
-              <div class="single-post-title">10 Tips For Taking a Road Trip With Your Dog</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="single-post-item grid-item grid-item-ready" style="grid-row-end: span 9;">
-          <div data-aos="fade-down" data-aos-delay="100">
-            <a href="#" class="single-post-link"></a>
-            <div  class="single-post-img-wrapper span9-img-wrapper" >
-                <div class="single-post-img " style=" background-image: url('img/Joker1Stairs.jpg');"> </div>
-            </div>
-            <div class="single-post-info">
-                <div class="single-post-title ">10 Tips For Taking a Road Trip With Your Dog</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="single-post-item grid-item grid-item-ready" style="grid-row-end: span 9;">
-          <div data-aos="fade-down" data-aos-delay="100">
-            <a href="#" class="single-post-link"></a>
-            <div  class="single-post-img-wrapper span9-img-wrapper" >
-              <div class="single-post-img " style=" background-image: url('img/Joker1Stairs.jpg');"> </div>
-            </div>
-            <div class="single-post-info">
-              <div class="single-post-title ">10 Tips For Taking a Road Trip With Your Dog</div>
-            </div>
-          </div>
-        </div>
-
-
-      </div>
+<!--      <div class="top-section-grid">-->
+<!---->
+<!--        <div class="single-post-item grid-item grid-item-ready" style="grid-row-end: span 14;">-->
+<!--          <div data-aos="fade-down" data-aos-delay="100">-->
+<!--            <a href="#" class="single-post-link" ></a>-->
+<!--            <div  class="single-post-img-wrapper" >-->
+<!--              <div class="single-post-img " style=" background-image: url('img/Joker1Stairs.jpg');"> </div>-->
+<!--            </div>-->
+<!--            <div class="single-post-info">-->
+<!--              <div class="single-post-title">10 Tips For Taking a Road Trip With Your Dog</div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="single-post-item grid-item grid-item-ready" style="grid-row-end: span 9;">-->
+<!--          <div data-aos="fade-down" data-aos-delay="100">-->
+<!--            <a href="#" class="single-post-link"></a>-->
+<!--            <div  class="single-post-img-wrapper span9-img-wrapper" >-->
+<!--              <div class="single-post-img " style=" background-image: url('img/Joker1Stairs.jpg');"> </div>-->
+<!--            </div>-->
+<!--            <div class="single-post-info">-->
+<!--              <div class="single-post-title ">10 Tips For Taking a Road Trip With Your Dog</div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!---->
+<!--        <div class="single-post-item grid-item grid-item-ready" style="grid-row-end: span 14;">-->
+<!--          <div data-aos="fade-down" data-aos-delay="100">-->
+<!--            <a href="#" class="single-post-link"></a>-->
+<!--            <div  class="single-post-img-wrapper" >-->
+<!--              <div class="single-post-img " style=" background-image: url('img/Joker1Stairs.jpg');"> </div>-->
+<!--            </div>-->
+<!--            <div class="single-post-info">-->
+<!--              <div class="single-post-title">10 Tips For Taking a Road Trip With Your Dog</div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!---->
+<!--        <div class="single-post-item grid-item grid-item-ready" style="grid-row-end: span 14;">-->
+<!--          <div data-aos="fade-down" data-aos-delay="100">-->
+<!--            <a href="#" class="single-post-link"></a>-->
+<!--            <div  class="single-post-img-wrapper" >-->
+<!--              <div class="single-post-img " style=" background-image: url('img/Joker1Stairs.jpg');"> </div>-->
+<!--            </div>-->
+<!--            <div class="single-post-info">-->
+<!--              <div class="single-post-title">10 Tips For Taking a Road Trip With Your Dog</div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!---->
+<!--        <div class="single-post-item grid-item grid-item-ready" style="grid-row-end: span 9;">-->
+<!--          <div data-aos="fade-down" data-aos-delay="100">-->
+<!--            <a href="#" class="single-post-link"></a>-->
+<!--            <div  class="single-post-img-wrapper span9-img-wrapper" >-->
+<!--                <div class="single-post-img " style=" background-image: url('img/Joker1Stairs.jpg');"> </div>-->
+<!--            </div>-->
+<!--            <div class="single-post-info">-->
+<!--                <div class="single-post-title ">10 Tips For Taking a Road Trip With Your Dog</div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!---->
+<!--        <div class="single-post-item grid-item grid-item-ready" style="grid-row-end: span 9;">-->
+<!--          <div data-aos="fade-down" data-aos-delay="100">-->
+<!--            <a href="#" class="single-post-link"></a>-->
+<!--            <div  class="single-post-img-wrapper span9-img-wrapper" >-->
+<!--              <div class="single-post-img " style=" background-image: url('img/Joker1Stairs.jpg');"> </div>-->
+<!--            </div>-->
+<!--            <div class="single-post-info">-->
+<!--              <div class="single-post-title ">10 Tips For Taking a Road Trip With Your Dog</div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!---->
+<!---->
+<!--      </div>-->
     </div>
     <br><br><br><br>
 
