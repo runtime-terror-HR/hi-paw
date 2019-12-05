@@ -314,9 +314,24 @@ echo "$(\"#notsigned\").modal();";
                             <div class="map m-t-3 hidden-sm-down m-b-0">
                                 <p class="ng-binding">
                                     <img src="https://getyourpet.com/_assets_1.1.82.2019110802/images/icons/pin-blue.svg">
-                                    Approximate Location — Salt Lake City, UT Area
+                                    Approximate Location — <?php echo $city ?>
                                 </p>
                                 <div>
+                                    <?php
+                                    $db = new mysqli("localhost", "root", "", "hipaw");
+                                    if($db->errno){
+                                        echo "error connecting to the database";
+                                        exit;
+                                    }
+
+                                    $stmt ="SELECT map FROM location WHERE city = '".$city."'";
+                                    $result = mysqli_query($db, $stmt);
+                                    if (mysqli_num_rows($result) > 0) {
+                                        $row = mysqli_fetch_array($result);
+                                        $map=$row["map"];
+                                    }
+                                    echo ".$map.";
+                                    ?>
                                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193590.0505730405!2d-111.57588450039613!3d40.69942133908762!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8752611e94d3725f%3A0x190ec47f3a5436e6!2z2LPZiNmE2Kog2YTYp9mK2YMg2LPZitiq2YrYjCDZitmI2KrYpyA4NDEwOdiMINin2YTZiNmE2KfZitin2Kog2KfZhNmF2KrYrdiv2Kk!5e0!3m2!1sar!2s!4v1574462653797!5m2!1sar!2s" frameborder="0" style="border:0;" width= "100%" height="400px"></iframe>
                                 </div>
                             </div>
@@ -540,6 +555,21 @@ echo "
         </section>
     </div>
 </div>
+<?php
+$db = new mysqli("localhost", "root", "", "hipaw");
+if($db->errno){
+    echo "error connecting to the database";
+    exit;
+}
+
+$stmt ="SELECT guardian.name, guardian.email from guardian, pet WHERE pet.owner= guardian.id and pet.id = ".$PetId."";
+$result = mysqli_query($db, $stmt);
+if (mysqli_num_rows($result) > 0) {
+    $row = mysqli_fetch_array($result);
+    $owner=$row["name"];
+    $ownerEmail=$row["email"];
+}
+?>
 
 <div id="contactMsgBox" modal-render="true" tabindex="-1" role="dialog" class="signIn-signUp-msgBox modal fade ng-isolate-scope in" uib-modal-animation-class="fade" modal-in-class="in" ng-style="{'z-index': 1050 + index*10, display: 'block'}" uib-modal-window="modal-window" index="0" animate="animate" modal-animation="true" style="z-index: 1050; display: block;">
     <div class="modal-dialog ">
@@ -548,25 +578,17 @@ echo "
 
             <div class="modal-body ng-scope" style="text-align: center;">
                 <br>
-                <h2>Contact <span id="ownerName">#ownerName</span></h2>
+                <h2>Contact <span id="ownerName"><?php echo $owner ?></span></h2>
                 <br>
-                <label style="font-size: 13px;">Want To Adopt <span id="petname">#petname</span>? Start Here:</label><br>
-                <a class="btn form-button" href="emailForm.html" target="_blank">Send an Adaption Request</a>
+                <label style="font-size: 13px;">Want To Adopt <span id="petname"><?php echo $petName ?></span>? Start Here:</label><br>
+
+                <?php  echo " <a class=\"btn form-button\" href = \"emailForm.php?pet=".$PetId."\" target=\"_blank\">Send an Adaption Request</a> "; ?>
+
                 <br><br><hr class="display1">
-                <label>Have any further questions for <span id="ownerName">#ownerName</span>?</label><br>
-                Email at <a class="sendEmail" href="mailto:whatever@gmail.com?subject=#petName Adaption" id="ownerEmail">whatever@gmail.com</a>
+                <label>Have any further questions for <span id="ownerName"><?php echo $owner ?></span>?</label><br>
+                Email at <a class="sendEmail" href="mailto:whatever@gmail.com?subject=#petName Adaption" id="ownerEmail"><?php echo $ownerEmail ?></a>
                 <br><br>
 
-                <!-- <h2>Want to adopt a pet or put your pet up for adoption?</h2>
-                <a class="btn btn-lg btn-primary" ng-href="/Account/Register?acquisitionCode=MPUPD&amp;returnUrl=%2FSearch%23%2Fpet-details%2F129569&amp;returnContext=PetDetails&amp;returnContextInfo=129569" href="/Account/Register?acquisitionCode=MPUPD&amp;returnUrl=%2FSearch%23%2Fpet-details%2F129569&amp;returnContext=PetDetails&amp;returnContextInfo=129569">Register Now</a>
-                <h2 class="m-t-3 text-xs-right">Need more info or time to decide?</h2>
-                <p class="text-xs-right m-b-3">
-                    <a class="btn btn-lg btn-primary" ng-href="/Account/EmailSignUp?acquisitionCode=MPUPD&amp;returnUrl=%2Fpet-profile%2F129569&amp;returnPageName=Nani%E2%80%99s%20Profile" href="/Account/EmailSignUp?acquisitionCode=MPUPD&amp;returnUrl=%2Fpet-profile%2F129569&amp;returnPageName=Nani%E2%80%99s%20Profile">Keep Me Informed</a>
-                </p>
-                <hr>
-                <p class="text-xs-center m-t-3">
-                    <a ng-click="confirm()">I'll keep browsing, for now.</a>
-                </p> -->
             </div>
         </div>
     </div>
