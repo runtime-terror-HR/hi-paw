@@ -40,7 +40,7 @@ if( isset($passwordAdopter)){
         $_SESSION['user-table']='adopter';
         $_SESSION['user-id'] = $id_adopt;
         $_SESSION['city']=$acity;
-        header("Location:home.php");
+        header("Location:savedPets.php");
         exit();
     }
     else{
@@ -54,7 +54,7 @@ elseif (isset($passwordGuardian)){
         $_SESSION['user-table']= 'guardian';
         $_SESSION['user-id'] = $id_guard;
         $_SESSION['city']=$gcity;
-        header("Location:home.php");
+        header("Location:profile_mypets.php");
         exit();
     }
     else{

@@ -110,57 +110,35 @@ if(isset($_SESSION['user-id'])){
       }
 
       function addToSavedButton() {
-        //   TODO  
-        // check if the user is signed in..
-          <?php
-          if(isset($_SESSION['user-id'])){
-              echo "x = document.getElementById(\"addToSavedButton\").innerText;
-        if(x.localeCompare(\"Add to Saved\")==0){
-            document.getElementById(\"addToSavedButton\").innerHTML = \"<svg width='16' height='14' viewBox='0 0 16 14' xmlns='http://www.w3.org/2000/svg'><path d='M8 13.978S16 8.16 16 3.85c0-4.095-6.222-5.872-8-.496-1.778-5.376-8-3.6-8 .496 0 4.31 8 10.128 8 10.128' fill='#2D8FD2' fill-rule='evenodd'></path></svg>Unsave\";";
-              if($saved == 'false'){
-              $stmt = $db->prepare("insert into  saved_pets ( pet_id , adopter_id) values (?,?)");
-              $stmt->bind_param("ii", $_SESSION['pet_id'], $_SESSION['user-id']);
-              $stmt->execute();
-              $stmt->close();}
-              $saved = 'true';
-
-
-          echo "}
-        else{
-            document.getElementById(\"addToSavedButton\").innerHTML = \"<svg width='16' height='14' viewBox='0 0 16 14' xmlns='http://www.w3.org/2000/svg'><path d='M8 13.978S16 8.16 16 3.85c0-4.095-6.222-5.872-8-.496-1.778-5.376-8-3.6-8 .496 0 4.31 8 10.128 8 10.128' fill='#2D8FD2' fill-rule='evenodd'></path></svg>Add to Saved\"; 
-        ";
-              if($saved == 'true'){
-              $stmt = $db->prepare("delete FROM saved_pets WHERE pet_id = ? and adopter_id = ?");
-              $stmt->bind_param("ii", $_SESSION['pet_id'], $_SESSION['user-id']);
-              $stmt->execute();
-              $stmt->close();
-              $saved = 'false';}
-       echo "}";
-      }else {
-echo "$(\"#notsigned\").modal();";
+          //   TODO
+          // check if the user is signed in..
+          x = document.getElementById("addToSavedButton").innerText;
+          if(x.localeCompare("Add to Saved")==0){
+              document.getElementById("addToSavedButton").innerHTML = "<svg width='16' height='14' viewBox='0 0 16 14' xmlns='http://www.w3.org/2000/svg'><path d='M8 13.978S16 8.16 16 3.85c0-4.095-6.222-5.872-8-.496-1.778-5.376-8-3.6-8 .496 0 4.31 8 10.128 8 10.128' fill='#2D8FD2' fill-rule='evenodd'></path></svg>Unsave";
+              window.location.href = "savedProcess.php?state=true";
           }
-          ?>
-
+          else{
+              document.getElementById("addToSavedButton").innerHTML = "<svg width='16' height='14' viewBox='0 0 16 14' xmlns='http://www.w3.org/2000/svg'><path d='M8 13.978S16 8.16 16 3.85c0-4.095-6.222-5.872-8-.496-1.778-5.376-8-3.6-8 .496 0 4.31 8 10.128 8 10.128' fill='#2D8FD2' fill-rule='evenodd'></path></svg>Add to Saved";
+              window.location.href = "savedProcess.php?state=false";
+          }
       }
 
       function connectWithOwner() {
-        //   TODO  
-        // check if the user is signed in..
+          //   TODO
+          // check if the user is signed in..
           <?php
           if(isset($_SESSION['user-id'])){
               echo "document.getElementById(\"contactMsgBox\").style.visibility=\"visible\";";}
-              else{ echo "$(\"#notsigned\").modal();";
-
+          else{ echo "$(\"#notsigned\").modal();";
           }
-              ?>
-
-
+          ?>
       }
+
 
       function hideContactMsgBox() {
         document.getElementById("contactMsgBox").style.visibility="hidden";  
       }
-      
+
   </script>
 
 </head>
@@ -187,6 +165,8 @@ echo "$(\"#notsigned\").modal();";
         </div>
     </div>
 </div>
+
+
  <!-- navbar -->
 <nav class="navbar navbar-expand-md navbar-light fixed-top" style="background-color: #f0f0f0; position: fixed;">
     <a class="navbar-brand" href="home.php">
@@ -238,10 +218,10 @@ echo "$(\"#notsigned\").modal();";
                   ".$username."
               </a>
               <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown2\">
-                  <a class=\"dropdown-item\" href=\"#whatWeDodiv\">Profile</a>
+                  <a class=\"dropdown-item\" href=\"adopterProfile.php\">Profile</a>
                   <div class=\"dropdown-divider\"></div>
-                  <a class=\"dropdown-item\" href=\"#HowItWorks\">Browse Pets</a>
-                  <a class=\"dropdown-item\" href=\"#HowItWorks\">Saved Pets</a>
+                  <a class=\"dropdown-item\" href=\"searchPage.php\">Browse Pets</a>
+                  <a class=\"dropdown-item\" href=\"savedPets.php\">Saved Pets</a>
                   <div class=\"dropdown-divider\"></div>
                   <a class=\"dropdown-item\" href=\"logout.php\">Log out</a>
               </div>
@@ -256,7 +236,7 @@ echo "$(\"#notsigned\").modal();";
                   <a class=\"dropdown-item\" href=\"adopterProfile.php\">Profile</a>
                   <div class=\"dropdown-divider\"></div>
                   <a class=\"dropdown-item\" href=\"profile_mypets.php\">View Own Pets</a>
-                  <a class=\"dropdown-item\" href=\"#HowItWorks\">Requests</a>
+                  <a class=\"dropdown-item\" href=\"request_m.php\">Requests</a>
                   <div class=\"dropdown-divider\"></div>
                   <a class=\"dropdown-item\" href=\"logout.php\">Log out</a>
               </div>
@@ -369,7 +349,7 @@ echo "$(\"#notsigned\").modal();";
                                         echo "<button id=\"connect-button\" type=\"button\" onclick=\"connectWithOwner()\" class=\"btn btn-primary btn-lg m-r-1 d-inline\" style=\"z-index: 1;\">
                                     Connect with owner
                                 </button>
-                                <button type=\"button\" id=\"addToSavedButton\" onclick=\"addToSavedButton()\"
+                                <button type=\"button\" id=\"addToSavedButton\" onclick=\"addToSavedButton(".$PetId.")\"
                                         class=\"btn btn-lg btn-info add-to-saved d-inline\" title=\"Save Pet to your dashboard.\">";
                                         if(isset($saved)){
                                             if($saved == 'true'){
@@ -383,11 +363,15 @@ echo "$(\"#notsigned\").modal();";
 echo "   
                                 </button>";
                                     }
+                                    else echo"";
+                                }
+                                else {
+                                    echo "<button id=\"connect-button\" type=\"button\" onclick=\"connectWithOwner()\" class=\"btn btn-primary btn-lg m-r-1 d-inline\" style=\"z-index: 1;\">
+                                    Connect with owner";
                                 }
                                 ?>
 
                             </div>
-
                             <img src="img/pngfind.com-white-lines-png-3640.png" class="dashedLine1">
                             <img src="img/paw.png" class="paw1">
                             <div class="component component-tags">
@@ -508,7 +492,7 @@ echo "
                                         }?>
                                         <br>
                                         <?php
-                                        if($details==""){
+                                        if($details ==""){
                                             echo " <div ng-show=\"pet.OtherDetail\" class=\"card accordion-panel\">
                                             <div class=\"card-block accordion-heading\" role=\"tab\" id=\"headingAdditionalInformation\">
                                                 <h4 class=\"card-title accordion-title full-profile-title-align\">
@@ -555,13 +539,14 @@ echo "
         </section>
     </div>
 </div>
+
+
 <?php
 $db = new mysqli("localhost", "root", "", "hipaw");
 if($db->errno){
     echo "error connecting to the database";
     exit;
 }
-
 $stmt ="SELECT guardian.name, guardian.email from guardian, pet WHERE pet.owner= guardian.id and pet.id = ".$PetId."";
 $result = mysqli_query($db, $stmt);
 if (mysqli_num_rows($result) > 0) {
@@ -574,7 +559,7 @@ if (mysqli_num_rows($result) > 0) {
 <div id="contactMsgBox" modal-render="true" tabindex="-1" role="dialog" class="signIn-signUp-msgBox modal fade ng-isolate-scope in" uib-modal-animation-class="fade" modal-in-class="in" ng-style="{'z-index': 1050 + index*10, display: 'block'}" uib-modal-window="modal-window" index="0" animate="animate" modal-animation="true" style="z-index: 1050; display: block;">
     <div class="modal-dialog ">
         <div class="modal-content" uib-modal-transclude="">
-                <a onclick="hideContactMsgBox()" class="text-xs-right" style="text-align: left!important; color: black; margin-left: 7px; margin-top: 10px;"><i class="far fa-times-circle"></i></a>
+            <a onclick="hideContactMsgBox()" class="text-xs-right" style="text-align: left!important; color: black; margin-left: 7px; margin-top: 10px;"><i class="far fa-times-circle"></i></a>
 
             <div class="modal-body ng-scope" style="text-align: center;">
                 <br>
@@ -582,7 +567,7 @@ if (mysqli_num_rows($result) > 0) {
                 <br>
                 <label style="font-size: 13px;">Want To Adopt <span id="petname"><?php echo $petName ?></span>? Start Here:</label><br>
 
-                <?php  echo " <a class=\"btn form-button\" href = \"emailForm.php?pet=".$PetId."\" target=\"_blank\">Send an Adaption Request</a> "; ?>
+                <?php  echo " <a class=\"btn form-button\" href = \"emailForm.php?pet=".$PetId."\" target=\"_blank\">Send an Adoption Request</a> "; ?>
 
                 <br><br><hr class="display1">
                 <label>Have any further questions for <span id="ownerName"><?php echo $owner ?></span>?</label><br>
@@ -593,6 +578,5 @@ if (mysqli_num_rows($result) > 0) {
         </div>
     </div>
 </div>
-
 </body>
 </html>
