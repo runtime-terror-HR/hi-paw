@@ -287,10 +287,10 @@ function likepet(id) {
                   ".$username."
               </a>
               <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown2\">
-                  <a class=\"dropdown-item\" href=\"#whatWeDodiv\">Profile</a>
+                  <a class=\"dropdown-item\" href=\"adopterProfile.php\">Profile</a>
                   <div class=\"dropdown-divider\"></div>
-                  <a class=\"dropdown-item\" href=\"#HowItWorks\">Browse Pets</a>
-                  <a class=\"dropdown-item\" href=\"#HowItWorks\">Saved Pets</a>
+                  <a class=\"dropdown-item\" href=\"searchPage.php\">Browse Pets</a>
+                  <a class=\"dropdown-item\" href=\"savedPets.php\">Saved Pets</a>
                   <div class=\"dropdown-divider\"></div>
                   <a class=\"dropdown-item\" href=\"logout.php\">Log out</a>
               </div>
@@ -302,10 +302,10 @@ function likepet(id) {
                   ".$username."
               </a>
               <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown3\">
-                  <a class=\"dropdown-item\" href=\"#whatWeDodiv\">Profile</a>
+                  <a class=\"dropdown-item\" href=\"adopterProfile.php\">Profile</a>
                   <div class=\"dropdown-divider\"></div>
-                  <a class=\"dropdown-item\" href=\"#HowItWorks\">View Own Pets</a>
-                  <a class=\"dropdown-item\" href=\"#HowItWorks\">Requests</a>
+                  <a class=\"dropdown-item\" href=\"profile_mypets.php\">View Own Pets</a>
+                  <a class=\"dropdown-item\" href=\"request_m.php\">Requests</a>
                   <div class=\"dropdown-divider\"></div>
                   <a class=\"dropdown-item\" href=\"logout.php\">Log out</a>
               </div>

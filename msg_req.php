@@ -1,5 +1,68 @@
 <?php
 session_start();
+$_SESSION['current_req'] = $_GET['request'];
+$_SESSION['adopter_id'] = $_GET['adopter'];
+
+$db = new mysqli("localhost", "root", "", "hipaw");
+if($db->errno){
+    echo "error connecting to the database";
+    exit;
+}
+$stmt = $db->prepare("SELECT id, pet_id, adopter_id FROM request WHERE id = ?");
+$stmt->bind_param("i",  $_SESSION['current_req']);
+$stmt->execute();
+//fetching result would go here, but will be covered later
+$stmt->store_result();
+if($stmt->num_rows !== 0) {
+    $requestid = array();
+    $petids = array();
+    $petnames = array();
+    $petphoto = array();
+    $adoptername = array();
+    $adopter = array();
+    $stmt->bind_result($idrow, $idp,$idad);
+    while($stmt->fetch()) {
+        $requestid[] = $idrow;
+        $petids[] = $idp;
+        $adopter[] = $idad;
+    }
+    $stmt->close();
+    for( $i = 0;$i< count($petids); $i++) {
+        $stmt = $db->prepare("SELECT name, photo FROM pet WHERE id = ?");
+        $stmt->bind_param("i", $petids[$i]);
+        $stmt->execute();
+//fetching result would go here, but will be covered later
+        $stmt->store_result();
+        if ($stmt->num_rows !== 0) {
+            $stmt->bind_result($petnames[$i], $petphoto[$i]);
+            $stmt->fetch();
+            $stmt->close();
+        } else {
+            exit('error invalid user id ');
+        }
+
+        $stmt = $db->prepare("SELECT name FROM adopter WHERE id = ?");
+        $stmt->bind_param("i", $adopter[$i]);
+        $stmt->execute();
+//fetching result would go here, but will be covered later
+        $stmt->store_result();
+        if ($stmt->num_rows !== 0) {
+            $stmt->bind_result($adoptername);
+            $stmt->fetch();
+            $stmt->close();
+        } else {
+            exit('error invalid user id ');
+        }
+
+    }
+}
+else {
+    $nodata = '1';
+}
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,35 +79,41 @@ session_start();
     <title>Hi Paw</title>
     <link rel="shortcut icon" href="http://localhost/hi-paw/favicon.ico" />
     <!-- Bootstrap core CSS -->
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
     <!-- Custom styles for this template -->
     <link href="css/simple-sidebar.css" rel="stylesheet">
     <link rel="stylesheet" href="css/searchPagecss.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
-
-    <link rel="icon" type="image/png" href="img/HiPawblack.png"/>
-
-
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <style>
+    #myModal .modal-dialog {
+        -webkit-transform: translate(0,-50%);
+        -o-transform: translate(0,-50%);
+        transform: translate(0,-50%);
+        top: 50%;
+        margin: 0 auto;
+    }
+
     .list-group-item:hover{
         color: #cf3d3b;
     }
+
     .footprints{
         background: transparent;
 
     }
 </style>
 <style>
-    body {
-        font-family: "Lato", sans-serif;
-    }
 
     .sidebar {
         height: 100%;
@@ -94,7 +163,6 @@ session_start();
         transition: margin-left .5s;
         padding: 16px;
         margin-left: 100px;
-        width: 100%;
     }
     /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 
@@ -107,10 +175,67 @@ session_start();
         }
     }
 </style>
-<body>
+<script>
+    $(document).ready(function() {
+    window.setInterval(load_page,1000);
 
+});
+function load_page(){
+    $('#content_msg').load("message_req.php");
+    var mydiv = $("div.chats");
+    mydiv.scrollTop(mydiv.prop("scrollHeight"));
+
+}
+
+    $(document).ready(function() {
+        $('#send').click(function() {
+            let mssg = $('#msg').val();
+            if(mssg !== "") {
+                document.getElementById('msg').value = "";
+                $.ajax({
+                    type: "POST",
+                    url: "process_text.php",
+                    data: {mes: mssg},
+                    success: function (res) {
+                        $('#content_msg').load("message_req.php");
+                        var mydiv = $("div.chats");
+                        mydiv.scrollTop(mydiv.prop("scrollHeight"));
+
+                    },
+                    error: function () {
+                        alert("error");
+                    }
+                });
+
+            }
+        });
+    });
+
+
+</script>
 <body style="background-color: white">
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="text-align: center">
+                <h5 class="modal-title">We're so happy you were able to find a home for your pet!</h5>
+            </div>
+            <div class="modal-body" style="text-align: center">
+                <p style="font-size: 20px"> we would love to hear from you. <br> write a feedback ?</p>
+            </div>
+            <div class="modal-footer" style="align-content: center">
 
+             <?php
+              echo "    <a href=\"delete_request.php?request=".$_SESSION['current_req']."&feedback=1&adopted=1\"><button type=\"button\" class=\"btn btn-primary mr-auto\" >I would love to ! &nbsp; <i class=\"fa fa-heart\"> </i></button></a>
+             ";
+
+              echo " <a href=\"delete_request.php?request=".$_SESSION['current_req']."&adopted=1\">  <button type=\"button\" class=\"btn btn-secondary\" >No thanks&nbsp;&nbsp;&nbsp;&nbsp;<i class=\"fas fa-heart-broken\"></i></button>
+                </a>"; ?>
+
+            </div>
+        </div>
+    </div>
+</div>
 <div class="d-flex" id="wrapper">
 
     <!-- Sidebar -->
@@ -121,9 +246,18 @@ session_start();
         </a>
         <br><br><br>
         <a href="adopterProfile.php"><span><i class="fa fa-user"></i><span class="icon-text">&nbsp;&nbsp;&nbsp;&nbsp;My Profile</span></span></a><br>
-        <a style='color: white' href="savedPets.php"><i class="material-icons">pets</i><span class="icon-text"></span>&nbsp;&nbsp;&nbsp;&nbsp;Saved Pets</a></span>
+        <?php
+        if($_SESSION['user-table']=='adopter'){
+            echo "<a href=\"savedPets.php\"><i class=\"material-icons\">pets</i><span class=\"icon-text\"></span>&nbsp;&nbsp;&nbsp;&nbsp;Saved Pets</a></span>
+        </a><br>";
+        }
+        else {
+            echo " <a href=\"profile_mypets.php\"><i class=\"material-icons\">pets</i><span class=\"icon-text\"></span>&nbsp;&nbsp;&nbsp;&nbsp;My Pets</a></span>
         </a><br>
-        <a href="request_m_adopter.php"><i class="material-icons">email</i><span class="icon-text"></span>&nbsp;&nbsp;&nbsp;&nbsp;Requests<span></span></a>
+        <a  style='color: white' href=\"request_m.php\"><i class=\"material-icons\">email</i><span class=\"icon-text\"></span>&nbsp;&nbsp;&nbsp;&nbsp;Requests<span></span></a>
+        ";
+        }
+        ?>
         <br>
         <a href="logout.php"><i class="fas fa-sign-out-alt"></i><span class="icon-text"></span>&nbsp;&nbsp;&nbsp;&nbsp;Sign out</span></a><br>
     </div>
@@ -197,7 +331,7 @@ session_start();
                   <a class=\"dropdown-item\" href=\"adopterProfile.php\">Profile</a>
                   <div class=\"dropdown-divider\"></div>
                   <a class=\"dropdown-item\" href=\"profile_mypets.php\">View Own Pets</a>
-                  <a class=\"dropdown-item\" href=\"request_m.php\">Requests</a>
+                  <a  class=\"dropdown-item\" href=\"request_m.php\">Requests</a>
                   <div class=\"dropdown-divider\"></div>
                   <a class=\"dropdown-item\" href=\"logout.php\">Log out</a>
               </div>
@@ -227,117 +361,76 @@ session_start();
             </div>
         </nav>
         <br>
-    <!-- Page Content -->
-        <div class="container-fluid" style="background-color: white; padding-top: 20px;">
-            <div class="footprints container" style="background-color: white; padding: 40px;">
-                <div class="row">
-                    <?php
-                    $db = new mysqli("localhost", "root", "", "hipaw");
-                    if($db->errno){
-                        echo "error connecting to the database";
-                        exit;
-                    }
-                    $ids_array = array();
-                    $stmt = $db->prepare("SELECT pet_id FROM saved_pets WHERE adopter_id = ?");
-                    $stmt->bind_param("i", $_SESSION['user-id']);
-                    $stmt->execute();
-                    $stmt->store_result();
-                    if($stmt->num_rows === 0){
-                    }
-                    else {
-                        $ids = array();
-                        $stmt->bind_result($idRow);
-                        while ($stmt->fetch()) {
-                            $ids[] = $idRow;
-                        }
-                        $stmt->close();
-                        foreach ($ids as $petid){
-                            $stmt = $db->prepare("SELECT type, name, age_years, age_months, photo, story FROM pet WHERE id = ?");
-                            $stmt->bind_param("i", $petid);
-                            $stmt->execute();
-                            $stmt->store_result();
-                            if($stmt->num_rows === 0){
-                                $stmt->close();
-                                exit("error selecting");
-                            }
-                            if($stmt->num_rows !== 0) {
-                                $stmt->bind_result($type,$name, $agey, $agem,$photo, $story);
-                                $stmt->fetch();
-                                $stmt->close();
-                            }
-                            $pet_is = "";
-                            $stmt = $db->prepare("SELECT petis FROM pet_is WHERE pet_id = ?");
-                            $stmt->bind_param("i", $petid);
-                            $stmt->execute();
-                            $stmt->store_result();
-                            if($stmt->num_rows !== 0){
-                                $pet_is = $name." is ";
-                                $stmt->bind_result($idRow);
-                                while($stmt->fetch()) {
-                                    $pet_is = $pet_is.", ".$idRow;
-                                }
-                                $pet_is = $pet_is." ".$type.".";
-                            }
-                            $stmt->close();
-                            $pet_color = "#";
-                            $stmt = $db->prepare("SELECT color FROM pet_color WHERE pet_id = ?");
-                            $stmt->bind_param("i", $petid);
-                            $stmt->execute();
-                            $stmt->store_result();
-                            if($stmt->num_rows !== 0){
-                                $stmt->bind_result($colorRow);
-                                while($stmt->fetch()) {
-                                    $pet_color = $pet_color.",".$colorRow;
-                                }
-                            }
-                            $stmt->close();
-                            $type = "#".$type;
-                            if( $agey == 0)
-                                $age = "#".$agem."mon";
-                            else $age = "#".$agey."yrs";
-                            echo " <div class=\"search-res col-xs-12 col-sm-6 col-md-4\" data-aos=\"fade-up\">
-    <div class=\"image-flip\" ontouchstart=\"this.classList.toggle('hover');\" >
-        <div class=\"mainflip\" >
-            <div class=\"frontside\" >
-                <div class=\"card\" >
-                    <div class=\"card-body text-center\">
-                        <p><img class=\" img-fluid\" src=\"".$photo."\" alt=\"card image\"></p>
-                        <h4 class=\"pet-name card-title\">".$name."</h4>
-                        <p class=\"pet-descr card-text\">".$pet_is."</p>
-                        <div class=\"pet-info-tags clearfix\">
-                            <span class=\"badge badge-pill badge-info\">".$type."</span>
-                            <span class=\"badge badge-pill badge-danger\">".$pet_color."</span>
-                            <span class=\"badge badge-pill badge-success\">".$age."</span>
-                        </div>
+        <!-- Page Content -->
+        <div id="page-content-wrapper" style="background-color: white; ">
+
+            <div class="container-fluid" style=" padding-top: 20px;">
+                <div class="footprints container" style="width: 100%; padding: 40px;">
+                    <div class="row" >
+                        <div class="col-md-4" >
+                        <?php
+                        if(!isset($nodata)) {
+                            for ($i = 0; $i < count($petids); $i++) {
+
+                                echo " <div class=\"card\" style=\"width:300px; margin: 20px\">
+                <img class=\"card-img-top\" src=\"" . $petphoto[$i] . "\" alt=\"Card image\" style=\"width:100%\">
+                <div class=\"card-body\">
+                    <h4 class=\"card-title\">" . $adoptername . "</h4>
+                    <p class=\"card-text\">has sent you an email to adopt " . $petnames[$i] . "</p>
+                    <div class='row'> 
+                    <div class='col-md-6' style='padding-right: 2px'> 
+                    <a href=\"delete_request.php?request=" . $requestid[$i] . "\" style='width: 100%' class=\"btn btn-primary\">Delete</a>
                     </div>
-                </div>
-            </div>
-            <div class=\"backside\" >
-                <div class=\"card\" >
-                    <div class=\"card-body text-center mt-4\">
-                        <h4 class=\"card-title\">Story</h4>
-                        <p class=\"card-text\">".$story."</p>
-                        <p class=\"heart\"></p>
-                        <button type=\"button\" onclick=\"window.location.href='petProfile.php?pet_id=".$petid."'\" class=\"btn btn-primary\">View Profile <i class=\"fas fa-paw\"></i> </button>
+                    <div class='col-md-6' style='padding-left: 2px'> 
+                     <a data-target=\"#myModal\" data-toggle=\"modal\" data-backdrop=\"static\" data-keyboard=\"false\" href=\"#\" style='width: 100%' class=\"btn btn-primary\">Accept</a>
+                    </div>
                     
                     </div>
+                    
+                   
                 </div>
-            </div>
-        </div>
-    </div>
-    </div>
-";
+            </div>";
+
+                            }
                         }
-                    }
-                    ?>
+
+
+
+
+                        ?>
+                        </div>
+
+                        <div class="col-md-8" id="viewport">
+
+                                <div  class="chatbox">
+                                    <div id="mydiv" class="chats">
+                                        <ul id="content_msg">
+
+                                        </ul>
+                                    </div>
+                                    <div class="sendBox">
+                                        <input id="msg" type="text" placeholder="enter text . . ."> <i id="send" class="send_icon far fa-paper-plane"></i>
+                                    </div>
+                                </div>
+
+                        </div>
+
+
+
+                    </div>
                 </div>
+
+
             </div>
         </div>
-    <!-- /#page-content-wrapper -->
+    </div>
+</div>
+</div>
+<!-- /#page-content-wrapper -->
 
 </div>
 <!-- /#wrapper -->
-</div>
+
 <!-- Bootstrap core JavaScript -->
 <script>
     var mini = true;

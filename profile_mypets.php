@@ -10,12 +10,17 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
     <title>Hi Paw</title>
     <link rel="shortcut icon" href="http://localhost/hi-paw/favicon.ico" />
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/nav_css.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
     <!-- Custom styles for this template -->
     <link href="css/simple-sidebar.css" rel="stylesheet">
     <link rel="stylesheet" href="css/searchPagecss.css">
@@ -30,47 +35,114 @@ session_start();
 
     }
 </style>
-<body>
+<style>
+    #icon_add:hover{
+        color: #0b8f70;
+    }
+    body {
+        font-family: "Lato", sans-serif;
+    }
 
-<div class="d-flex" id="wrapper">
+    .sidebar {
+        height: 100%;
+        width: 85px;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #111;
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 60px;
+        white-space: nowrap;
+    }
+
+    .sidebar a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+        color: #f1f1f1;
+    }
+
+    .sidebar .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
+
+    .material-icons,
+    .icon-text {
+        vertical-align: middle;
+    }
+
+    .material-icons {
+        padding-bottom: 3px;
+    }
+
+    #main {
+        transition: margin-left .5s;
+        padding: 16px;
+        margin-left: 100px;
+    }
+    /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+
+    @media screen and (max-height: 450px) {
+        .sidebar {
+            padding-top: 15px;
+        }
+        .sidebar a {
+            font-size: 18px;
+        }
+    }
+</style>
+<body style="background-color: #fbfbfb">
+
+<div class="d-flex" id="wrapper" style="background-color: #fbfbfb">
 
     <!-- Sidebar -->
-    <div class="bg-light border-right" id="sidebar-wrapper">
-        <div class="sidebar-heading"><a class="navbar-brand" href="home.php">
-                <img src="img/HiPaw black.png" width="45" height="45" class="d-inline-block align-top" alt="">
-                <div style="color: #0a0a0a; font-size: 30px; margin-top: 12px" class="superFont d-inline-block"> Hi Paw!</div>
-            </a></div>
-        <div class="list-group list-group-flush">
-            <a href="adopterProfile.php" data-toggle="prof_toggle" class="list-group-item list-group-item-action bg-light"><span> <i style=" margin-right: 15px;" class="fas fa-user"></i>
-                </span>
-                <span class="title" > My Profile</span></a>
 
-            <a href="profile_mypets.php" style="background-color: #e2e2e2 !important; " class="list-group-item list-group-item-action bg-light"><i style=" margin-right: 15px;" class="fas fa-paw"></i>My Pets</a>
-
-
-            <a href="request_m.php" class="list-group-item list-group-item-action bg-light"><span id="chatIcon" class="icon-holder">
-                      <i style=" margin-right: 15px;" class="fas fa-comments"></i>
-                    </span><span class="title">Requests</span></a>
-
-            <a href="logout.php" class="list-group-item list-group-item-action bg-light"><i style=" margin-right: 15px;" class="fas fa-sign-out-alt"></i>
-                <span class="title">Sign out</span></a>
-
-        </div>
+    <div id="mySidebar" class="sidebar" onmouseover="toggleSidebar()" onmouseout="toggleSidebar()">
+        <a class="navbar-brand" style="margin-top: -50px; color: white" href="home.php">
+            <img src="img/HiPaw white.png" style="margin-left: -5px" width="35" height="35" class="d-inline-block align-top" alt="">
+            <span >&nbsp; Hi Paw!</span>
+        </a>
+        <br><br><br>
+        <a href="adopterProfile.php"><span><i class="fa fa-user"></i><span class="icon-text">&nbsp;&nbsp;&nbsp;&nbsp;My Profile</span></span></a><br>
+        <?php
+        if($_SESSION['user-table']=='adopter'){
+            echo "<a href=\"savedPets.php\"><i class=\"material-icons\">pets</i><span class=\"icon-text\"></span>&nbsp;&nbsp;&nbsp;&nbsp;Saved Pets</a></span>
+        </a><br>";
+        }
+        else {
+            echo " <a style='color: white' href=\"profile_mypets.php\"><i class=\"material-icons\">pets</i><span class=\"icon-text\"></span>&nbsp;&nbsp;&nbsp;&nbsp;My Pets</a></span>
+        </a><br>
+        <a href=\"request_m.php\"><i class=\"material-icons\">email</i><span class=\"icon-text\"></span>&nbsp;&nbsp;&nbsp;&nbsp;Requests<span></span></a>
+        ";
+        }
+        ?>
+        <br>
+        <a href="logout.php"><i class="fas fa-sign-out-alt"></i><span class="icon-text"></span>&nbsp;&nbsp;&nbsp;&nbsp;Sign out</span></a><br>
     </div>
+
+    <div id="main" >
     <!-- /#sidebar-wrapper -->
 
     <!-- Page Content -->
-    <div id="page-content-wrapper" style="background-color: white;">
-        <img src="img/testbg.png" style="position: absolute; bottom: 10px; right: 30px" alt="">
-        <img src="img/testbg.png" style="position: absolute; bottom: 10px; right: 30px" alt="">
-        <nav class="navbar navbar-expand-md navbar-light" style="background-color: #f0f0f0;">
-            <button class="btn btn-white" style="background: transparent" id="menu-toggle"><span class="navbar-toggler-icon"></button>
-
-
-            <button id="toggleButton" class="navbar-toggler" data-toggle="collapse" data-target="#collapse_target">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="collapse_target">
+        <nav class="navbar navbar-expand-md navbar-light fixed-top" style="background: transparent;">
+            <div class="d-flex w-50 order-0">
+                <button id="toggleButton" class="navbar-toggler" data-toggle="collapse" data-target="#collapse_target">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="superFont collapse navbar-collapse" id="collapse_target">
                 <ul class="nav navbar-nav ml-auto" >
                     <li class="navbar-item active">
                         <a class="nav-link" href="home.php">Home</a>
@@ -80,12 +152,14 @@ session_start();
                             About Us
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="home.php#whatWeDodiv">What We Do</a>
-                            <a class="dropdown-item" href="home.php#HowItWorks">How It Works</a>
+                            <a class="dropdown-item" href="#whatWeDodiv">What We Do</a>
+                            <a class="dropdown-item" href="#HowItWorks">How It Works</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">People Are Saying</a>
                         </div>
                     </li>
+
+
                     <?php
                     if(isset($_SESSION['user-id'])){
                         $db = new mysqli("localhost", "root", "", "hipaw");
@@ -153,16 +227,16 @@ session_start();
                     }
                     ?>
 
-
-                    <li class="navbar-item">
-                        <a class="nav-link" href="home.php#contact">Contact</a>
+                    <li class="navbar-i tem">
+                        <a class="nav-link" href="#contact">Contact</a>
                     </li>
                 </ul>
             </div>
         </nav>
+        <br>
 
-        <div class="container-fluid" style=" padding-top: 20px;">
-            <div class="footprints container" style="padding: 40px;">
+        <div class="container-fluid" style="background-color: #fbfbfb; padding-top: 20px;">
+            <div class="footprints container" style="background-color: #fbfbfb; padding: 40px; margin-left: 0; width: 100%">
             <div class="row">
 <?php
 $db = new mysqli("localhost", "root", "", "hipaw");
@@ -234,7 +308,7 @@ else {
         else $age = "#".$agey."yrs";
 
 
-        echo " <div class=\"search-res col-xs-12 col-sm-6 col-md-4\" data-aos=\"fade-up\">
+        echo " <div style='padding: 0px' class=\"search-res col-xs-12 col-sm-6 col-md-4\" data-aos=\"fade-up\">
     <div class=\"image-flip\" ontouchstart=\"this.classList.toggle('hover');\" >
         <div class=\"mainflip\" >
             <div class=\"frontside\" >
@@ -275,7 +349,7 @@ else {
             
                     <div style='text-align: center' class=\"card-body text-center\">
                     <h2 style='margin-bottom: 30px'> Add new Pet.</h2>
-                        <a style='color: #0a0a0a' href='creatPetProfile.php'> <i style='font-size: 100px' class=\"far fa-plus-square\"></i> </a>
+                        <a style='color: #0a0a0a' href='creatPetProfile.php'> <i id='icon_add' style='font-size: 100px' class=\"far fa-plus-square\"></i> </a>
                         </div>
                     
            
@@ -287,23 +361,32 @@ else {
 ?>
             </div>
     </div>
-        </div>
+
     </div>
     <!-- /#page-content-wrapper -->
 
 </div>
 <!-- /#wrapper -->
-
+</div>
 <!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 
 <!-- Menu Toggle Script -->
 <script>
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
+    var mini = true;
+
+    function toggleSidebar() {
+        if (mini) {
+            console.log("opening sidebar");
+            document.getElementById("mySidebar").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+            this.mini = false;
+        } else {
+            console.log("closing sidebar");
+            document.getElementById("mySidebar").style.width = "85px";
+            document.getElementById("main").style.marginLeft = "85px";
+            this.mini = true;
+        }
+    }
 </script>
 
 </body>

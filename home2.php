@@ -39,9 +39,7 @@ session_start();
     </style>
 
     <style>
-        /* body {
-            background-color: rgba(211, 211, 211, 0.726);
-        } */
+        /*feedback*/
         .feedback {
             filter: drop-shadow(2px 3px 6px rgba(0, 0, 0, 0.075));
             border-radius: 20px;
@@ -75,7 +73,69 @@ session_start();
             margin-top: 50px;
             color: gray;
         }
+        .whoCaresJustDisplay {
+            margin-left: 40px;
+            margin-right: 80px;
+        }
+        .textfeed {
+            overflow: hidden;
+            height: 220px;
+            word-wrap: break-word !important;
+        }
+        .textfeed div {
+            margin-top: -50px;
+        }
+        /* [SLIDER] */
+        #slider,  #slider .slide{
+            width: 400px;
+            height: 320px;
+        }
+        #slider {
+            overflow: hidden;
+            margin: 0 auto;
+        }
+        #slider .containerSlide {
+            position: relative;
+            width: 9000px; /* Assign an insanely large width */
+            top: 0;
+            right: 0;
+            animation: slide-animation 25s infinite;
+        }
+        #slider .slide {
+            position: relative;
+            float: left;
+            box-sizing: border-box;
+            padding-right: 20px;
+        }
+        /* [ANIMATION] */
+        @keyframes slide-animation {
+            0% {
+                opacity: 0;
+                right: 0;
+            }
+            11% {
+                opacity: 1;
+                right: 0;
+            }
+            22% { right: 100%; }
+            33% { right: 100%; }
+            44% { right: 200%; }
+            55% { right: 200%; }
+            66% { right: 300%; }
+            77% { right: 300%; }
+            88% {
+                opacity: 1;
+                right: 400%;
+            }
+            100% {
+                opacity: 0;
+                right: 400%;
+            }
+        }
+        /*end feedback*/
     </style>
+
+
 </head>
 
 <body>
@@ -103,7 +163,7 @@ session_start();
                     <a class="dropdown-item" href="#whatWeDodiv">What We Do</a>
                     <a class="dropdown-item" href="#HowItWorks">How It Works</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">People Are Saying</a>
+                    <a class="dropdown-item" href="#feedback">People Are Saying</a>
                 </div>
             </li>
 
@@ -134,10 +194,10 @@ session_start();
                   ".$username."
               </a>
               <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown2\">
-                  <a class=\"dropdown-item\" href=\"adopterProfile.php\">Profile</a>
+                  <a class=\"dropdown-item\" href=\"#whatWeDodiv\">Profile</a>
                   <div class=\"dropdown-divider\"></div>
-                  <a class=\"dropdown-item\" href=\"savedPets.php\">Browse Pets</a>
-                  <a class=\"dropdown-item\" href=\"savedPets.php\">Saved Pets</a>
+                  <a class=\"dropdown-item\" href=\"#HowItWorks\">Browse Pets</a>
+                  <a class=\"dropdown-item\" href=\"#HowItWorks\">Saved Pets</a>
                   <div class=\"dropdown-divider\"></div>
                   <a class=\"dropdown-item\" href=\"logout.php\">Log out</a>
               </div>
@@ -149,10 +209,10 @@ session_start();
                   ".$username."
               </a>
               <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown3\">
-                  <a class=\"dropdown-item\" href=\"adopterProfile.php\">Profile</a>
+                  <a class=\"dropdown-item\" href=\"#whatWeDodiv\">Profile</a>
                   <div class=\"dropdown-divider\"></div>
-                  <a class=\"dropdown-item\" href=\"profile_mypets.php\">View Own Pets</a>
-                  <a class=\"dropdown-item\" href=\"request_m.php\">Requests</a>
+                  <a class=\"dropdown-item\" href=\"#HowItWorks\">View Own Pets</a>
+                  <a class=\"dropdown-item\" href=\"#HowItWorks\">Requests</a>
                   <div class=\"dropdown-divider\"></div>
                   <a class=\"dropdown-item\" href=\"logout.php\">Log out</a>
               </div>
@@ -273,7 +333,6 @@ else{
 </div>
 <!-- end of top part & all its stuff -->
 
-
 <div style="margin-top: 24.5vw;"><br></div>
 
 
@@ -352,112 +411,145 @@ else{
     </div>
 </div>
 <!-- end See What People Are Saying  -->
+<?php
+$db = new mysqli("localhost", "root", "", "hipaw");
+if($db->errno){
+    echo "error connecting to the database";
+    exit;
+}
+$stmt ="SELECT * FROM adopted_feedback ORDER BY id DESC";
+$result = mysqli_query($db, $stmt);
+if (mysqli_num_rows($result) > 4) {
+    $row = $result->fetch_assoc();
+    $feed1=$row['feedback'];
+    $id1=$row['user_id'];
+    $table1=$row['user_table'];
+    $row = $result->fetch_assoc();
+    $feed2=$row['feedback'];
+    $id2=$row['user_id'];
+    $table2=$row['user_table'];
+    $row = $result->fetch_assoc();
+    $feed3=$row['feedback'];
+    $id3=$row['user_id'];
+    $table3=$row['user_table'];
+    $row = $result->fetch_assoc();
+    $feed4=$row['feedback'];
+    $id4=$row['user_id'];
+    $table4=$row['user_table'];
+    $row = $result->fetch_assoc();
+    $feed5=$row['feedback'];
+    $id5=$row['user_id'];
+    $table5=$row['user_table'];
+}
+$stmt2 ="SELECT ".$table1.".name FROM adopted_feedback, ".$table1." WHERE ".$table1.".id=adopted_feedback.user_id AND adopted_feedback.user_id = ".$id1."";
+$result2 = mysqli_query($db, $stmt2);
+if (mysqli_num_rows($result2) > 0) {
+    $row = $result2->fetch_assoc();
+    $name1=$row['name'];
+}
+$stmt2 ="SELECT ".$table2.".name FROM adopted_feedback, ".$table2." WHERE ".$table2.".id=adopted_feedback.user_id AND adopted_feedback.user_id = ".$id2."";
+$result2 = mysqli_query($db, $stmt2);
+if (mysqli_num_rows($result2) > 0) {
+    $row = $result2->fetch_assoc();
+    $name2=$row['name'];
+}
+$stmt2 ="SELECT ".$table3.".name FROM adopted_feedback, ".$table3." WHERE ".$table3.".id=adopted_feedback.user_id AND adopted_feedback.user_id = ".$id3."";
+$result2 = mysqli_query($db, $stmt2);
+if (mysqli_num_rows($result2) > 0) {
+    $row = $result2->fetch_assoc();
+    $name3=$row['name'];
+}
+$stmt2 ="SELECT ".$table4.".name FROM adopted_feedback, ".$table4." WHERE ".$table4.".id=adopted_feedback.user_id AND adopted_feedback.user_id = ".$id4."";
+$result2 = mysqli_query($db, $stmt2);
+if (mysqli_num_rows($result2) > 0) {
+    $row = $result2->fetch_assoc();
+    $name4=$row['name'];
+}
+$stmt2 ="SELECT ".$table5.".name FROM adopted_feedback, ".$table5." WHERE ".$table5.".id=adopted_feedback.user_id AND adopted_feedback.user_id = ".$id5."";
+$result2 = mysqli_query($db, $stmt2);
+if (mysqli_num_rows($result2) > 0) {
+    $row = $result2->fetch_assoc();
+    $name5=$row['name'];
+}
+?>
 
-<!-- Most Recent Pets -->
+<!-- feedback -->
 <section>
     <div class="top-section section-indent">
         <div class="flex-container" style="padding-bottom: 50px;">
-            <h2 class="section-title capitalize-title color-title bg-title" data-aos="fade-up" data-aos-delay="0"><span><br></span></h2>
+            <h2 id="feedback" class="section-title capitalize-title color-title bg-title" data-aos="fade-up" data-aos-delay="0"><span><br></span></h2>
 
             <div class="container feedback">
                 <div class="toLeft">
-                    <h2>WHAT PEOPLE ARE SAYING...</h2>
-                    <hr class="whoCaresYustDisplay">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequuntur, consequatur! Nihil porro quis modi facilis laborum distinctio voluptas odio laboriosam, deleniti illo dicta. Recusandae fuga nostrum cum odit saepe? Labore ex sequi error aperiam enim culpa numquam iste perferendis velit saepe ducimus, asperiores delectus reprehenderit itaque. Praesentium quidem deleniti possimus!
+                    <h3 class="superFont" style="color: #289b84;">WHAT PEOPLE ARE SAYING...</h3>
+                    <hr class="whoCaresJustDisplay">
+                    <div id="slider">
+                        <div class="containerSlide">
 
-                    <div style="margin-top: 100px; margin-left: 150px;">
-                        <a class="prev"><i class="fas fa-arrow-alt-circle-left"></i></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a class="next"><i class="fas fa-arrow-alt-circle-right"></i></a>
+                            <div class="slide">
+                                <p class="textfeed">
+                                    <span style="padding-right: 15px;"><i class="fas fa-quote-left"></i></span>
+                                    <?php echo $feed1; ?>
+                                </p>
+                                <br>
+                                <div>&nbsp;&nbsp; - &nbsp; <?php echo $name1; ?></div>
+                            </div>
+
+                            <div class="slide">
+                                <p class="textfeed">
+                                    <span style="padding-right: 15px;"><i class="fas fa-quote-left"></i></span>
+                                    <?php echo $feed2; ?>
+                                </p>
+                                <br>
+                                <div>&nbsp;&nbsp; - &nbsp; <?php echo $name2; ?></div>
+                            </div>
+
+                            <div class="slide">
+                                <p class="textfeed">
+                                    <span style="padding-right: 15px;"><i class="fas fa-quote-left"></i></span>
+                                    <?php echo $feed3; ?>
+                                </p>
+                                <br>
+                                <div>&nbsp;&nbsp; - &nbsp; <?php echo $name3; ?></div>
+                            </div>
+
+                            <div class="slide">
+                                <p class="textfeed">
+                                    <span style="padding-right: 15px;"><i class="fas fa-quote-left"></i></span>
+                                    <?php echo $feed4; ?>
+                                </p>
+                                <br>
+                                <div>&nbsp;&nbsp; - &nbsp; <?php echo $name4; ?></div>
+                            </div>
+
+                            <div class="slide">
+                                <p class="textfeed">
+                                    <span style="padding-right: 15px;"><i class="fas fa-quote-left"></i></span>
+                                    <?php echo $feed5; ?>
+                                </p>
+                                <br>
+                                <div>&nbsp;&nbsp; - &nbsp; <?php echo $name5; ?></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="float: right;">
+                        <button type="button" class="btn btn-outline-dark btn-sm">Read More <i class="fas fa-angle-double-right"></i></button>
                     </div>
 
                 </div>
                 <div class="rightAndBack">
-                    <div class="toRight">
-                    </div>
+                    <div class="toRight"></div>
                 </div>
 
             </div>
-            <!--      <div class="top-section-grid">-->
-            <!---->
-            <!--        <div class="single-post-item grid-item grid-item-ready" style="grid-row-end: span 14;">-->
-            <!--          <div data-aos="fade-down" data-aos-delay="100">-->
-            <!--            <a href="#" class="single-post-link" ></a>-->
-            <!--            <div  class="single-post-img-wrapper" >-->
-            <!--              <div class="single-post-img " style=" background-image: url('img/Joker1Stairs.jpg');"> </div>-->
-            <!--            </div>-->
-            <!--            <div class="single-post-info">-->
-            <!--              <div class="single-post-title">10 Tips For Taking a Road Trip With Your Dog</div>-->
-            <!--            </div>-->
-            <!--          </div>-->
-            <!--        </div>-->
-            <!--        <div class="single-post-item grid-item grid-item-ready" style="grid-row-end: span 9;">-->
-            <!--          <div data-aos="fade-down" data-aos-delay="100">-->
-            <!--            <a href="#" class="single-post-link"></a>-->
-            <!--            <div  class="single-post-img-wrapper span9-img-wrapper" >-->
-            <!--              <div class="single-post-img " style=" background-image: url('img/Joker1Stairs.jpg');"> </div>-->
-            <!--            </div>-->
-            <!--            <div class="single-post-info">-->
-            <!--              <div class="single-post-title ">10 Tips For Taking a Road Trip With Your Dog</div>-->
-            <!--            </div>-->
-            <!--          </div>-->
-            <!--        </div>-->
-            <!---->
-            <!--        <div class="single-post-item grid-item grid-item-ready" style="grid-row-end: span 14;">-->
-            <!--          <div data-aos="fade-down" data-aos-delay="100">-->
-            <!--            <a href="#" class="single-post-link"></a>-->
-            <!--            <div  class="single-post-img-wrapper" >-->
-            <!--              <div class="single-post-img " style=" background-image: url('img/Joker1Stairs.jpg');"> </div>-->
-            <!--            </div>-->
-            <!--            <div class="single-post-info">-->
-            <!--              <div class="single-post-title">10 Tips For Taking a Road Trip With Your Dog</div>-->
-            <!--            </div>-->
-            <!--          </div>-->
-            <!--        </div>-->
-            <!---->
-            <!--        <div class="single-post-item grid-item grid-item-ready" style="grid-row-end: span 14;">-->
-            <!--          <div data-aos="fade-down" data-aos-delay="100">-->
-            <!--            <a href="#" class="single-post-link"></a>-->
-            <!--            <div  class="single-post-img-wrapper" >-->
-            <!--              <div class="single-post-img " style=" background-image: url('img/Joker1Stairs.jpg');"> </div>-->
-            <!--            </div>-->
-            <!--            <div class="single-post-info">-->
-            <!--              <div class="single-post-title">10 Tips For Taking a Road Trip With Your Dog</div>-->
-            <!--            </div>-->
-            <!--          </div>-->
-            <!--        </div>-->
-            <!---->
-            <!--        <div class="single-post-item grid-item grid-item-ready" style="grid-row-end: span 9;">-->
-            <!--          <div data-aos="fade-down" data-aos-delay="100">-->
-            <!--            <a href="#" class="single-post-link"></a>-->
-            <!--            <div  class="single-post-img-wrapper span9-img-wrapper" >-->
-            <!--                <div class="single-post-img " style=" background-image: url('img/Joker1Stairs.jpg');"> </div>-->
-            <!--            </div>-->
-            <!--            <div class="single-post-info">-->
-            <!--                <div class="single-post-title ">10 Tips For Taking a Road Trip With Your Dog</div>-->
-            <!--            </div>-->
-            <!--          </div>-->
-            <!--        </div>-->
-            <!---->
-            <!--        <div class="single-post-item grid-item grid-item-ready" style="grid-row-end: span 9;">-->
-            <!--          <div data-aos="fade-down" data-aos-delay="100">-->
-            <!--            <a href="#" class="single-post-link"></a>-->
-            <!--            <div  class="single-post-img-wrapper span9-img-wrapper" >-->
-            <!--              <div class="single-post-img " style=" background-image: url('img/Joker1Stairs.jpg');"> </div>-->
-            <!--            </div>-->
-            <!--            <div class="single-post-info">-->
-            <!--              <div class="single-post-title ">10 Tips For Taking a Road Trip With Your Dog</div>-->
-            <!--            </div>-->
-            <!--          </div>-->
-            <!--        </div>-->
-            <!---->
-            <!---->
-            <!--      </div>-->
+
         </div>
-        <br><br><br><br>
+        <br>
 
     </div>
 </section>
-<!-- end Most Recent Pets -->
+<!-- end feedback -->
 
 <!-- how it works  -->
 <section class="how" id="HowItWorks">
