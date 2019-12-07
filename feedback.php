@@ -41,9 +41,7 @@ session_start();
         margin-top: 20px;
         margin-left: 40px;
         border: 1px solid #a9c6c9;
-
     }
-
     <?php
     if(isset($_SESSION['submit-empty'])){
         if($_SESSION['submit-empty']==1){
@@ -61,11 +59,24 @@ session_start();
         }
     }
  ?>
-
-
 </style>
 
 <script>
+    function validate_user(){
+        <?php
+        if(isset($_SESSION['user-id'])){
+            echo " return true;";
+        }
+        else{
+            echo " event.preventDefault();
+               $(\"#notsigned\").modal();
+               return false;";
+        }
+
+        ?>
+
+    }
+
     function maxLengthReached(x, y) {
         if (y.length == x.maxLength) {
             document.getElementById("comment").style.color = "#929292";
@@ -74,24 +85,42 @@ session_start();
             document.getElementById("comment").style.color = "black";
         }
     }
-
     function scrollToTop() {
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
     }
-
     <?php
-        if(isset($_SESSION['submit-done'])){
-            if($_SESSION['submit-done']==1){
-                echo "document.getElementById('comment').value = \"\";";
-                $_SESSION['submit-done']=0;
-            }
+    if(isset($_SESSION['submit-done'])){
+        if($_SESSION['submit-done']==1){
+            echo "document.getElementById('comment').value = \"\";";
+            $_SESSION['submit-done']=0;
         }
+    }
     ?>
-
 </script>
 <body>
+<div class="modal" id="notsigned">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body" style="text-align: center">
+                <h2>You have to be Signed in.</h2>
+                <button style="margin-bottom: 20px" type="button" class="btn btn-primary" data-dismiss="modal" onclick="window.location.href='log-in.php'">Sign in</button><br>
+                <h2>  or Sign up now! and find your perfect companion!</h2>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="window.location.href='sign-up.php'">Sign up</button>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer" style="align-content: center">
 
+            </div>
+
+        </div>
+    </div>
+</div>
 <nav class="navbar navbar-expand-md navbar-light fixed-top" style="background-color: #f0f0f0;">
     <div class="d-flex w-50 order-0">
         <a class="navbar-brand" href="home.php">
@@ -112,10 +141,10 @@ session_start();
                     About Us
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#whatWeDodiv">What We Do</a>
-                    <a class="dropdown-item" href="#HowItWorks">How It Works</a>
+                    <a class="dropdown-item" href="home.php#whatWeDodiv">What We Do</a>
+                    <a class="dropdown-item" href="home.php#HowItWorks">How It Works</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#feedback">People Are Saying</a>
+                    <a class="dropdown-item" href="home.php#feedback">People Are Saying</a>
                 </div>
             </li>
 
@@ -130,7 +159,6 @@ session_start();
                 $stmt = $db->prepare("SELECT name FROM ".$_SESSION['user-table']." WHERE id = ?");
                 $stmt->bind_param("s",  $_SESSION['user-id']);
                 $stmt->execute();
-
                 //fetching result would go here, but will be covered later
                 $stmt->store_result();
                 if($stmt->num_rows !== 0) {
@@ -147,10 +175,10 @@ session_start();
                   ".$username."
               </a>
               <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown2\">
-                  <a class=\"dropdown-item\" href=\"#whatWeDodiv\">Profile</a>
+                  <a class=\"dropdown-item\" href=\"adopterProfile.php\">Profile</a>
                   <div class=\"dropdown-divider\"></div>
-                  <a class=\"dropdown-item\" href=\"#HowItWorks\">Browse Pets</a>
-                  <a class=\"dropdown-item\" href=\"#HowItWorks\">Saved Pets</a>
+                  <a class=\"dropdown-item\" href=\"searchPage.php\">Browse Pets</a>
+                  <a class=\"dropdown-item\" href=\"savedPets.php\">Saved Pets</a>
                   <div class=\"dropdown-divider\"></div>
                   <a class=\"dropdown-item\" href=\"logout.php\">Log out</a>
               </div>
@@ -162,10 +190,10 @@ session_start();
                   ".$username."
               </a>
               <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown3\">
-                  <a class=\"dropdown-item\" href=\"#whatWeDodiv\">Profile</a>
+                  <a class=\"dropdown-item\" href=\"adopterProfile.php\">Profile</a>
                   <div class=\"dropdown-divider\"></div>
-                  <a class=\"dropdown-item\" href=\"#HowItWorks\">View Own Pets</a>
-                  <a class=\"dropdown-item\" href=\"#HowItWorks\">Requests</a>
+                  <a class=\"dropdown-item\" href=\"profile_mypets.php\">View Own Pets</a>
+                  <a class=\"dropdown-item\" href=\"request_m.php\">Requests</a>
                   <div class=\"dropdown-divider\"></div>
                   <a class=\"dropdown-item\" href=\"logout.php\">Log out</a>
               </div>
@@ -189,7 +217,7 @@ session_start();
             ?>
 
             <li class="navbar-i tem">
-                <a class="nav-link" href="#contact">Contact</a>
+                <a class="nav-link" href="home.php#contact">Contact</a>
             </li>
         </ul>
     </div>
@@ -199,13 +227,13 @@ session_start();
 
 <!--<h2 class="copyright header">What People Are Saying About Us</h2>-->
 <section>
-<div class="top-section section-indent">
-    <div class="flex-container" style="padding-bottom: 50px;">
-        <h4 style="font-size: 32px;" id="feedback" class="section-title capitalize-title color-title bg-title" data-aos="fade-up" data-aos-delay="0">
-            <span>WHAT PEOPLE SAYING ABOUT US</span>
-        </h4>
+    <div class="top-section section-indent">
+        <div class="flex-container" style="padding-bottom: 50px;">
+            <h4 style="font-size: 32px;" id="feedback" class="section-title capitalize-title color-title bg-title" data-aos="fade-up" data-aos-delay="0">
+                <span>WHAT PEOPLE SAYING ABOUT US</span>
+            </h4>
+        </div>
     </div>
-</div>
 </section>
 
 
@@ -216,8 +244,6 @@ if($db->errno){
     echo "error connecting to the database";
     exit;
 }
-
-
 $stmt ="SELECT * FROM adopted_feedback ORDER BY id DESC";
 $result = mysqli_query($db, $stmt);
 if (mysqli_num_rows($result) > 4) {
@@ -225,31 +251,26 @@ if (mysqli_num_rows($result) > 4) {
         $feed=$row['feedback'];
         $id=$row['user_id'];
         $table=$row['user_table'];
-
         $stmt2 ="SELECT ".$table.".name FROM adopted_feedback, ".$table." WHERE ".$table.".id=adopted_feedback.user_id AND adopted_feedback.user_id = ".$id."";
         $result2 = mysqli_query($db, $stmt2);
         $row2 = $result2->fetch_assoc();
         $name = $row2['name'];
-
         echo "<div class=\"container potato \" data-aos=\"zoom-in-down\" data-aos-delay=\"500\">
     <p class=\"superFont\">
         <span style=\"padding-right: 15px;\"><i class=\"fas fa-quote-left\"></i></span>
         ".$feed."
     </p>
     <div style=\"margin-top: 30px;\">&nbsp;&nbsp; - &nbsp; ".$name." </div>
-
 </div>";
     }
-
 }
-
 ?>
 
 <span id="tellUsWhatYouThink"></span>
 <hr class="display">
 <div class="container-fluid mainCont">
     <h4 class="superFont tellUsWhatYouThink" >Tell us what you think!</h4>
-    <form action="saveFeedback.php" method="post">
+    <form onsubmit="validate_user();" action="saveFeedback.php" method="post">
         <textarea class="form-control textarea" rows="6" maxlength="300" name="comment" id="comment" onkeyup="maxLengthReached(this,this.value)"></textarea>
         <button type="submit" class="btn btn-outline-dark Submit">Submit &nbsp;<i class="far fa-comment"></i></button>
     </form>
