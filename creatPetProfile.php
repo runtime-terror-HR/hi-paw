@@ -10,6 +10,8 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Hi Paw</title>
+<!--    <link rel="shortcut icon" href="http://localhost/hi-paw/favicon.ico" />-->
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css/nav_css.css">
 
@@ -20,13 +22,15 @@ session_start();
     <!-- Font Icon -->
     <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
 
-    <link rel="shortcut icon" href="http://localhost/hi-paw/favicon.ico" />
     <!-- Main css -->
     <link rel="stylesheet" href="css/creatPetProfile.css">
     <link  rel="stylesheet" href="node_modules/aos/dist/aos.css">
     <script src="node_modules/aos/dist/aos.js"></script>
     <script src="https://kit.fontawesome.com/e6e9f20ee5.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+
+    <link rel="icon" type="image/png" href="img/HiPaw black.png"/>
+
 
     <!-- links for phto upload \__(`_`)__/ -->
 
@@ -200,12 +204,18 @@ session_start();
                     <div class="row">
                         <div class="col-md-6">
                             <input id="cat" name="type" type="radio" class="with-font" value="cat" checked/>
-                            <label for="cat" class="type"><i class="icon fas fa-cat"></i> Cat </label>
+                            <label for="cat" class="type">
+                                <img src="img/cat icon-black.png" style="width: 100px;">
+                                Cat
+                            </label>
                         </div>
                         <div class="col-md-6">
 
                             <input id="dog" name="type" type="radio" class="with-font" value="dog" />
-                            <label for="dog" class="type"><i class="icon fas fa-dog"></i> Dog </label>
+                            <label for="dog" class="type">
+                                Dog
+                                <img src="img/dog icon-black.png" style="width: 83px;">
+                            </label>
 
                         </div>
                     </div>
