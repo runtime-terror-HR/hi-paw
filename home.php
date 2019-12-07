@@ -554,7 +554,7 @@ else{
                 </div>
 
                 <div style="float: right;">
-                    <button type="button" class="btn btn-outline-dark btn-sm">Read More <i class="fas fa-angle-double-right"></i></button>
+                    <button type="button" onclick="location.href='feedback.php';" class="btn btn-outline-dark btn-sm">Read More <i class="fas fa-angle-double-right"></i></button>
                 </div>
 
             </div>
